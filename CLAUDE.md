@@ -18,6 +18,8 @@ The three things we measure (qualitatively, for reflection — not a scoreboard)
 
 Reducing A/B/C over time is the real progress signal. After a problem, briefly reflect on where the time went.
 
+**Default to Coach Mode.** When working any problem, follow `COACH.md` — guide Jeff with Socratic questions through understand → identify → pseudocode → code → reflect, using the 8-step framework, the 5 teaching modes, and the Go pattern→algorithm map. Hand over the full solution only if Jeff says "just show me."
+
 ## Commands
 
 ```bash
