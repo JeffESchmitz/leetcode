@@ -31,6 +31,23 @@ go vet ./...                                        # vet all packages
 gofmt -w problems/                                 # format
 ```
 
+### Fetching problems with `lc`
+
+`lc` (source in `cmd/lc/`, installed via `go install ./cmd/lc`) scaffolds a problem
+folder and opens it in GoLand. Run it from inside the repo (or set `LC_REPO`).
+
+```bash
+lc daily                                     # today's daily challenge
+lc https://leetcode.com/problems/two-sum/    # by URL
+lc 1                                         # by problem number
+lc two-sum                                   # by slug
+lc two-sum --no-open --no-test               # quiet scaffold only; --force to overwrite
+```
+
+It writes `problems/pNNNN-slug/` (main.go stub, auto-parsed failing main_test.go,
+README.md), opens GoLand, and runs the failing test. Test rows for exotic types
+(linked lists, trees, ambiguous answers) are marked `// TODO: verify`.
+
 ## Architecture & Conventions
 
 - **Each problem is its own `package main` directory** — there is no shared library code. Because every directory is `package main`, solutions in different folders are isolated and cannot import each other; helper functions are duplicated per problem if needed.
