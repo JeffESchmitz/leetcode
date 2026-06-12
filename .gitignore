@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# JetBrains IDE (machine-specific state)
+.idea/
+
+# Go build artifacts
+*.exe
+*.out
+*.test
+/bin/
+
+# Go workspace file (local-only)
+go.work
+go.work.sum
