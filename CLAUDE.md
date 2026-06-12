@@ -4,7 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A beginner-friendly Go workspace for LeetCode practice. Single Go module (`leetcode`, Go 1.26). Each problem is a fully self-contained `package main` directory under `problems/`.
+A Go workspace for LeetCode practice. Single Go module (`leetcode`, Go 1.26). Each problem is a fully self-contained `package main` directory under `problems/`.
+
+## Learning Focus (read this first)
+
+This repo is for **learning Go and improving algorithmic reasoning — not ranking, contest scores, or speed leaderboards.** When helping with a problem, optimize for Jeff's understanding, and guide rather than hand over the answer (understand → identify solution(s) → pseudocode → code; let Jeff write it unless he asks for the solution).
+
+The three things we measure (qualitatively, for reflection — not a scoreboard):
+
+- **A) Mean Time to Understanding** the problem (what's asked, constraints, edge cases).
+- **B) Mean Time to Identifying** a solution or solutions (ideally more than one, with tradeoffs).
+- **C) Mean Time to Writing** the solution in pseudocode or actual code.
+
+Reducing A/B/C over time is the real progress signal. After a problem, briefly reflect on where the time went.
 
 ## Commands
 
