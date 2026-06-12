@@ -9,6 +9,8 @@
 *.out
 *.test
 /bin/
+/lc
+
 
 # Go workspace file (local-only)
 go.work
