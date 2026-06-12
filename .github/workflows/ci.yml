@@ -1,0 +1,43 @@
+name: CI
+
+# Non-constrictive CI for a learning repo: it checks that everything compiles,
+# vets, and is formatted, and that the `lc` tool itself stays correct. It does
+# NOT run the problem solution tests, because work-in-progress problems are
+# scaffolded with intentionally failing tests until solved.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # vet type-checks every package (problem stubs included) without requiring a
+      # func main(), so it's the right compile gate for a repo of `package main`
+      # problem dirs that don't all define main().
+      - name: Vet (type-checks everything)
+        run: go vet ./...
+
+      - name: Build the lc tool
+        run: go build ./cmd/lc
+
+      - name: Format check
+        run: |
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "These files are not gofmt-formatted:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: Test the lc tool (not WIP problem solutions)
+        run: go test ./cmd/lc/...
