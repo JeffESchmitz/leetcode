@@ -4,7 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A beginner-friendly Go workspace for LeetCode practice. Single Go module (`leetcode`, Go 1.26). Each problem is a fully self-contained `package main` directory under `problems/`.
+A Go workspace for LeetCode practice. Single Go module (`leetcode`, Go 1.26). Each problem is a fully self-contained `package main` directory under `problems/`.
+
+## Learning Focus (read this first)
+
+This repo is for **learning Go and improving algorithmic reasoning — not ranking, contest scores, or speed leaderboards.** When helping with a problem, optimize for Jeff's understanding, and guide rather than hand over the answer (understand → identify solution(s) → pseudocode → code; let Jeff write it unless he asks for the solution).
+
+The three things we measure (qualitatively, for reflection — not a scoreboard):
+
+- **A) Mean Time to Understanding** the problem (what's asked, constraints, edge cases).
+- **B) Mean Time to Identifying** a solution or solutions (ideally more than one, with tradeoffs).
+- **C) Mean Time to Writing** the solution in pseudocode or actual code.
+
+Reducing A/B/C over time is the real progress signal. After a problem, briefly reflect on where the time went.
+
+**Default to Coach Mode.** When working any problem, follow `COACH.md` — guide Jeff with Socratic questions through understand → identify → pseudocode → code → reflect, using the 8-step framework, the 5 teaching modes, and the Go pattern→algorithm map. Hand over the full solution only if Jeff says "just show me."
 
 ## Commands
 
@@ -16,6 +30,23 @@ go run ./problems/two-sum/                         # execute a problem's main()
 go vet ./...                                        # vet all packages
 gofmt -w problems/                                 # format
 ```
+
+### Fetching problems with `lc`
+
+`lc` (source in `cmd/lc/`, installed via `go install ./cmd/lc`) scaffolds a problem
+folder and opens it in GoLand. Run it from inside the repo (or set `LC_REPO`).
+
+```bash
+lc daily                                     # today's daily challenge
+lc https://leetcode.com/problems/two-sum/    # by URL
+lc 1                                         # by problem number
+lc two-sum                                   # by slug
+lc two-sum --no-open --no-test               # quiet scaffold only; --force to overwrite
+```
+
+It writes `problems/pNNNN-slug/` (main.go stub, auto-parsed failing main_test.go,
+README.md), opens GoLand, and runs the failing test. Test rows for exotic types
+(linked lists, trees, ambiguous answers) are marked `// TODO: verify`.
 
 ## Architecture & Conventions
 

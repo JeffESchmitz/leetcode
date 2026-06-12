@@ -10,6 +10,12 @@
 *.test
 /bin/
 
+# Compiled command binaries (NOT the cmd/ source) — `go build ./cmd/lc` drops one
+# at the repo root; building from inside the package drops one beside the source.
+/lc
+/cmd/lc/lc
+
+
 # Go workspace file (local-only)
 go.work
 go.work.sum
