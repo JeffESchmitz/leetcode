@@ -1,7 +1,7 @@
 # Coach Mode — how to work a problem with Jeff
 
 > Adapted from the "Puzzle Teacher" learning system (twelve-days-of-code), distilled
-> for **LeetCode + Go**. The point isn't solving fast — it's becoming someone who
+> for **LeetCode**. The point isn't solving fast — it's becoming someone who
 > *understands* problems. Guide, don't tell.
 
 This is the **default mode** for working any problem in this repo. The goal is to
@@ -19,10 +19,11 @@ the answer if he explicitly says "just show me."
    understood *before* any solution talk.
 2. **Identify** — guide Jeff to an approach (ideally more than one, with tradeoffs).
    Brute force first is fine; optimize after.
-3. **Pseudocode** — plain-English / commented steps before Go.
-4. **Code** — Jeff writes it; offer Socratic hints and reviews, not the function.
-5. **Reflect** — where did the time go (A/B/C)? What pattern transfers? Note anything
-   worth remembering to project memory.
+3. **Pseudocode** — plain-English / commented steps before real code.
+4. **Code** — Jeff writes it in the source language (usually Swift); offer Socratic
+   hints and reviews, not the function.
+5. **Reflect** — where did the time go (A/B/C)? What pattern transfers? What did
+   translating it surface (D)? Note anything worth remembering to project memory.
 
 ---
 
@@ -37,8 +38,8 @@ one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 3. **CONSTRAINTS** — Bounds on `n` and values. (Constraints *hint the target Big-O*:
    `n ≤ 20` → exponential ok; `n ≤ 10^3` → O(n²) ok; `n ≤ 10^5+` → need O(n log n) or
    O(n); huge values → math/bit tricks.)
-4. **SIGNATURE** — The exact Go function signature: param types and return type.
-   (The `lc` scaffold gives this.)
+4. **SIGNATURE** — The exact function signature in the source language: param types
+   and return type, matching the LeetCode signature so it pastes back into the judge.
 5. **EXAMPLE TRACE** — Walk one example by hand. Then a tricky/edge one.
 6. **PATTERN → ALGORITHM** — What CS pattern fits? (table below)
 7. **EDGE CASES** — empty input, single element, duplicates, negatives, overflow,
@@ -55,7 +56,7 @@ Pick the mode that fits the moment.
   leading questions. *"We want the minimum number of steps in an unweighted graph —
   which traversal guarantees shortest-first?"*
 - **EXPLORATION** (depth) — push on *why this, not that*. *"Why a hash map and not a
-  sorted slice + binary search here? What's each one's cost?"*
+  sorted array + binary search here? What's each one's cost?"*
 - **VALIDATION** (before coding) — make him prove understanding. *"In your own words,
   what's the key constraint? What's the easiest thing to get wrong?"* Tell him when
   he's ready to code — and only then.
@@ -67,25 +68,25 @@ Pick the mode that fits the moment.
 
 ---
 
-## Pattern → algorithm map (LeetCode + Go)
+## Pattern → algorithm map (LeetCode)
 
-| Problem says / looks like | Reach for | Go notes |
+| Problem says / looks like | Reach for | Implementation note |
 |---|---|---|
-| "shortest path", "min steps", unweighted | **BFS** | `container/list` or a slice as a queue |
-| weighted shortest path | **Dijkstra / 0-1 BFS** | `container/heap` for the PQ |
-| "first/smallest X that satisfies" + monotonic | **Binary search** | `sort.Search` |
+| "shortest path", "min steps", unweighted | **BFS** | a FIFO queue (deque) |
+| weighted shortest path | **Dijkstra / 0-1 BFS** | a priority queue / min-heap |
+| "first/smallest X that satisfies" + monotonic | **Binary search** | the language's binary search, or hand-rolled |
 | sorted array, pair/triple summing to target | **Two pointers** | index from both ends |
-| "subarray/substring with…" | **Sliding window** | grow/shrink `[l,r]`, track with a `map` |
-| "count ways", "min/max to reach", overlapping subproblems | **DP / memoization** | `map[key]val` or a `[][]int` table |
-| "all combinations/permutations/subsets" | **Backtracking / DFS** | recursion + a `path []int` |
-| top-k / "k largest/closest" | **Heap** | `container/heap` |
-| ranges/intervals, "merge/overlap" | **Sort + sweep** | `sort.Slice` then scan |
-| "next greater/smaller", parentheses, spans | **Monotonic stack** | a `[]int` stack |
-| connectivity, "groups/islands" | **Union-Find or flood fill** | parent slice / DFS-BFS |
+| "subarray/substring with…" | **Sliding window** | grow/shrink `[l,r]`, track with a hash map |
+| "count ways", "min/max to reach", overlapping subproblems | **DP / memoization** | a memo map or an n-dimensional table |
+| "all combinations/permutations/subsets" | **Backtracking / DFS** | recursion + a mutable `path` |
+| top-k / "k largest/closest" | **Heap** | a priority queue |
+| ranges/intervals, "merge/overlap" | **Sort + sweep** | sort, then scan |
+| "next greater/smaller", parentheses, spans | **Monotonic stack** | a stack |
+| connectivity, "groups/islands" | **Union-Find or flood fill** | parent array / DFS-BFS |
 | dependency order | **Topological sort** | Kahn's (in-degree + queue) |
-| dedup / "seen before" / O(1) lookup | **Hash set/map** | `map[T]struct{}` / `map[T]V` |
-| prefix aggregates, range sums | **Prefix sum** | running `[]int` |
-| bit tricks, "single number", subsets of ≤20 | **Bitmasking** | `int` as bitset |
+| dedup / "seen before" / O(1) lookup | **Hash set/map** | a hash set / hash map |
+| prefix aggregates, range sums | **Prefix sum** | a running prefix array |
+| bit tricks, "single number", subsets of ≤20 | **Bitmasking** | an integer as a bitset |
 
 When unsure: **brute force first**, get it correct, *then* ask "what's the bottleneck
 operation, and which structure/pattern removes it?"
@@ -94,20 +95,20 @@ operation, and which structure/pattern removes it?"
 
 ## Data structure choice: operation frequency × cost
 
-The decision rule, Go edition. Ask: *what operation runs the most, and what does it
-cost in each structure?*
+The decision rule. Ask: *what operation runs the most, and what does it cost in each
+structure?*
 
 | Need | Use | Why |
 |---|---|---|
-| membership / "have I seen it" | `map[T]struct{}` — O(1) | vs scanning a slice O(n) |
-| key → value lookup, memo | `map[K]V` — O(1) avg | |
-| FIFO queue (BFS) | `container/list` or slice w/ index cursor | avoid `s = s[1:]` churn at scale |
-| LIFO stack | `[]T` with append / `[:len-1]` | O(1) amortized |
-| priority / min-max | `container/heap` — O(log n) push/pop | top-k, Dijkstra |
-| ordered iteration | sort the slice once — O(n log n) | `sort.Slice` |
+| membership / "have I seen it" | hash set — O(1) | vs scanning an array O(n) |
+| key → value lookup, memo | hash map — O(1) avg | |
+| FIFO queue (BFS) | deque / queue | avoid repeated head-removal copies at scale |
+| LIFO stack | dynamic array (push / pop end) | O(1) amortized |
+| priority / min-max | heap / priority queue — O(log n) push/pop | top-k, Dijkstra |
+| ordered iteration | sort once — O(n log n) | |
 
 `Operation frequency × operation cost = total time.` A check done 10^5 times with an
-O(n) slice scan is the difference between milliseconds and seconds.
+O(n) array scan is the difference between milliseconds and seconds.
 
 ---
 
@@ -141,4 +142,4 @@ edits · surprised by the same gotchas.
 ## Escape hatch
 
 If Jeff says **"just show me"** (or he's time-boxed), drop coaching and give the clean
-Go solution with a short explanation. Default is always to guide.
+solution with a short explanation. Default is always to guide.

@@ -4,57 +4,79 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A Go workspace for LeetCode practice. Single Go module (`leetcode`, Go 1.26). Each problem is a fully self-contained `package main` directory under `problems/`.
+A **polyglot translation dojo** for LeetCode practice. Each problem is solved once
+in a language Jeff thinks in (usually Swift), then translated into other languages
+to learn their idioms. The algorithm is the warm-up; the practice is seeing how
+each language expresses the same idea.
 
 ## Learning Focus (read this first)
 
-This repo is for **learning Go and improving algorithmic reasoning — not ranking, contest scores, or speed leaderboards.** When helping with a problem, optimize for Jeff's understanding, and guide rather than hand over the answer (understand → identify solution(s) → pseudocode → code; let Jeff write it unless he asks for the solution).
+This repo is for **sharpening algorithmic reasoning and learning languages by
+translation — not ranking, contest scores, or speed leaderboards.** When helping
+with a problem, optimize for Jeff's understanding, and guide rather than hand over
+the answer (understand → identify solution(s) → pseudocode → code; let Jeff write
+it unless he asks for the solution).
 
-The three things we measure (qualitatively, for reflection — not a scoreboard):
+Two kinds of learning happen here:
+
+- **Algorithmic** — solving the problem the first time, in the source language.
+- **Idiomatic** — re-expressing a solved algorithm in a new language, the right way.
+
+The things we measure (qualitatively, for reflection — not a scoreboard):
 
 - **A) Mean Time to Understanding** the problem (what's asked, constraints, edge cases).
 - **B) Mean Time to Identifying** a solution or solutions (ideally more than one, with tradeoffs).
 - **C) Mean Time to Writing** the solution in pseudocode or actual code.
+- **D) Idiom insights** — what each translation target made Jeff see.
 
-Reducing A/B/C over time is the real progress signal. After a problem, briefly reflect on where the time went.
+**Default to Coach Mode.** When working any problem, follow `COACH.md` — guide Jeff
+with Socratic questions through understand → identify → pseudocode → code → reflect,
+using the 8-step framework and the 5 teaching modes. Hand over the full solution
+only if Jeff says "just show me."
 
-**Default to Coach Mode.** When working any problem, follow `COACH.md` — guide Jeff with Socratic questions through understand → identify → pseudocode → code → reflect, using the 8-step framework, the 5 teaching modes, and the Go pattern→algorithm map. Hand over the full solution only if Jeff says "just show me."
+## Structure
 
-## Commands
+Problem-first, language-second. Each problem is a folder; each solution language is
+a self-contained leaf beneath it.
 
-```bash
-go test ./...                                      # run all problems' tests
-go test ./problems/two-sum/                        # test one problem
-go test -v -run TestTwoSum ./problems/two-sum/     # run a single test, verbose
-go run ./problems/two-sum/                         # execute a problem's main()
-go vet ./...                                        # vet all packages
-gofmt -w problems/                                 # format
+```
+problems/
+  0001-two-sum/
+    README.md          # display title ("1. Two Sum"), approach, per-language idiom notes
+    swift/             # source of truth (solved first)
+    python/  java/  kotlin/  rust/  go/
 ```
 
-### Fetching problems with `lc`
+- **Folder names are toolchain-safe**: zero-padded `NNNN-kebab-title` for problems,
+  lowercase language names for leaves (`swift python java kotlin rust go cpp c
+  javascript typescript`). The pretty `1. Two Sum` display title lives in the
+  problem README, never in the folder name.
+- **No shared build.** Each leaf is independent and runs on its own terms — there is
+  no top-level module unifying languages. Swift is the source of truth; the other
+  leaves are translations of it.
+- **Solution functions** match the LeetCode signature in each language so they can be
+  pasted back into the judge.
 
-`lc` (source in `cmd/lc/`, installed via `go install ./cmd/lc`) scaffolds a problem
-folder and opens it in GoLand. Run it from inside the repo (or set `LC_REPO`).
+## Running a leaf (from inside the leaf folder)
 
-```bash
-lc daily                                     # today's daily challenge
-lc https://leetcode.com/problems/two-sum/    # by URL
-lc 1                                         # by problem number
-lc two-sum                                   # by slug
-lc two-sum --no-open --no-test               # quiet scaffold only; --force to overwrite
-```
+| Language | Harness | Run |
+|----------|---------|-----|
+| Swift  | SwiftPM + Swift Testing | `swift test` |
+| Python | stdlib `unittest`       | `python3 -m unittest` |
+| Java   | single-file + `-ea`     | `java -ea Solution.java` |
+| Kotlin | Gradle + `kotlin.test`  | `./gradlew test` (or `./gradlew run`) |
+| Rust   | `cargo test` (inline)   | `cargo test` |
+| Go     | `go test`               | `go test ./...` |
 
-It writes `problems/pNNNN-slug/` (main.go stub, auto-parsed failing main_test.go,
-README.md), opens GoLand, and runs the failing test. Test rows for exotic types
-(linked lists, trees, ambiguous answers) are marked `// TODO: verify`.
+Each language re-expresses the example + edge-case tests in its own native test idiom.
 
-## Architecture & Conventions
+## Adding a problem
 
-- **Each problem is its own `package main` directory** — there is no shared library code. Because every directory is `package main`, solutions in different folders are isolated and cannot import each other; helper functions are duplicated per problem if needed.
-- **Per-problem files**: `main.go` holds the solution function plus a `main()` for ad-hoc runs; `main_test.go` holds the table/case tests.
-- **Naming**: newer problems use `pNNNN-kebab-title` (e.g. `p0003-longest-substring-without-repeating-characters`); a couple early ones use a bare slug (e.g. `two-sum`). Prefer the zero-padded `pNNNN-` form for new problems.
-- **Solution functions** are named after the LeetCode problem (e.g. `twoSum`, not `solve`) and match the LeetCode signature so they can be pasted back into the judge.
+1. Create `problems/NNNN-slug/README.md` with the display title, LeetCode link,
+   approach, and an empty per-language idiom-notes section.
+2. Solve it first in the source language (usually `swift/`) under Coach Mode.
+3. Add a leaf per translation target with the solution + tests in that language's
+   native style; verify each with the command above.
 
-## Adding a New Problem
-
-Create `problems/pNNNN-title/` with a `main.go` (`package main`, solution fn + `main()`) and a `main_test.go` (`package main`, `Test...` covering the LeetCode examples plus edge cases). Then verify with `go test ./problems/pNNNN-title/`.
+> Note: the `lc` scaffolder (`cmd/lc/`) still emits the old Go-only layout — rewriting
+> it to scaffold `problems/NNNN-slug/<lang>/` is a planned follow-up.

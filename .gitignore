@@ -1,21 +1,106 @@
-# macOS
+# =====================================================================
+# Polyglot LeetCode repo — each problem holds per-language solution leaves.
+# Commit source; ignore build output, dependency caches, and machine state.
+# =====================================================================
+
+# ---------- Operating system ----------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
 
-# JetBrains IDE (machine-specific state)
+# ---------- Editors / IDEs ----------
+# JetBrains (IntelliJ, PyCharm, RustRover, Rider, CLion, WebStorm, Android Studio)
 .idea/
+*.iml
+*.ipr
+*.iws
+out/
+# VS Code (machine-local settings)
+.vscode/
+# Xcode (when opening a SwiftPM package)
+xcuserdata/
+*.xcuserstate
+DerivedData/
+# Vim / misc editor scratch
+*.swp
+*~
 
-# Go build artifacts
+# ---------- Secrets / env / logs ----------
+.env
+.env.*
+*.log
+
+# =====================================================================
+# Languages
+# =====================================================================
+
+# ---------- Swift / SwiftPM ----------
+.build/
+.swiftpm/
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Rust ----------
+target/
+Cargo.lock
+**/*.rs.bk
+
+# ---------- Go ----------
 *.exe
 *.out
 *.test
 /bin/
-
 # Compiled command binaries (NOT the cmd/ source) — `go build ./cmd/lc` drops one
 # at the repo root; building from inside the package drops one beside the source.
 /lc
 /cmd/lc/lc
-
-
 # Go workspace file (local-only)
 go.work
 go.work.sum
+
+# ---------- JVM (Java / Kotlin) ----------
+*.class
+*.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+*.war
+# Gradle
+.gradle/
+build/
+
+# ---------- C# / .NET ----------
+[Bb]in/
+[Oo]bj/
+*.user
+.vs/
+
+# ---------- C / C++ ----------
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.gch
+
+# ---------- JavaScript / TypeScript (Node) ----------
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
