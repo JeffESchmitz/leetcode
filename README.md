@@ -37,7 +37,7 @@ No shared build — each leaf runs on its own terms, from inside its folder:
 | Swift  | `swift test` |
 | Python | `python3 -m unittest` |
 | Java   | `java -ea Solution.java` |
-| Kotlin | `kotlinc Solution.kt -include-runtime -d solution.jar && java -jar solution.jar` |
+| Kotlin | `./gradlew test` (in the leaf) |
 | Rust   | `cargo test` |
 | Go     | `go test ./...` |
 

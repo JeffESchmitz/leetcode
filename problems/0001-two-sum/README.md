@@ -22,7 +22,7 @@ Swift is the source of truth; the rest are translations.
 | Swift  | SwiftPM + Swift Testing  | `swift test` |
 | Python | stdlib `unittest`        | `python3 -m unittest` |
 | Java   | single-file + `-ea`      | `java -ea Solution.java` |
-| Kotlin | single-file + `check`    | `kotlinc Solution.kt -include-runtime -d solution.jar && java -jar solution.jar` |
+| Kotlin | Gradle + `kotlin.test`   | `./gradlew test` (or `./gradlew run`) |
 | Rust   | `cargo test` (inline)    | `cargo test` |
 | Go     | `go test`                | `go test ./...` |
 

@@ -74,8 +74,9 @@ go.work.sum
 # ---------- JVM (Java / Kotlin) ----------
 *.class
 *.jar
+!**/gradle/wrapper/gradle-wrapper.jar
 *.war
-# Gradle (if a problem ever uses it)
+# Gradle
 .gradle/
 build/
 
