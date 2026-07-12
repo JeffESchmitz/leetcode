@@ -46,6 +46,7 @@ idiomatic fluency — not speed or completion counts.
   | Go       | `go test ./...` |
 
 - Solution functions match the LeetCode signature so they paste back into the judge.
+- Swift tests are organized as a single `@Suite` struct per problem for consistency.
 - Each leaf re-expresses the example and edge-case tests in that language's
   native test idiom.
 
