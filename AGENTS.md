@@ -45,8 +45,9 @@ idiomatic fluency — not speed or completion counts.
   | Rust     | `cargo test` |
   | Go       | `go test ./...` |
 
-- Solution functions match the LeetCode signature so they paste back into the judge.
-- Swift tests are organized as a single `@Suite` struct per problem for consistency.
+- Solution functions match the LeetCode signature inside a `public struct Solution { public init() {} ... }`.
+- Swift tests are organized as a single `@Suite` struct per problem, instantiating `private let solution = Solution()`.
+- Swift solution stubs use `fatalError("... is not yet implemented")` so tests start red explicitly.
 - Each leaf re-expresses the example and edge-case tests in that language's
   native test idiom.
 

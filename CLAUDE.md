@@ -75,12 +75,11 @@ Each language re-expresses the example + edge-case tests in its own native test 
 1. Create `problems/NNNN-slug/README.md` with the display title, LeetCode link,
    approach, and an empty per-language idiom-notes section.
 2. **Always scaffold the `swift/` leaf as a fresh Swift Package** with the
-   solution source file and its supporting tests. House all tests in a single
-   separate `@Suite` struct (Swift Testing) that is the problem's test suite.
-   Write the test implementations up front (examples + edge cases), but **do
-   not implement the solution** — leave the solution function as a stub
-   (matching the LeetCode signature) so the tests start red. Jeff writes the
-   solution under Coach Mode.
+   solution source file and its supporting tests, adhering to these conventions:
+   - **Solution Struct**: Encapsulate solution methods in a `public struct Solution { public init() {} ... }`.
+   - **Test Struct**: House all tests in a single `@Suite` struct (Swift Testing) that imports the solution (`@testable import <ModuleName>`) and instantiates `private let solution = Solution()`.
+   - **Initial Stub**: Leave the solution function as a stub matching the LeetCode signature, returning `fatalError("<functionName> is not yet implemented")` so all tests start red with an explicit trap rather than passing accidentally on default boolean/number returns.
+   Write the test implementations up front (examples + edge cases). Jeff writes the solution under Coach Mode.
 3. Solve it in the source language (usually `swift/`) under Coach Mode.
 4. Add a leaf per translation target with the solution + tests in that language's
    native style; verify each with the command above.

@@ -22,11 +22,12 @@ pretty `1. Two Sum` title lives in the problem README.
 
 ## Workflow
 
-1. Solve in Swift first — full 8-step process (see `COACH.md`).
-2. Translate into each target language in its native IDE, leaning on the editor's
+1. Scaffold Swift leaf: `public struct Solution` + `@Suite` test struct, stubbing functions with `fatalError("... is not yet implemented")`.
+2. Solve in Swift first — full 8-step process (see `COACH.md`).
+3. Translate into each target language in its native IDE, leaning on the editor's
    inspections to learn the idiom.
-3. Re-express the example + edge-case tests in that language's native test style.
-4. Capture what surprised you in the problem README's idiom notes.
+4. Re-express the example + edge-case tests in that language's native test style.
+5. Capture what surprised you in the problem README's idiom notes.
 
 ## Running a leaf
 
