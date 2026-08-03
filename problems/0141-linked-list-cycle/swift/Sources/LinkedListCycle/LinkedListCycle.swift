@@ -15,16 +15,21 @@ public struct Solution {
     public init() {}
 
     public func hasCycle(_ head: ListNode?) -> Bool {
-        if head == nil { return false }
-        var seen = Set<ObjectIdentifier>()
-        var current = head
-        while current != nil {
-            if seen.contains(ObjectIdentifier(current!)) {
+        // Floyd's tortoise and hare: slow steps 1 node, fast steps 2. If the
+        // list is a straight line, fast reaches nil first. If it loops, fast
+        // is always gaining one node per step once both are in the loop, so
+        // it eventually laps and lands on slow's exact node. O(1) space.
+        var slow = head
+        var fast = head
+
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+            if slow === fast {
                 return true
             }
-            seen.insert(ObjectIdentifier(current!))
-            current = current?.next
         }
+
         return false
     }
 }
