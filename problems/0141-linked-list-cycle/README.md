@@ -46,8 +46,37 @@ Constraints:
 
 ## Approach
 
-_To be filled in after solving (Coach Mode: understand → identify → pseudocode →
-code → reflect)._
+**What a cycle even is:** picture the list as note cards — each card holds a
+value and an instruction, either "go to card X next" or "stop here" (`next ==
+nil`). A cycle means some card's instruction, instead of eventually reaching
+"stop here," points back to a card already visited. Walking the list then
+repeats forever instead of terminating.
+
+`pos` in the examples below is **only used to build the test fixture** — see
+`buildList(_:cycleAt:)` in the Swift test file, which rewires the last node's
+`.next` to point back at an earlier node. `hasCycle` itself never receives
+`pos`; it has to detect the loop purely by walking `.next` pointers.
+
+- Example 1 `[3,2,0,-4], pos = 1`: `3 → 2 → 0 → -4 → (back to) 2 → 0 → -4 →
+  ...` — `3` is a tail leading into a loop of `2 → 0 → -4`.
+- Example 2 `[1,2], pos = 0`: `1 → 2 → 1 → 2 → ...` — the whole list is the
+  loop, no separate tail.
+- Example 3 `[1], pos = -1`: `1 → nil` — straight line, no cycle.
+
+Two approaches are kept in `Solution` for comparison (see `Sources/`):
+
+1. **`hasCycleUsingHashSet`** — walk the list, remembering every node seen
+   (by reference identity) in a `Set<ObjectIdentifier>`. Landing on a node
+   already in the set means a cycle. O(n) time, **O(n) space**.
+2. **`hasCycle`** (Floyd's tortoise and hare) — two pointers walk the same
+   list at different speeds: `slow` moves 1 node/step, `fast` moves 2. On a
+   straight list, `fast` hits `nil` first. On a cyclic list, both pointers
+   eventually enter the loop, and `fast` gains exactly one node on `slow`
+   every step inside it — like a faster runner lapping a slower one on a
+   circular track — so they're guaranteed to land on the same node
+   eventually. O(n) time, **O(1) space**. This is what the LeetCode-facing
+   `hasCycle` signature uses, since the problem's follow-up specifically
+   asks for constant space.
 
 ## Solutions
 

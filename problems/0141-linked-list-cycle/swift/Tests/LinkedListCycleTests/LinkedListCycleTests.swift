@@ -66,4 +66,29 @@ struct LinkedListCycleTests {
         let head = buildList(Array(1...1000), cycleAt: 998)
         #expect(solution.hasCycle(head) == true)
     }
+
+    // Same fixtures as above, run through the alternate hash-set approach
+    // kept in the solution for comparison against Floyd's.
+    @Test("hash set: example 1")
+    func hashSetExample1() {
+        let head = buildList([3, 2, 0, -4], cycleAt: 1)
+        #expect(solution.hasCycleUsingHashSet(head) == true)
+    }
+
+    @Test("hash set: example 2")
+    func hashSetExample2() {
+        let head = buildList([1, 2], cycleAt: 0)
+        #expect(solution.hasCycleUsingHashSet(head) == true)
+    }
+
+    @Test("hash set: example 3")
+    func hashSetExample3() {
+        let head = buildList([1])
+        #expect(solution.hasCycleUsingHashSet(head) == false)
+    }
+
+    @Test("hash set: empty list")
+    func hashSetEmptyList() {
+        #expect(solution.hasCycleUsingHashSet(nil) == false)
+    }
 }
