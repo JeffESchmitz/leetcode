@@ -15,6 +15,16 @@ public struct Solution {
     public init() {}
 
     public func hasCycle(_ head: ListNode?) -> Bool {
-        fatalError("hasCycle is not yet implemented")
+        if head == nil { return false }
+        var seen = Set<ObjectIdentifier>()
+        var current = head
+        while current != nil {
+            if seen.contains(ObjectIdentifier(current!)) {
+                return true
+            }
+            seen.insert(ObjectIdentifier(current!))
+            current = current?.next
+        }
+        return false
     }
 }
