@@ -38,6 +38,20 @@ one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 3. **CONSTRAINTS** — Bounds on `n` and values. (Constraints *hint the target Big-O*:
    `n ≤ 20` → exponential ok; `n ≤ 10^3` → O(n²) ok; `n ≤ 10^5+` → need O(n log n) or
    O(n); huge values → math/bit tricks.)
+
+   Read **every** constraint by asking:
+
+   > **"Is this a hint about size, or is it a promise my algorithm leans on?"**
+
+   The two are not the same, and mistaking one for the other is how you end up
+   writing a guard you don't need — or omitting one you do. A **hint** shapes which
+   algorithm you may afford; violating it is *not* undefined behavior, because no
+   logic depends on it. A **promise** is load-bearing: the algorithm's correctness is
+   built on it, and violating it yields a confident wrong answer rather than a crash.
+   Load-bearing promises are usually the ones you *don't* guard — verifying them
+   often costs more than the algorithm they enable. See
+   [704. Binary Search](problems/0704-binary-search/README.md) for a worked example
+   (value bounds = hint; "sorted ascending" = promise).
 4. **SIGNATURE** — The exact function signature in the source language: param types
    and return type, matching the LeetCode signature so it pastes back into the judge.
 5. **EXAMPLE TRACE** — Walk one example by hand. Then a tricky/edge one.
