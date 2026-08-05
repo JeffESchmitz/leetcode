@@ -160,6 +160,32 @@ Worked through the 8-step framework from `COACH.md`:
 **This is a sorted-array search problem solved with iterative binary search, in
 O(log n) time and O(1) space.**
 
+### The `if / else if / else` version (first draft, kept for the record)
+
+```swift
+while low <= high {
+    let mid = low + (high - low) / 2
+    if nums[mid] == target {
+        return mid
+    } else if nums[mid] < target {
+        low = mid + 1
+    } else {
+        high = mid - 1
+    }
+}
+```
+
+Correct and accepted-grade — **0 ms, beats 100%**, 47/47 test cases. The shipped
+version replaces the chain with a `switch` purely for readability; the branch
+structure is identical after optimization and there is no performance difference.
+Honestly labeled: this was a taste change, not an improvement in the machine.
+
+> On the judge's *memory* percentile (19.69 MB, "beats 41.43%"): ignore it. This
+> solution allocates nothing — two `Int`s, provably at the O(1) floor. That figure
+> measures the judge's process footprint (Swift runtime, harness, the input array
+> built before `search` is called) and moves between submissions of identical code.
+> Chasing that percentile is how people talk themselves into worse code.
+
 ## Solutions
 
 Swift is the source of truth; the rest are translations.
@@ -186,6 +212,16 @@ _What each language made me see when translating from Swift (fill in as you go):
   - **Every `± 1` is load-bearing.** `high = mid - 1` and `low = mid + 1` step *past*
     the element just ruled out, which is what makes the window strictly shrink. Drop
     either offset and the two-element case spins forever.
+  - **A three-way split is a `switch`, and `case ..<target` is a *pattern*.** The
+    `if / else if / else` chain reads as three independent tests that happen to be
+    exclusive; `switch` says structurally that this is one value being sorted into
+    three outcomes — one case per row of the trace table. `..<target` is a
+    `PartialRangeUpTo` used as an expression pattern, so "less than the target"
+    becomes a **shape you match against** rather than a comparison you compute. This
+    is the idiom with no clean equivalent in most of the translation targets — watch
+    what each of them has to spell out instead.
+  - **Subscript once, decide once.** `switch nums[mid]` performs one bounds-checked
+    access; the `if/else` chain performed two on the go-left and go-right paths.
   - **Value space vs index space.** `mid` is an index and always lives in `0..<count`;
     the negatives in `nums` are values and only meet `<`, `>`, `==`. Keeping the two
     apart in your head kills a whole class of binary-search bug before it's written.
