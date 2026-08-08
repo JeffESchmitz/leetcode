@@ -21,11 +21,9 @@ public struct Solution {
         var votes = 0     // surplus of standing `candidate` copies
 
         for num in nums {
-            // votes == 0: the field is empty — everything so far annihilated in
-            // unequal pairs, and deleting unequal pairs never changes the
-            // majority. So the cancelled prefix is dead history: whoever shows
-            // up now takes the field by default. Adopting even a wrong value is
-            // safe — it lacks the numbers to hold the field to the end.
+            // votes == 0: the field is empty — the prefix annihilated in unequal
+            // pairs, which never changes the majority. Whoever shows up now takes
+            // the field; a wrong value can't hold it to the end.
             if votes == 0 {
                 candidate = num
                 votes = 1
