@@ -50,6 +50,18 @@ problem rather than after.
   [704](problems/0704-binary-search/README.md) (sortedness) and
   [217](problems/0217-contains-duplicate/README.md) (value bounds revoking a
   counting array).
+- **When two forms are equivalent, prefer the one that mirrors how the problem states
+  it.** Algebraically-equal expressions are not equally *trustworthy*. The form that
+  transcribes the problem introduces no derived quantity to compute, truncate, or
+  misremember, so there is nowhere for a translation error to hide — while the
+  rearranged form is usually surrounded by plausible-looking near-misses.
+  `2 * tally > nums.count` states "twice this exceeds the whole" directly, where
+  `tally > nums.count / 2` invents a halfway number and then leans on integer
+  truncation landing in your favor — and sits one keystroke from the wrong
+  `>=`. Same reason `low + (high - low) / 2` beats `(low + high) / 2`: the form that
+  *cannot* go wrong wins over the form that merely happens not to. See
+  [169. Majority Element](problems/0169-majority-element/README.md) and
+  [704. Binary Search](problems/0704-binary-search/README.md).
 - **Constraints are permissions, not just limits.** Reading one for what it *enables*
   is a different habit than reading it for what it forbids.
 - **Pick data structures by operation frequency × cost.** Find the operation that
