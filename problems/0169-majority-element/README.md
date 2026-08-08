@@ -32,8 +32,57 @@ Output: 2
 
 _Worked through the 8-step framework from `COACH.md`. Filled in as we go._
 
-1. **GOAL** — _TBD_
-2. **SHAPE** — _TBD_
+1. **GOAL** — an `Int`: the *value* that appears more than `⌊n/2⌋` times. Not an
+   index, not a count, not an optional — the function is total, because the problem
+   guarantees a majority element exists.
+
+   Three spellings of "is a majority" are equivalent for integers, and the doubled
+   form is the one that does real work:
+
+   ```
+   count > ⌊n/2⌋        ⟺        count > n/2        ⟺        2·count > n
+   ```
+
+   Why the floor washes out — `count` and `⌊n/2⌋` are both integers, so
+   `count > ⌊n/2⌋` means `count ≥ ⌊n/2⌋ + 1`:
+
+   ```
+   n even, n = 2k:   ⌊n/2⌋ = k → count ≥ k+1 → 2·count ≥ 2k+2 = n+2 > n   ✓
+   n odd,  n = 2k+1: ⌊n/2⌋ = k → count ≥ k+1 → 2·count ≥ 2k+2 = n+1 > n   ✓
+   ```
+
+   **No tie-breaking rule is needed, and that is a theorem rather than a courtesy
+   of the problem statement.** The guarantee says *at least one* majority exists;
+   it is silent on *at most one*. Uniqueness has to be proved separately:
+
+   > Suppose value `x` occurs `a` times and value `y` occurs `b` times, `x ≠ y`,
+   > and both are majorities. Then `2a > n` and `2b > n`. Adding:
+   > `2(a + b) > 2n`, so `a + b > n`. But `x ≠ y` means no slot holds both, so the
+   > `a` slots and the `b` slots are disjoint subsets of the same `n` slots, giving
+   > `a + b ≤ n`. Both cannot hold. ∎
+
+   Equivalently: the cheapest possible majority costs `⌊n/2⌋ + 1` slots, so two of
+   them cost `2⌊n/2⌋ + 2` — which is `n + 2` for even `n` and `n + 1` for odd `n`.
+   Even the two smallest majorities overflow the array. There is never room.
+
+   Note how tight that is at odd `n`: it overflows by exactly **1**. Majority is a
+   one-vote-of-slack property, which is what the 1001-element fixture pins down.
+
+   Same lesson as [704. Binary Search](../0704-binary-search/README.md), where
+   uniqueness is what made an arbitrary landing spot a *correct* answer:
+   **uniqueness is what lets you stop caring which one you found.**
+2. **SHAPE** — `[Int]`. Unsorted, repeats allowed, and **no positional guarantee** —
+   nothing says the majority occurrences are clustered, centered, or anywhere in
+   particular. So no "just look at position `k`" shortcut exists *on the input as
+   given*. (Worth revisiting once you're willing to rearrange it first.)
+
+   Mutation, mechanically: the parameter is `[Int]`, a value-type struct, and it is
+   not `inout` — so `nums` is a `let` inside the body and `nums[0] = 99` will not
+   compile. `var local = nums` or `nums.sorted()` is legal and the caller's array is
+   untouched, but copy-on-write means the first write triggers a **full O(n)
+   duplication**. Sorting is therefore *permitted* but not *free*: O(n) extra space
+   and O(n log n) time. "I'm allowed to sort" and "I can afford to sort" are
+   different sentences — and the `O(1)`-space follow-up is asking about the second.
 3. **CONSTRAINTS** — _TBD_
 4. **SIGNATURE** — _TBD_
 5. **EXAMPLE TRACE** — _TBD_
