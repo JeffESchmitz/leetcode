@@ -120,4 +120,31 @@ no test depends on undefined behavior when it doesn't.
 
 _What each language made me see when translating from Swift (fill in as you go):_
 
-- **Swift** — _TBD_
+- **Swift** —
+  - **When two forms are equivalent, prefer the one that mirrors how the problem
+    states it.** The majority test can be written either way:
+
+    ```swift
+    2 * tally > nums.count      // "twice this exceeds the whole"
+    tally > nums.count / 2      // "this exceeds half"
+    ```
+
+    They agree on every input. They are not equally trustworthy. The first is the
+    problem's sentence transcribed — nothing is computed, nothing is discarded. The
+    second invents `nums.count / 2`, a quantity that appears nowhere in the problem,
+    and then relies on integer division truncating in your favor: `7 / 2 == 3`, the
+    `.5` silently gone. That truncation *does* land correctly here (it is exactly
+    `⌊n/2⌋`), but "correct because I checked the rounding" is a weaker guarantee than
+    "correct because there was no rounding."
+
+    The tell is the near-miss. `tally >= nums.count / 2` is wrong — at `n = 7` it
+    accepts a tally of 3 — and it looks completely reasonable on the page. The
+    doubled form has no such neighbor. Overflow isn't a concern either: `n ≤ 5×10⁴`
+    caps `2 * tally` near 10⁵ against a 64-bit `Int`.
+
+    Same shape as `low + (high - low) / 2` over `(low + high) / 2` in
+    [704. Binary Search](../0704-binary-search/README.md): **the form that cannot go
+    wrong beats the form that merely happens not to.**
+  - **Naming: `count` was already taken.** `nums.count` means `n`, so reusing `count`
+    for a single value's occurrences puts two different quantities behind one word at
+    the exact moment the distinction matters. `tally` keeps them apart.
