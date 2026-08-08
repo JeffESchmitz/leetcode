@@ -83,14 +83,65 @@ _Worked through the 8-step framework from `COACH.md`. Filled in as we go._
    duplication**. Sorting is therefore *permitted* but not *free*: O(n) extra space
    and O(n log n) time. "I'm allowed to sort" and "I can afford to sort" are
    different sentences — and the `O(1)`-space follow-up is asking about the second.
-3. **CONSTRAINTS** — _TBD_
-4. **SIGNATURE** — _TBD_
-5. **EXAMPLE TRACE** — _TBD_
-6. **PATTERN → ALGORITHM** — _TBD_
-7. **EDGE CASES** — _TBD_
-8. **DATA STRUCTURES** — _TBD_
+3. **CONSTRAINTS** — `n ≤ 5×10⁴`: O(n²) is 2.5×10⁹, dead; O(n log n) fine; O(n) fine.
+   Values span ±10⁹, revoking a counting array indexed by value (as in
+   [217](../0217-contains-duplicate/README.md)). Floor is O(n) — skip an element and
+   it might have been the majority. The guarantee "a majority always exists" is a
+   **promise the algorithm leans on**, not a hint (see step 6).
+4. **SIGNATURE** — `func majorityElement(_ nums: [Int]) -> Int`. Total function —
+   no optional, no error case — *because* of the existence guarantee.
+5. **EXAMPLE TRACE** — `[2,2,1,1,1,2,2]`, rules: `votes == 0` → adopt; match → +1;
+   differ → −1.
 
-**This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O].**
+   | Iter | num | rule | candidate | votes |
+   |---:|---:|---|---:|---:|
+   | 1 | 2 | adopt | 2 | 1 |
+   | 2 | 2 | +1 | 2 | 2 |
+   | 3 | 1 | −1 | 2 | 1 |
+   | 4 | 1 | −1 | 2 | 0 |
+   | 5 | 1 | adopt | **1** | 1 |
+   | 6 | 2 | −1 | 1 | 0 |
+   | 7 | 2 | adopt | **2** | 1 |
+
+   Two things the trace surfaces, both load-bearing:
+   - **Iteration 5 holds a wrong answer.** Partial progress yields no decision —
+     the state is a running *summary*, not a running *answer*, and is meaningful
+     only after the last element. (Opposite regime from 217, where a partial
+     result was decisive and allowed early exit.)
+   - **Final `votes` is 1, but `2` appears four times.** `votes` counts nothing.
+     It is a *surplus*: copies of `candidate` still standing after all mutual
+     cancellation. Three 2s died taking enemies with them.
+6. **PATTERN → ALGORITHM** — **Boyer–Moore majority vote.** The invariant that
+   makes it work:
+
+   > Deleting two elements of *different* values never changes which value is
+   > the majority.
+
+   A pair holds at most one copy of majority `x` (its two values differ), so:
+   `2(a−1) = 2a−2 > n−2` if one was `x`; `2a > n > n−2` if neither. Either way
+   `x` is still the majority of what remains. Repeat until one value stands —
+   it must be `x`. The algorithm doesn't *find* the majority; it **removes
+   things that can't be it** until only the answer is left.
+
+   Battlefield mnemonic: soldiers from different armies kill one-for-one; the
+   majority army outnumbers all others *combined* and cannot be wiped out.
+
+   Where the guarantee gets spent: the proof that the survivor is the majority
+   uses `2a > n` exactly once, at the end. On a no-majority array the algorithm
+   confidently returns "whatever survived" — a second verify pass would be
+   required. The promise pays for the missing check.
+
+   The ladder, for the record: hash-map tally O(n)/O(n) → sort-and-take-middle
+   O(n log n)/O(1)-ish → Boyer–Moore O(n)/O(1). Solved straight to the top since
+   the trace work had already built the mechanism.
+7. **EDGE CASES** — see the fixtures table below; the two that earn their keep are
+   the interleaved majority (kills "longest run" thinking) and the 1001-element
+   one-vote-margin case (majority is a one-vote-of-slack property).
+8. **DATA STRUCTURES** — none. Two `Int`s. The existence guarantee substitutes
+   for the entire frequency table — that *is* the insight.
+
+**This is a majority-vote problem solved with Boyer–Moore majority vote in O(n)
+time and O(1) space.**
 
 ## Solutions
 
