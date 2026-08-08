@@ -13,29 +13,24 @@ public struct Solution {
     /// only the final state means anything. Requires the "majority exists"
     /// guarantee — without it, the survivor would need a verify pass.
     public func majorityElement(_ nums: [Int]) -> Int {
-        // Never read: votes == 0 forces adoption on iteration 1.
-        var candidate = 0
-        // Surplus of standing `candidate` copies — not a count of occurrences.
-        var votes = 0
-
-        for num in nums {
-            // "votes == 0": the field is empty... 
-            // Which means, the prefix annihilated in unequal pairs, which never changes the majority. 
-            // Whoever shows up now takes the field. 
+        // A fold: (candidate, votes) is a summary carried across the sequence and
+        // read only at the end — which is what reduce(into:) says out loud, and
+        // what a `for` loop leaves implicit. The seed candidate is never read:
+        // votes == 0 forces adoption on the first element.
+        nums.reduce(into: (candidate: 0, votes: 0)) { field, num in
+            // "votes == 0": the field is empty...
+            // Which means, the prefix annihilated in unequal pairs, which never changes the majority.
+            // Whoever shows up now takes the field.
             // A wrong value can't hold it to the end.
-            if votes == 0 {
+            if field.votes == 0 {
                 // new candidate: the field is empty, so this one takes it
-                candidate = num
-                votes = 1
-            } else if num == candidate {
-                // Reinforcement: one more copy standing.
-                votes += 1
+                field = (candidate: num, votes: 1)
             } else {
-                // Unequal pair — mutual annihilation, one-for-one.
-                votes -= 1
+                // Match reinforces; mismatch annihilates one-for-one.
+                field.votes += num == field.candidate ? 1 : -1
             }
         }
-
-        return candidate // last value standing
+        // Last value standing.
+        .candidate
     }
 }

@@ -151,6 +151,11 @@ Swift is the source of truth; the rest are translations.
 |----------|---------|-------------------|
 | Swift  | SwiftPM + Swift Testing  | `swift test` |
 
+Accepted on LeetCode, 54/54 test cases, 0 ms (beats 100%). The memory percentile
+(~52%) is process overhead rather than signal, as noted in
+[704](../0704-binary-search/README.md) — an O(1)-space solution has nothing left
+to trim.
+
 ## Test fixtures
 
 Every fixture honors the problem's guarantee that a majority element exists, so
@@ -172,6 +177,39 @@ no test depends on undefined behavior when it doesn't.
 _What each language made me see when translating from Swift (fill in as you go):_
 
 - **Swift** —
+  - **`reduce(into:)` names the shape the `for` loop only implies.** The trace
+    proved this state is a *summary* — no early exit, meaningful only after the
+    last element. That is the definition of a fold, and `reduce` says so in the
+    signature where a `for` loop leaves it to the reader:
+
+    ```swift
+    nums.reduce(into: (candidate: 0, votes: 0)) { field, num in
+        if field.votes == 0 {
+            field = (candidate: num, votes: 1)
+        } else {
+            field.votes += num == field.candidate ? 1 : -1
+        }
+    }
+    .candidate
+    ```
+
+    Three choices inside that:
+    - **`into:` over the two-argument `reduce`.** `reduce(into:)` hands the
+      closure an `inout` accumulator to mutate in place; plain `reduce` returns a
+      fresh value per element. For anything larger than a scalar that is the
+      difference between O(1) copies and n of them.
+    - **A named tuple as the accumulator** — `field.votes`, not `field.1`.
+      Self-documenting, and two `Int`s means no heap allocation.
+    - **Two branches, not three.** `num == field.candidate ? 1 : -1` folds
+      reinforce and annihilate into one signed step, which is legitimate
+      precisely because they *are* the same operation with opposite sign — the
+      mutual-destruction symmetry made literal.
+
+    The honest trade-off: the `for` version is more obvious on first read. In a
+    repo whose stated purpose is learning idioms, `reduce(into:)` earns its keep;
+    in a codebase optimizing for the least-experienced reader, it might not.
+  - **Comments go above the line, never trailing.** A comment is an annotation
+    that cues what you are about to read; arriving after the code defeats that.
   - **When two forms are equivalent, prefer the one that mirrors how the problem
     states it.** The majority test can be written either way:
 
