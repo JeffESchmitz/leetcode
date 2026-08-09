@@ -62,6 +62,27 @@ problem rather than after.
   *cannot* go wrong wins over the form that merely happens not to. See
   [169. Majority Element](problems/0169-majority-element/README.md) and
   [704. Binary Search](problems/0704-binary-search/README.md).
+- **When a word names more than one quantity, anchor on the answer you already
+  know.** "Depth" means at least three things — distance from the root, height
+  below a node, and either of those counted in edges rather than nodes. The
+  mistake isn't exotic: you compute a perfectly real quantity that isn't the one
+  asked for, and every subsequent step is confidently wrong. One known-answer
+  anchor exposes it instantly and without domain knowledge — a table putting the
+  root at `0` when the required output is `3` is refuted on sight. See
+  [104. Maximum Depth of Binary Tree](problems/0104-maximum-depth-of-binary-tree/README.md).
+- **The input edge case and the recursive base case are often the same case.**
+  Reaching for a defensive guard against empty input, then discovering it is
+  load-bearing, is a signal you've found the recursion's terminating clause
+  rather than a courtesy check. `nil → 0` in
+  [104](problems/0104-maximum-depth-of-binary-tree/README.md) isn't bolted onto
+  the front for LeetCode's benefit — it is what makes leaves work, and deleting
+  it breaks every tree, not just the empty one.
+- **Define the answer in terms of smaller answers instead of describing a
+  traversal.** "My depth is one node — me — plus the deeper of my two children"
+  mentions no stack, no visiting order, no bookkeeping; the traversal falls out
+  as a side effect of the recursion. Branching structures feel hard while you try
+  to *walk* them and turn easy once you start *defining* them.
+  ([104](problems/0104-maximum-depth-of-binary-tree/README.md))
 - **Constraints are permissions, not just limits.** Reading one for what it *enables*
   is a different habit than reading it for what it forbids.
 - **Pick data structures by operation frequency × cost.** Find the operation that
