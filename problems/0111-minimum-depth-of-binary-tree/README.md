@@ -250,12 +250,28 @@ public func minDepthBFS(_ root: TreeNode?) -> Int {
 }
 ```
 
-Accepted on LeetCode with the DFS version, 53/53 test cases, 24 ms (beats ~31%).
-The 84% memory percentile is process noise per
-[704](../0704-binary-search/README.md), but **runtime here is signal** — the 9–27 ms
-spread in the histogram is roughly the gap between walking the whole tree and
-stopping at the first leaf. Note that 104 reported 0 ms for the same shape of
-algorithm; the inputs are not comparable, since 111 permits 10⁵ nodes to 104's 10⁴.
+Both accepted on LeetCode, 53/53 test cases — and submitting both turned the
+theoretical tradeoff into a measurement:
+
+| | runtime | memory |
+|---|---|---|
+| `minDepth` (DFS) | 24 ms — beats 31% | 29.89 MB — beats 84% |
+| `minDepthBFS` (BFS) | **3 ms — beats 75%** | 31.30 MB — beats 16% |
+
+**8× faster, and measurably hungrier.** Exactly the predicted direction: BFS holds
+a whole level where DFS holds a single root-to-leaf path, and `flatMap` allocates a
+small array per node on top of that. Time bought with space.
+
+Two caveats on reading those numbers. The 1.4 MB absolute difference is small and
+memory percentile is process noise per [704](../0704-binary-search/README.md) — the
+84 → 16 swing mostly says the field is tightly clustered, not that the solution is
+memory-hostile. **Runtime, though, is signal**, and the 9–27 ms spread in the
+histogram is roughly the gap between walking the whole tree and stopping at the
+first leaf.
+
+Also worth noting: 104 reported 0 ms for a structurally similar DFS. The inputs are
+not comparable — 111 permits 10⁵ nodes to 104's 10⁴, and nobody on this problem's
+histogram is at 0 ms.
 
 ## Test fixtures
 
