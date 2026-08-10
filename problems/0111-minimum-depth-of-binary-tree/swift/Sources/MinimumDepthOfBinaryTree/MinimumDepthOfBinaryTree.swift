@@ -24,6 +24,18 @@ public class TreeNode {
     }
 }
 
+extension TreeNode {
+    /// A node with no children — the only place a root-to-leaf path may end.
+    var isLeaf: Bool {
+        left == nil && right == nil
+    }
+
+    /// The children that actually exist: 0, 1, or 2 of them.
+    var children: [TreeNode] {
+        [left, right].compactMap { $0 }
+    }
+}
+
 public struct Solution {
     public init() {}
 
@@ -65,24 +77,14 @@ public struct Solution {
 
         while !level.isEmpty {
             depth += 1
-            var nextLevel: [TreeNode] = []
 
-            for node in level {
-                // Level order guarantees this is the shallowest leaf in the tree
-                if node.left == nil && node.right == nil {
-                    return depth
-                }
-
-                if let left = node.left {
-                    nextLevel.append(left)
-                }
-
-                if let right = node.right {
-                    nextLevel.append(right)
-                }
+            // Level order guarantees the first level holding a leaf is the
+            // shallowest one, so nothing below can beat it
+            if level.contains(where: \.isLeaf) {
+                return depth
             }
 
-            level = nextLevel
+            level = level.flatMap(\.children)
         }
 
         // Unreachable: every non-empty finite tree contains a leaf, so the loop

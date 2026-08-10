@@ -212,6 +212,18 @@ public func minDepth(_ root: TreeNode?) -> Int {
 sublinear time whenever a shallow leaf exists.
 
 ```swift
+extension TreeNode {
+    /// A node with no children — the only place a root-to-leaf path may end.
+    var isLeaf: Bool {
+        left == nil && right == nil
+    }
+
+    /// The children that actually exist: 0, 1, or 2 of them.
+    var children: [TreeNode] {
+        [left, right].compactMap { $0 }
+    }
+}
+
 public func minDepthBFS(_ root: TreeNode?) -> Int {
     guard let root else {
         return 0
@@ -222,24 +234,14 @@ public func minDepthBFS(_ root: TreeNode?) -> Int {
 
     while !level.isEmpty {
         depth += 1
-        var nextLevel: [TreeNode] = []
 
-        for node in level {
-            // Level order guarantees this is the shallowest leaf in the tree
-            if node.left == nil && node.right == nil {
-                return depth
-            }
-
-            if let left = node.left {
-                nextLevel.append(left)
-            }
-
-            if let right = node.right {
-                nextLevel.append(right)
-            }
+        // Level order guarantees the first level holding a leaf is the
+        // shallowest one, so nothing below can beat it
+        if level.contains(where: \.isLeaf) {
+            return depth
         }
 
-        level = nextLevel
+        level = level.flatMap(\.children)
     }
 
     // Unreachable: every non-empty finite tree contains a leaf, so the loop
@@ -347,8 +349,40 @@ _What each language made me see when translating from Swift (fill in as you go):
 
     The third wins on both axes, and it also removes the `var count = queue.count`
     bookkeeping that a single queue needs to know where one level ends: **the array
-    boundary *is* the level boundary**, so `for node in level` is exactly one level
-    and `depth += 1` per outer iteration is self-evidently correct.
+    boundary *is* the level boundary**, so one iteration is exactly one level and
+    `depth += 1` per outer iteration is self-evidently correct.
+  - **Once a level is an array, the loop body is two higher-order calls.** The
+    imperative version — a `for` loop with a leaf check and two conditional
+    `append`s — states the algorithm in terms of bookkeeping. Naming the two
+    concepts as computed properties lets the loop state it directly:
+
+    ```swift
+    if level.contains(where: \.isLeaf) {
+        return depth
+    }
+
+    level = level.flatMap(\.children)
+    ```
+
+    *"If this level contains a leaf we're done; otherwise the next level is
+    everyone's children."* `flatMap` is precisely right — each node maps to a
+    *list* of children and the lists concatenate — and `compactMap` inside
+    `children` is what turns `[TreeNode?]` into `[TreeNode]`, so `nil` children
+    disappear without an `if let` in sight. The `\.isLeaf` / `\.children` key paths
+    are usable as functions directly (Swift 5.2+), removing even the closure.
+
+    The honest cost, since it isn't free:
+
+    | | passes per level | allocations |
+    |---|---|---|
+    | imperative | 1 — checks and collects together, exits mid-level | one `nextLevel` array |
+    | functional | up to 2 — `contains`, then `flatMap` | a 2-element array **per node**, plus the result |
+
+    Neither difference is asymptotic — both are O(w) per level — but the functional
+    version scans the level twice and allocates per node, and it finishes scanning
+    a level before returning rather than stopping at the leaf. Worth taking anyway
+    in a repo whose purpose is learning how a language wants to say things; worth
+    reconsidering in a hot loop.
   - **`@Test(arguments:)` runs one fixture against many implementations.** Rather
     than duplicating eighteen tests for the BFS version, the suite is parameterized
     over an enum of the two:
