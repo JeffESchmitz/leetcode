@@ -107,6 +107,90 @@ operation, and which structure/pattern removes it?"
 
 ---
 
+## BFS vs DFS: the decision, not the vibe
+
+Two traversals reach every node, so "which one" is never about correctness — it is
+about whether you are allowed to **stop early**, and what you have to hold in memory
+while you don't.
+
+### The one question
+
+> **"If I explore outward from the root in order of increasing distance, is the
+> first valid answer I hit the final answer?"**
+
+- **Yes → BFS.** Discovery order *is* quality order, so the first hit ends the
+  search. Everything unexplored is strictly farther away and cannot win.
+- **No → DFS.** You must visit everything regardless, so take the traversal that
+  is cheaper in space and shorter to write.
+
+Worked on the pair that motivated this section:
+
+| | first leaf found in distance order… | verdict |
+|---|---|---|
+| [104. Maximum Depth](problems/0104-maximum-depth-of-binary-tree/README.md) | tells you nothing — a deeper leaf may exist | **DFS** |
+| [111. Minimum Depth](problems/0111-minimum-depth-of-binary-tree/README.md) | *is* the answer — nothing found later can beat it | **BFS** |
+
+The asymmetry in one line: **minimums can stop; maximums cannot.**
+
+### The second question, when the first answer is "no"
+
+> **"Does each node's answer depend on its children's answers?"**
+
+If the answer has the shape `f(node) = something(f(left), f(right))`, that is
+**post-order DFS**, mechanically — the parent cannot act until both children have
+reported. Depth, diameter, balance, subtree sums, and "is this the same tree" are
+all this shape.
+
+If instead a child needs information *from* the parent (a running depth, a path
+so far, an accumulated sum), that is **pre-order DFS** and it usually wants a
+helper with extra parameters.
+
+### Word triggers in the statement
+
+| Words | Reach for | Why |
+|---|---|---|
+| minimum, shortest, nearest, fewest, closest, "first X that…" | **BFS** | an early exit exists |
+| maximum, longest, deepest, all, every, count, sum, total | **DFS** | no early exit exists — must visit all |
+| level, row, "by depth", left/right *view*, zigzag | **BFS** | level order is BFS's native output |
+| balanced?, invert, same tree?, diameter, path sum | **DFS** | the answer is a function of *subtrees*, not of distance |
+
+### The constraint clue
+
+Node count is a tiebreaker signal, not proof, but it usually points the same way:
+
+```
+104:  0 <= nodes <= 10^4
+111:  0 <= nodes <= 10^5      ← 10x, and nothing rules out a skewed tree
+```
+
+Recursion depth equals tree height, so 10⁵ nodes with no balance promise is an
+argument against recursion on its own. When the count reaches 10⁵+ and the shape
+is unconstrained, an explicit queue or stack sidesteps a stack overflow the judge
+may or may not test for.
+
+### Space, when both are correct
+
+| | space | dies on |
+|---|---|---|
+| **DFS** | O(h) — height | deep skewed tree (h → n) |
+| **BFS** | O(w) — max width | wide balanced tree (w → n/2) |
+
+Exactly opposite failure modes: the shape that ruins one is the shape the other
+handles best. For a *bushy* tree DFS is dramatically leaner (log n frames vs n/2
+queued nodes), so **when you genuinely must visit every node, DFS is the default**
+— BFS earns its queue only when the early exit or the level structure pays for it.
+
+### The failure mode to watch for in yourself
+
+Pattern-matching on **the last problem you solved** instead of on the problem in
+front of you. 111 looks so much like 104 that the traversal feels settled before
+the statement is read — and the same recency that makes yesterday's insight
+available is what anchors you to yesterday's algorithm. Recency is a tool and a
+trap in equal measure; run the one question above even when the answer feels
+obvious.
+
+---
+
 ## Data structure choice: operation frequency × cost
 
 The decision rule. Ask: *what operation runs the most, and what does it cost in each

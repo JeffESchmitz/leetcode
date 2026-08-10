@@ -83,6 +83,31 @@ problem rather than after.
   as a side effect of the recursion. Branching structures feel hard while you try
   to *walk* them and turn easy once you start *defining* them.
   ([104](problems/0104-maximum-depth-of-binary-tree/README.md))
+- **Minimums can stop; maximums cannot — that decides BFS vs DFS.** Ask: *if I
+  explore outward from the root in order of increasing distance, is the first valid
+  answer I hit the final answer?* Yes → BFS, because discovery order is quality
+  order and the search can exit early. No → DFS, because you must visit everything
+  anyway and DFS is leaner in space. [104](problems/0104-maximum-depth-of-binary-tree/README.md)
+  and [111](problems/0111-minimum-depth-of-binary-tree/README.md) differ by one word
+  and land on opposite sides of it. Full procedure in [COACH.md](COACH.md).
+- **Recency is a tool and a trap in equal measure.** The freshness that let
+  [111](problems/0111-minimum-depth-of-binary-tree/README.md) reuse 104's "a phantom
+  0 can never win a max" as a *mechanism* is the same freshness that anchored it to
+  104's traversal — while the pattern table had already said "min steps → BFS".
+  Pattern-match on the problem in front of you, not on the last one you solved, and
+  run the decision procedure even when the shape feels settled.
+- **An identical base case can have opposite consequences under a different
+  combining operation.** `nil → 0` is right in both
+  [104](problems/0104-maximum-depth-of-binary-tree/README.md) and
+  [111](problems/0111-minimum-depth-of-binary-tree/README.md), but the `0` is a
+  claim about a path that does not exist. `max` never listens to it; `min` always
+  does. When reusing a recurrence, re-audit what every constant *asserts* rather
+  than checking that it was correct last time.
+- **When a fix is narrow, the failing tests will say so.** 8 of 18 fixtures failed
+  the naive `min` swap, and every failure contained a node with exactly one child
+  while no passing case did. A failure set that partitions cleanly along one
+  structural property is naming the bug — read the partition before reading the
+  code. ([111](problems/0111-minimum-depth-of-binary-tree/README.md))
 - **Constraints are permissions, not just limits.** Reading one for what it *enables*
   is a different habit than reading it for what it forbids.
 - **Pick data structures by operation frequency × cost.** Find the operation that
