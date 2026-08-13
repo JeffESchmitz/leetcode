@@ -122,6 +122,33 @@ struct InvertBinaryTreeTests {
         #expect(levelOrder(inverted) == [1, 2])
     }
 
+    @Test("perfect tree")
+    func perfectTree() {
+        // Every node has two children, so every level reverses cleanly.
+        let inverted = solution.invertTree(makeTree([1, 2, 3, 4, 5, 6, 7]))
+
+        #expect(levelOrder(inverted) == [1, 3, 2, 7, 6, 5, 4])
+    }
+
+    @Test("interior node with one child, on the left")
+    func interiorSingleChildOnTheLeft() {
+        // A one-child node *inside* the tree rather than at the root. This is
+        // the case that separates inversion from "reverse the values at each
+        // level" — a reading that gives identical output on every example the
+        // problem page supplies, because all of them are perfect or empty.
+        let inverted = solution.invertTree(makeTree([1, 2, 3, 4]))
+
+        #expect(levelOrder(inverted) == [1, 3, 2, nil, nil, nil, 4])
+    }
+
+    @Test("interior node with one child, on the right")
+    func interiorSingleChildOnTheRight() {
+        // Mirror of the case above.
+        let inverted = solution.invertTree(makeTree([1, 2, 3, nil, nil, nil, 4]))
+
+        #expect(levelOrder(inverted) == [1, 3, 2, 4])
+    }
+
     @Test("left-skewed chain becomes right-skewed")
     func leftSkewedChain() {
         let inverted = solution.invertTree(makeTree([1, 2, nil, 3, nil, 4]))
@@ -143,6 +170,16 @@ struct InvertBinaryTreeTests {
         let inverted = solution.invertTree(makeTree([1, 2, 3, 4, nil, nil, nil, 5]))
 
         #expect(levelOrder(inverted) == [1, 3, 2, nil, nil, nil, 4, nil, 5])
+    }
+
+    @Test("duplicate values")
+    func duplicateValues() {
+        // Two nodes named 1 sit at the same depth on opposite sides. Inversion
+        // never reads a value, so an answer that merely preserves the multiset
+        // of them is not enough — the comparison has to be structural.
+        let inverted = solution.invertTree(makeTree([2, 1, 1, 3, nil, nil, 4]))
+
+        #expect(levelOrder(inverted) == [2, 1, 1, 4, nil, nil, 3])
     }
 
     @Test("negative values")

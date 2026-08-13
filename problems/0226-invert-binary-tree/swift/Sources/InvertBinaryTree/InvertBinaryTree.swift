@@ -29,6 +29,13 @@ public struct Solution {
     public init() {}
 
     public func invertTree(_ root: TreeNode?) -> TreeNode? {
-        fatalError("invertTree is not yet implemented")
+        guard let root else {
+            return nil
+        }
+
+        (root.left, root.right) = (root.right, root.left)
+        root.left = invertTree(root.left)
+        root.right = invertTree(root.right)
+        return root
     }
 }
