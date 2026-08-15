@@ -29,6 +29,33 @@ pretty `1. Two Sum` title lives in the problem README.
 4. Re-express the example + edge-case tests in that language's native test style.
 5. Capture what surprised you in the problem README's idiom notes.
 
+## Problems
+
+Catalog of scaffolded problems (folder has a `README.md`). Link goes to the problem
+README — approach, edge notes, and per-language idioms live there. Legacy
+`pNNNN-…` leaves and folders without a README are omitted until cleaned up.
+
+| # | Problem | Leaves |
+|---|---------|--------|
+| 1 | [Two Sum](problems/0001-two-sum/README.md) | go, java, kotlin, python, rust, swift |
+| 9 | [Palindrome Number](problems/0009-palindrome-number/README.md) | swift |
+| 13 | [Roman to Integer](problems/0013-roman-to-integer/README.md) | swift |
+| 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
+| 21 | [Merge Two Sorted Lists](problems/0021-merge-two-sorted-lists/README.md) | swift |
+| 70 | [Climbing Stairs](problems/0070-climbing-stairs/README.md) | swift |
+| 100 | [Same Tree](problems/0100-same-tree/README.md) | swift |
+| 104 | [Maximum Depth of Binary Tree](problems/0104-maximum-depth-of-binary-tree/README.md) | swift |
+| 111 | [Minimum Depth of Binary Tree](problems/0111-minimum-depth-of-binary-tree/README.md) | swift |
+| 121 | [Best Time to Buy and Sell Stock](problems/0121-best-time-to-buy-and-sell-stock/README.md) | swift |
+| 125 | [Valid Palindrome](problems/0125-valid-palindrome/README.md) | swift |
+| 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
+| 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
+| 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
+| 217 | [Contains Duplicate](problems/0217-contains-duplicate/README.md) | swift |
+| 226 | [Invert Binary Tree](problems/0226-invert-binary-tree/README.md) | swift |
+| 242 | [Valid Anagram](problems/0242-valid-anagram/README.md) | swift |
+| 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
+
 ## Lessons that keep recurring
 
 Cross-problem habits earned the hard way. Each links to the problem README where it
@@ -130,6 +157,20 @@ problem rather than after.
 - **Judge percentiles are not all equal.** Runtime is signal. *Memory* percentile
   for an O(1)-space solution is process noise and moves between submissions of
   identical code. ([704](problems/0704-binary-search/README.md))
+- **If a process keeps producing values from a finite set forever, a repeat is
+  inevitable — and if the next step is deterministic, a repeat is a cycle.** That
+  is the stop signal when the statement only names “reaches 1 or loops forever.”
+  You do not need a timeout; you need “have I seen this value?” (hash set) or a
+  constant-space cousin (Floyd). Same shape whether the chain is a linked list’s
+  `.next` or a pure function `next(x)` like sum of squared digits. Sighted hard in
+  [202. Happy Number](problems/0202-happy-number/README.md); already practiced as
+  list cycle detection in
+  [141. Linked List Cycle](problems/0141-linked-list-cycle/README.md).
+- **A transform can collapse a huge legal input into a tiny box in one step.**
+  When it does, “large n” is not a divide-and-conquer cue — loop cost is bounded
+  by the size of that box, not by the magnitude of the original integer. Do not
+  confuse the input’s bit-width with the size of the state space you walk.
+  ([202](problems/0202-happy-number/README.md))
 
 ## Running a leaf
 

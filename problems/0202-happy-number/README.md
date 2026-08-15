@@ -7,7 +7,21 @@ A happy number is defined by repeatedly replacing the number with the sum of the
 
 ## Approach
 
-We will track visited values while repeatedly applying the digit-square transformation. If we ever see a value twice, we have entered a cycle and the number is not happy. If we reach 1, it is happy. This is a cycle-detection problem with O(n) time in the number of transformation steps and O(k) space for the visited set, where k is the number of unique values encountered before termination.
+Track visited values while repeatedly applying the digit-square-sum transform.
+Hit `1` → happy. See a value twice → non-1 cycle → not happy. This is **cycle
+detection on an implicit functional path** (each value has one successor), the same
+shape as [141. Linked List Cycle](../0141-linked-list-cycle/README.md) with
+`next(x)` instead of `node.next`.
+
+After roughly one transform, values live in a small finite box (worst-case sum of
+squared digits for a 10-digit number is on the order of hundreds), so a repeat is
+inevitable if `1` never appears — pigeonhole + determinism, not a timeout.
+
+- **Set version (what we shipped):** O(log n)-ish time from digit work / short
+  chain; visited set size bounded by the box → O(1)-bounded space in practice,
+  higher memory on the judge chart than Floyd.
+- **Optional follow-up:** Floyd tortoise/hare — same cycle idea, true O(1) extra
+  space, no set.
 
 ## Solutions
 
