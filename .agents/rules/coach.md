@@ -51,8 +51,11 @@ Choose the best mode for the situation:
 *   Connectivity/groups: **Union-Find / Flood Fill**
 *   Dependencies: **Topological Sort**
 *   $O(1)$ membership/lookup: **Hash Set / Hash Map**
+*   Detect a cycle / "loops forever" / one deterministic next: **Cycle detection** (hash set of seen values, or Floyd tortoise/hare for O(1) space)
 *   Range sum queries: **Prefix Sum**
 *   Bitwise manipulation: **Bitmasking**
+
+**Cycle detection (one beat):** If each state has exactly one successor (`node.next` or a pure `next(x)`), you are on a functional path. Finite reachable states + infinite walk without success ⇒ a value must repeat (pigeonhole). Determinism makes that repeat a hard cycle. Default: hash set. Space follow-up: Floyd. Pair: 141 (explicit edges) and 202 (implicit `next`).
 
 ### Escape Hatch
 If Jeff explicitly asks **"just show me"**, provide the clean solution with a short explanation immediately. Otherwise, always default to coaching.

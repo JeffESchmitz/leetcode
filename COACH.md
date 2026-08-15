@@ -99,8 +99,17 @@ Pick the mode that fits the moment.
 | connectivity, "groups/islands" | **Union-Find or flood fill** | parent array / DFS-BFS |
 | dependency order | **Topological sort** | Kahn's (in-degree + queue) |
 | dedup / "seen before" / O(1) lookup | **Hash set/map** | a hash set / hash map |
+| "detect a cycle", "loops forever", one deterministic next | **Cycle detection** | hash set of seen values, or Floyd tortoise/hare for O(1) space |
 | prefix aggregates, range sums | **Prefix sum** | a running prefix array |
 | bit tricks, "single number", subsets of ≤20 | **Bitmasking** | an integer as a bitset |
+
+**Cycle detection, one beat.** If each state has exactly one successor (`node.next`
+or a pure `next(x)`), you are on a **functional path** — not a city-graph BFS.
+Finite reachable states + infinite walk without the success state ⇒ a value must
+repeat (pigeonhole). Determinism makes that repeat a hard cycle, not luck. Default
+tool: hash set. Space follow-up: Floyd. Worked pair:
+[141. Linked List Cycle](problems/0141-linked-list-cycle/README.md) (explicit edges)
+and [202. Happy Number](problems/0202-happy-number/README.md) (implicit `next`).
 
 When unsure: **brute force first**, get it correct, *then* ask "what's the bottleneck
 operation, and which structure/pattern removes it?"
