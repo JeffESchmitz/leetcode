@@ -111,8 +111,45 @@ tool: hash set. Space follow-up: Floyd. Worked pair:
 [141. Linked List Cycle](problems/0141-linked-list-cycle/README.md) (explicit edges)
 and [202. Happy Number](problems/0202-happy-number/README.md) (implicit `next`).
 
+**Monotonic stack, one beat.** Trigger: the answer for each element is "the first
+element to its **left or right** that is bigger/smaller." Brute force asks a *pull*
+question per element — "who out there beats me?" — and re-walks the same ground
+every time, `O(n²)`. Flip it to a *push* question and walk once: **"who was waiting
+for someone like me?"** Hold the still-unanswered elements on a stack, which stays
+sorted for free because any arrival that beats the top pops it. One arrival can
+settle a whole run of waiters at once, nearest-waiter-first — that LIFO order is
+why it is a stack and not a queue. Each element is pushed once and popped at most
+once, so the pass is `O(n)` amortized despite the inner `while`. Anything still on
+the stack at the end has no answer. Worked example:
+[496. Next Greater Element I](problems/0496-next-greater-element-i/README.md).
+
 When unsure: **brute force first**, get it correct, *then* ask "what's the bottleneck
 operation, and which structure/pattern removes it?"
+
+### Two rules worth more than any single pattern
+
+**Nested loops multiply; sequential loops add.** Optimizing usually means turning a
+`×` into a `+`. Two arrays of 1000, one loop inside the other, is 10⁶ operations;
+the same two arrays traversed one *after* the other is 2,000 — a 500× difference
+from nothing but loop structure. The move that gets you there is almost always:
+**precompute everything once, then look answers up**, instead of re-deriving the
+same fact per query. It is fine — often required — for the precompute pass to
+compute answers nobody ends up asking for. Doing redundant work once beats doing
+shared work repeatedly. Worked example:
+[496. Next Greater Element I](problems/0496-next-greater-element-i/README.md).
+
+**"Next", "previous", "to the right of", "adjacent" ⇒ sorting is off the table.**
+Those words define a relationship over *positions*. Sorting preserves the multiset
+of values and destroys position, so it discards half the definition and yields a
+confident wrong answer. In `[1,3,4,2]` the next greater element of `2` is nothing
+(`-1`), but sorted to `[1,2,3,4]` it looks like `3`.
+
+**Corollary on sentinels.** A magic return value (`-1`, `NULL`, `INT_MIN`) is safe
+only when it lies *outside* the domain of real answers. 496 may return `-1` for "no
+answer" solely because its constraints say `0 <= values`. Allow negatives and the
+sentinel becomes ambiguous with a legitimate result. When a judge's signature forces
+one, honor it at the boundary and keep the interior honest:
+`nums1.map { nextGreater(of: $0, in: nums2) ?? -1 }`.
 
 ---
 
