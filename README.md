@@ -51,9 +51,11 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
+| 206 | [Reverse Linked List](problems/0206-reverse-linked-list/README.md) | swift |
 | 217 | [Contains Duplicate](problems/0217-contains-duplicate/README.md) | swift |
 | 226 | [Invert Binary Tree](problems/0226-invert-binary-tree/README.md) | swift |
 | 242 | [Valid Anagram](problems/0242-valid-anagram/README.md) | swift |
+| 496 | [Next Greater Element I](problems/0496-next-greater-element-i/README.md) | swift |
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
 
 ## Lessons that keep recurring
@@ -74,9 +76,12 @@ problem rather than after.
   load-bearing — violate it and you get a confident *wrong answer*, not a crash. And
   load-bearing promises are usually the ones you deliberately *don't* guard, because
   checking them costs more than the algorithm they enable. See
-  [704](problems/0704-binary-search/README.md) (sortedness) and
+  [704](problems/0704-binary-search/README.md) (sortedness),
   [217](problems/0217-contains-duplicate/README.md) (value bounds revoking a
-  counting array).
+  counting array), and
+  [496](problems/0496-next-greater-element-i/README.md) (uniqueness and the
+  subset guarantee carrying the dictionary design, while the `≤ 1000` size
+  bound is only a hint).
 - **When two forms are equivalent, prefer the one that mirrors how the problem states
   it.** Algebraically-equal expressions are not equally *trustworthy*. The form that
   transcribes the problem introduces no derived quantity to compute, truncate, or
