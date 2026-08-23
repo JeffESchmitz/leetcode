@@ -57,6 +57,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 242 | [Valid Anagram](problems/0242-valid-anagram/README.md) | swift |
 | 496 | [Next Greater Element I](problems/0496-next-greater-element-i/README.md) | swift |
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
+| 724 | [Find Pivot Index](problems/0724-find-pivot-index/README.md) | swift |
 
 ## Lessons that keep recurring
 
@@ -81,7 +82,28 @@ problem rather than after.
   counting array), and
   [496](problems/0496-next-greater-element-i/README.md) (uniqueness and the
   subset guarantee carrying the dictionary design, while the `≤ 1000` size
-  bound is only a hint).
+  bound is only a hint), and
+  [724](problems/0724-find-pivot-index/README.md) (`1 <= nums.length` is the
+  promise that deletes the empty guard; both other constraints are only hints).
+- **An identity is not a test.** `total = leftSum + nums[i] + rightSum` is true at
+  *every* index — it is what "total" means, so testing it always passes and tells
+  you nothing. Its value is that you can **rearrange** it to compute a quantity you
+  would otherwise have to loop for: `rightSum = total - leftSum - nums[i]`. The
+  *test* is a separate, sometimes-false statement: `leftSum == rightSum`. Whenever
+  a one-pass trick replaces an inner loop, look for exactly this pair — an identity
+  supplying the machinery, and a predicate asking the question. Collapsing them into
+  one line is the classic way to write something that compiles, runs, and is
+  meaningless. Sighted in
+  [724. Find Pivot Index](problems/0724-find-pivot-index/README.md).
+- **Sentinel safety comes from the *return* domain, not the input constraints.**
+  A magic `-1` is unambiguous when it lies outside the set of legal answers — and
+  what defines that set is *what you return*, not what you were given.
+  [496](problems/0496-next-greater-element-i/README.md) returns *values*, so its
+  `-1` is safe only because `0 <= nums[i]` forbids negative ones;
+  [724](problems/0724-find-pivot-index/README.md) returns an *index*, so `-1` is
+  safe no matter how negative the values get. Ask "could a real answer ever equal
+  my sentinel?" against the output domain, and the input bounds stop being a
+  distraction.
 - **When two forms are equivalent, prefer the one that mirrors how the problem states
   it.** Algebraically-equal expressions are not equally *trustworthy*. The form that
   transcribes the problem introduces no derived quantity to compute, truncate, or
