@@ -104,6 +104,17 @@ problem rather than after.
   safe no matter how negative the values get. Ask "could a real answer ever equal
   my sentinel?" against the output domain, and the input bounds stop being a
   distraction.
+- **A performance claim needs a mechanism, not a number.** "This version uses less
+  memory" is a hypothesis until you can name the byte it removed — a dropped
+  allocation, a smaller array, an avoided copy. Absent a *because*, suspect the
+  measurement. Judge memory percentiles on an `O(1)` solution measure process RSS
+  (language runtime + the input the judge allocated for you), so they wobble across
+  identical submissions. The cheap decisive check is an instruction diff:
+  `swiftc -O -emit-assembly` both versions and compare. Two forms of
+  [724](problems/0724-find-pivot-index/README.md) — one naming `rightSum` in a
+  `let`, one inlining it into the `if` — produced **36 instructions each with zero
+  diff**, because a `let` names a register, not a byte. Falsifier for any such
+  claim: resubmit the *identical* code and see whether the number moves.
 - **When two forms are equivalent, prefer the one that mirrors how the problem states
   it.** Algebraically-equal expressions are not equally *trustworthy*. The form that
   transcribes the problem introduces no derived quantity to compute, truncate, or

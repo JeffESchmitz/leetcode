@@ -160,6 +160,48 @@ When `n` inputs collapse to a **single scalar**, reach for a running
 accumulator, not a materialised prefix array. That is what buys the `O(1)`
 space here.
 
+## Reflection
+
+**Where the time went.** Almost all of it in **A — understanding**, and on one
+thing: the array splits into **three** pieces at the wall, not two. That single
+misconception surfaced four separate times in four disguises —
+
+- summing `1 + (-1)` and calling the pivot index `1` (those elements are indices
+  0 *and* 1, so the wall is at 2),
+- writing a row labelled `wall at -1`,
+- computing `leftSum = 2` at wall 2 when the left side was `[2, 1] = 3`,
+- solving the identity as `rightSum = total - leftSum`, dropping `nums[i]`.
+
+Every one of them is the wall element trying to join a team. Naming it once —
+*"the pivot belongs to neither side"* — would have been cheaper than debugging it
+four times. **B (identify)** was fast once the identity was written down.
+**C (write)** was one shot, including the `leftSum += value` placement.
+
+**The arithmetic slip worth remembering.** At `i = 0` on `[2, 1, -1]` both sums
+came out `0` and the row was still marked "not equal." The numbers were right; the
+comparison wasn't. Empty sides really do produce `0`, and `0 == 0` really does
+pass — an edge case that *looks* degenerate but is an ordinary row.
+
+**Recency is a trap.** 496 was two days old, so "to the left of" pulled hard toward
+a monotonic stack. The literal trigger for that pattern is "the **first element**
+to its left/right that is **bigger or smaller**" — 724 asks for a *sum comparison*,
+which does not match. The rule that actually fired was *sorting is illegal*, which
+names no data structure at all. Run the literal trigger, not the vibe.
+
+**Two rules promoted to `COACH.md`.** *An identity is not a test*, and *sentinel
+safety comes from the return domain, not the input constraints*.
+
+**A perf claim needs a mechanism.** A submission scored "great runtime, not great
+memory," which suggested rewriting `let rightSum = ...` inline into the `if`. Both
+forms were compiled with `swiftc -O` and their instruction streams diffed: **36
+instructions each, zero difference**, no heap allocation, no stack frame. `let`
+names a value living in a register; removing the name removes nothing at runtime.
+The percentile was measuring process RSS — Swift runtime plus the input array —
+and is noise around a fixed floor for any `O(1)` solution. Falsifier: resubmit
+identical code and watch the number move. The transferable habit is the `-O`
+instruction diff itself: cheap, decisive, and applicable to any "this version is
+faster" claim that arrives without a *because*.
+
 ## Solutions
 
 Swift is the source of truth; the rest are translations.

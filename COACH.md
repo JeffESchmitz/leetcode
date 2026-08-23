@@ -123,6 +123,26 @@ once, so the pass is `O(n)` amortized despite the inner `while`. Anything still 
 the stack at the end has no answer. Worked example:
 [496. Next Greater Element I](problems/0496-next-greater-element-i/README.md).
 
+**Prefix sum, one beat.** Trigger: every candidate position needs an aggregate over
+*everything before it* or *everything after it*. Brute force recomputes both sides
+per position, `O(n²)`, and each position re-adds ground its neighbour just covered.
+The fix is a **running accumulator plus one precomputed total**. Carry the
+behind-you aggregate as you walk; get the ahead-of-you aggregate by *subtraction*,
+never by summing. `O(n)` time, and `O(1)` space when the answer is a single scalar
+— you only materialise a prefix *array* if later queries need random access to
+arbitrary ranges. Worked example:
+[724. Find Pivot Index](problems/0724-find-pivot-index/README.md).
+
+**An identity is not a test.** The subtraction trick above rests on a statement that
+is true at *every* index — `total = leftSum + nums[i] + rightSum` is simply what
+"total" means. Testing it always passes and tells you nothing; its worth is that it
+**rearranges** into the quantity you would otherwise loop for. The *test* is a
+separate, sometimes-false predicate: `leftSum == rightSum`. Whenever a one-pass
+trick replaces an inner loop, expect exactly this pair — an identity supplying the
+machinery, a predicate asking the question — and keep them on separate lines. Fusing
+them yields code that compiles, runs, and is meaningless. Sighted in
+[724](problems/0724-find-pivot-index/README.md).
+
 When unsure: **brute force first**, get it correct, *then* ask "what's the bottleneck
 operation, and which structure/pattern removes it?"
 
@@ -150,6 +170,16 @@ answer" solely because its constraints say `0 <= values`. Allow negatives and th
 sentinel becomes ambiguous with a legitimate result. When a judge's signature forces
 one, honor it at the boundary and keep the interior honest:
 `nums1.map { nextGreater(of: $0, in: nums2) ?? -1 }`.
+
+**Sharpened by 724: the protection comes from the *return* domain, not the input
+constraints.** What defines the set of legal answers is *what you return*, not what
+you were handed. 496 returns **values**, so its `-1` is safe only because
+`0 <= nums[i]` forbids negative ones — an input constraint doing load-bearing work.
+[724](problems/0724-find-pivot-index/README.md) returns an **index**, so `-1` is
+safe no matter how negative the values get, and its `-1000 <= nums[i]` bound does no
+protective work at all. Ask *"could a real answer ever equal my sentinel?"* against
+the output domain and the input bounds stop being a distraction. Had 724 asked for
+the pivot *value*, `-1` would collide and the signature would have had to change.
 
 ---
 
