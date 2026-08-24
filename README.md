@@ -48,6 +48,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 111 | [Minimum Depth of Binary Tree](problems/0111-minimum-depth-of-binary-tree/README.md) | swift |
 | 121 | [Best Time to Buy and Sell Stock](problems/0121-best-time-to-buy-and-sell-stock/README.md) | swift |
 | 125 | [Valid Palindrome](problems/0125-valid-palindrome/README.md) | swift |
+| 136 | [Single Number](problems/0136-single-number/README.md) | swift |
 | 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
@@ -117,6 +118,34 @@ problem rather than after.
   `let`, one inlining it into the `if` — produced **36 instructions each with zero
   diff**, because a `let` names a register, not a byte. Falsifier for any such
   claim: resubmit the *identical* code and see whether the number moves.
+- **Before trusting a benchmark percentile, look at the spread of the whole
+  distribution.** The question is not "is this metric speed or memory?" but
+  **"is the spread wide enough that my choices could move it?"** A distribution
+  only a few percent wide is measuring a floor you do not control; one spanning
+  orders of magnitude is measuring your decisions. The two histograms on an
+  accepted [643](problems/0643-maximum-average-subarray-i/README.md) submission
+  make the contrast in one glance — runtime ran `0ms → 1334ms` (**~1300×**,
+  separating `O(n)` from `O(n × k)`, so *beats 100%* was earned), while memory
+  ran `21.3mb → 22.4mb` (**1.05×**, the Swift runtime plus the judge-allocated
+  input, against which two `Int`s are invisible, so *beats 6.90%* meant
+  nothing). Read the axis before reading the percentile.
+- **Read compound constraints apart, not as a unit.** One line can carry both
+  kinds at once. `1 <= k <= n <= 10^5` is three separate statements: `<= 10^5`
+  is a sizing *hint* that decides your Big-O, while `1 <= k` and `k <= n` are
+  load-bearing *promises* that delete guards — no divide-by-zero, at least one
+  window always exists, so no empty case, no sentinel, and a non-optional
+  return type. See [643](problems/0643-maximum-average-subarray-i/README.md).
+- **Read a constraint as a range of scenarios, not as the one number in the
+  example — and check the middle, not just the ends.** Sizing an approach
+  against the sample input is how `O(n × k)` looks affordable: `k = 4` is one
+  example's value, not a constraint. Push the variable across its whole legal
+  range, then push *past* the endpoints. Brute force on
+  [643](problems/0643-maximum-average-subarray-i/README.md) costs
+  `(n - k + 1) × k`, which is `O(n)` at both `k = 1` **and** `k = n` — at
+  `k = n` there is only one window, so nothing slides — but `≈ n²/4` at
+  `k = n/2`. Endpoint-only testing would have declared it safe. When a cost
+  formula multiplies two quantities that trade off against each other, the
+  worst case lives *between* the extremes.
 - **When two forms are equivalent, prefer the one that mirrors how the problem states
   it.** Algebraically-equal expressions are not equally *trustworthy*. The form that
   transcribes the problem introduces no derived quantity to compute, truncate, or

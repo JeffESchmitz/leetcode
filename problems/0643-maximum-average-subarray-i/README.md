@@ -156,6 +156,75 @@ result. Same shape as [136](../0136-single-number/README.md)'s
 in play are different things: `reduce`'s `0` is where the summing *starts*,
 whereas seeding `windowSum = 0` would be a false *claim about the data*.
 
+## Reflection
+
+**Where the time went.** Step 1 (goal) was quick and mostly self-driven — the
+`Double` return type, the "max over windows" framing, and the no-tie-breaking
+call all landed without prompting. The bulk of the session went to **step 3,
+constraints**, and that was time well spent rather than time lost: it is where
+the algorithm was actually decided.
+
+**The standout moment was running the escalation unprompted.** Given `k = 4`
+and `n = 10^5`, the first instinct was "400,000 operations, that's fine" — true,
+and a trap, because `k = 4` was one example's value, not a constraint. The move
+that mattered was refusing to stop there: push `k` to 1,000, then to `n`, and
+watch `O(n × k)` become `10^10`. **Reading a constraint as a range of scenarios
+rather than as the one number in front of you** is the habit; the specific
+arithmetic is disposable.
+
+**Then the correction that sharpened it.** `k = n` is actually the *fast* case —
+at `k = n` there is exactly one window, so nothing slides and the cost is `O(n)`.
+The true cost is `(n - k + 1) × k`, which peaks in the *middle* of the range at
+`≈ n²/4`. Testing only the endpoints of a constraint would have cleared brute
+force. Promoted to `COACH.md` as its own lesson.
+
+**Vocabulary that mattered.** Calling the windows "permutations" was one wrong
+word doing real damage: a permutation is a *reordering*, and reordering is
+exactly what "contiguous" forbids. It also inflates the search space from
+`n - k + 1` to something factorial. Saying **window** keeps the problem small.
+Same family as the *sorting is off the table* rule.
+
+**The line that tripped things up was not the one expected.** `reduce` was
+already familiar from [136](../0136-single-number/README.md)'s
+`nums.reduce(0, ^)`. The unfamiliar half of `nums[0..<k].reduce(0, +)` was the
+**slice** — that subscripting an array with a range yields an `ArraySlice`, a
+view over existing storage rather than a copy. Worth naming precisely, because
+"I don't understand this line" was really "I don't understand this *half* of
+this line."
+
+**Analysis facts vs. implementation facts.** The window-count formula
+`n - k + 1` took several passes to land, and then never appeared in the code —
+the loop walks the right edge and lets the count take care of itself. Some
+facts exist to decide *whether an approach survives*; others exist to *be
+typed*. Missing one of the first kind costs nothing at the keyboard.
+
+**Compound constraints carry both kinds.** `1 <= k <= n <= 10^5` was initially
+graded as a single "hint." It is three statements stapled together: `<= 10^5`
+is a sizing hint, while `1 <= k` and `k <= n` are load-bearing promises that
+delete guards (no divide-by-zero, no empty case, non-optional return). Read
+them apart.
+
+**The histogram made the metrics lesson visible.** The accepted submission
+scored *runtime 0 ms, beats 100%* and *memory 22.62 MB, beats 6.90%* — and the
+two charts sitting side by side answered which number to care about:
+
+```
+Runtime axis:    0ms ──────────────────────► 1334ms      spread ≈ 1300×
+Memory  axis:  21.3mb ─────────────────────►  22.4mb     spread ≈ 1.05×
+```
+
+The runtime spread is three orders of magnitude because it separates `O(n)`
+from `O(n × k)` — real, and earned. The entire memory distribution fits in
+1.1 MB, a floor set by the Swift runtime and the judge-allocated input array,
+against which two `Int`s are invisible. A follow-up hypothesis — *is it because
+we use a `struct` and others use a `class`?* — was ruled out twice over: the
+submitted code *was* a `class`, and a class instance costs ~32 bytes against
+22.6 MB either way.
+
+**The test that generalizes:** not "is this metric speed or memory," but
+**"is the spread wide enough that my choices could move it?"** Promoted to the
+root README.
+
 ## Solutions
 
 Swift is the source of truth; the rest are translations.
