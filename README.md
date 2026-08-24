@@ -33,11 +33,12 @@ pretty `1. Two Sum` title lives in the problem README.
 
 Catalog of scaffolded problems (folder has a `README.md`). Link goes to the problem
 README — approach, edge notes, and per-language idioms live there. Legacy
-`pNNNN-…` leaves and folders without a README are omitted until cleaned up.
+🔴 marks a leaf scaffolded with failing tests and left unsolved on purpose — a translation waiting to be attempted from memory.
 
 | # | Problem | Leaves |
 |---|---------|--------|
 | 1 | [Two Sum](problems/0001-two-sum/README.md) | go, java, kotlin, python, rust, swift |
+| 3 | [Longest Substring Without Repeating Characters](problems/0003-longest-substring-without-repeating-characters/README.md) | go, swift 🔴 |
 | 9 | [Palindrome Number](problems/0009-palindrome-number/README.md) | swift |
 | 13 | [Roman to Integer](problems/0013-roman-to-integer/README.md) | swift |
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
@@ -60,6 +61,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 643 | [Maximum Average Subarray I](problems/0643-maximum-average-subarray-i/README.md) | swift |
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
 | 724 | [Find Pivot Index](problems/0724-find-pivot-index/README.md) | swift |
+| 771 | [Jewels and Stones](problems/0771-jewels-and-stones/README.md) | go, swift 🔴 |
 | 1979 | [Find Greatest Common Divisor of Array](problems/1979-find-greatest-common-divisor-of-array/README.md) | swift |
 
 ## Lessons that keep recurring

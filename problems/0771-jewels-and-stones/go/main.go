@@ -8,8 +8,6 @@ package main
 import "fmt"
 
 func numJewelsInStones(jewels string, stones string) int {
-	// TODO: implement
-
 	// Create an empty Go "Set"
 	jewelsSet := make(map[rune]struct{})
 
