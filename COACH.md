@@ -90,7 +90,7 @@ Pick the mode that fits the moment.
 | weighted shortest path | **Dijkstra / 0-1 BFS** | a priority queue / min-heap |
 | "first/smallest X that satisfies" + monotonic | **Binary search** | the language's binary search, or hand-rolled |
 | sorted array, pair/triple summing to target | **Two pointers** | index from both ends |
-| "subarray/substring with…" | **Sliding window** | grow/shrink `[l,r]`, track with a hash map |
+| "subarray/substring with…", "contiguous, length `k`" | **Sliding window** | fixed `k`: carry a running aggregate; variable: grow/shrink `[l,r]` with a hash map |
 | "count ways", "min/max to reach", overlapping subproblems | **DP / memoization** | a memo map or an n-dimensional table |
 | "all combinations/permutations/subsets" | **Backtracking / DFS** | recursion + a mutable `path` |
 | top-k / "k largest/closest" | **Heap** | a priority queue |
@@ -132,6 +132,32 @@ never by summing. `O(n)` time, and `O(1)` space when the answer is a single scal
 — you only materialise a prefix *array* if later queries need random access to
 arbitrary ranges. Worked example:
 [724. Find Pivot Index](problems/0724-find-pivot-index/README.md).
+
+**Sliding window, one beat.** Trigger: "contiguous subarray/substring of length
+`k`", or "best window satisfying X". Consecutive windows **overlap** — a fixed-size
+window of width `k` shares `k - 1` elements with its neighbour — so recomputing each
+one from scratch pays `k` to learn something that changed by **two numbers**. Carry
+the aggregate and adjust at the edges: **subtract the departure, add the arrival**,
+`O(1)` per slide. Two traps: **seed the first window before sliding** (you cannot
+slide off nothing), and **seed the running best from that real window, not from `0`**
+— a `0` seed beats every candidate when the data is all-negative. Fixed `k` is the
+easy case; a *variable*-width window (grow the right edge, shrink the left while a
+condition holds) is the harder sibling. Worked example:
+[643. Maximum Average Subarray I](problems/0643-maximum-average-subarray-i/README.md).
+
+**Sibling patterns, one distinction.** Prefix sum and sliding window both refuse to
+recompute, but they move differently: a prefix **grows** (an accumulator that only
+ever takes on more), a window **slides** (fixed span, one in and one out). Ask *does
+my region of interest have a fixed width?* Fixed ⇒ window. Everything-so-far ⇒
+prefix. Compare [724](problems/0724-find-pivot-index/README.md) against
+[643](problems/0643-maximum-average-subarray-i/README.md).
+
+**Check the middle of a constraint range, not just its ends.** Brute force on 643
+costs `(n - k + 1) × k`, which is `O(n)` at both `k = 1` *and* `k = n` — at `k = n`
+there is only one window, so nothing slides — but `≈ n²/4` at `k = n/2`. Testing
+only the endpoints would have declared it safe. When a cost formula multiplies two
+quantities that trade off against each other, the worst case lives **between** the
+extremes.
 
 **An identity is not a test.** The subtraction trick above rests on a statement that
 is true at *every* index — `total = leftSum + nums[i] + rightSum` is simply what

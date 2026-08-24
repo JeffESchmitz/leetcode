@@ -56,6 +56,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 226 | [Invert Binary Tree](problems/0226-invert-binary-tree/README.md) | swift |
 | 242 | [Valid Anagram](problems/0242-valid-anagram/README.md) | swift |
 | 496 | [Next Greater Element I](problems/0496-next-greater-element-i/README.md) | swift |
+| 643 | [Maximum Average Subarray I](problems/0643-maximum-average-subarray-i/README.md) | swift |
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
 | 724 | [Find Pivot Index](problems/0724-find-pivot-index/README.md) | swift |
 | 1979 | [Find Greatest Common Divisor of Array](problems/1979-find-greatest-common-divisor-of-array/README.md) | swift |
