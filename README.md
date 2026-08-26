@@ -57,6 +57,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 217 | [Contains Duplicate](problems/0217-contains-duplicate/README.md) | swift |
 | 226 | [Invert Binary Tree](problems/0226-invert-binary-tree/README.md) | swift |
 | 242 | [Valid Anagram](problems/0242-valid-anagram/README.md) | swift |
+| 283 | [Move Zeroes](problems/0283-move-zeroes/README.md) | swift |
 | 496 | [Next Greater Element I](problems/0496-next-greater-element-i/README.md) | swift |
 | 643 | [Maximum Average Subarray I](problems/0643-maximum-average-subarray-i/README.md) | swift |
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
@@ -131,6 +132,22 @@ problem rather than after.
   ran `21.3mb → 22.4mb` (**1.05×**, the Swift runtime plus the judge-allocated
   input, against which two `Int`s are invisible, so *beats 6.90%* meant
   nothing). Read the axis before reading the percentile.
+- **"In-place, keep relative order" ⇒ fill from the left, and the swap only
+  reaches backward.** Swapping each unwanted element toward the *far end* puts
+  the unwanted ones where they belong and emits the keepers **back to front** —
+  the first keeper flung right is the last one you will ever see. Not an
+  off-by-one; the direction of the algorithm. The working shape is a read/write
+  pair moving the same way: `read` is the clock and visits every slot, `write`
+  is the next slot a keeper belongs in and advances only when one is placed.
+  Both swap targets are `<= read`, so the unread tail is never touched and
+  mutating while iterating is safe. Picture: `[ settled | discarded | unread ]`.
+  See [283](problems/0283-move-zeroes/README.md).
+- **A debug `print` can be the nested loop you did not write.** `"\(nums)"`
+  formats every element — `O(n)` — and doing that once per iteration is `O(n²)`
+  from a line that "just prints." On [283](problems/0283-move-zeroes/README.md)
+  it was 20,000 formats of a 10,000-element array (~100 MB of string building)
+  that locked the terminal. Trace on the small example, then delete the prints
+  before the suite runs, or filter: `swift test --filter example1`.
 - **Read compound constraints apart, not as a unit.** One line can carry both
   kinds at once. `1 <= k <= n <= 10^5` is three separate statements: `<= 10^5`
   is a sizing *hint* that decides your Big-O, while `1 <= k` and `k <= n` are

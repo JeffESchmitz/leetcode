@@ -90,6 +90,7 @@ Pick the mode that fits the moment.
 | weighted shortest path | **Dijkstra / 0-1 BFS** | a priority queue / min-heap |
 | "first/smallest X that satisfies" + monotonic | **Binary search** | the language's binary search, or hand-rolled |
 | sorted array, pair/triple summing to target | **Two pointers** | index from both ends |
+| "in-place", "remove/move X", "keep relative order" | **Two pointers (read/write)** | same direction; `write` lags `read`, advances only on keepers |
 | "subarray/substring with…", "contiguous, length `k`" | **Sliding window** | fixed `k`: carry a running aggregate; variable: grow/shrink `[l,r]` with a hash map |
 | "count ways", "min/max to reach", overlapping subproblems | **DP / memoization** | a memo map or an n-dimensional table |
 | "all combinations/permutations/subsets" | **Backtracking / DFS** | recursion + a mutable `path` |
@@ -151,6 +152,21 @@ ever takes on more), a window **slides** (fixed span, one in and one out). Ask *
 my region of interest have a fixed width?* Fixed ⇒ window. Everything-so-far ⇒
 prefix. Compare [724](problems/0724-find-pivot-index/README.md) against
 [643](problems/0643-maximum-average-subarray-i/README.md).
+
+**Compaction, one beat.** Trigger: *in-place*, *remove* or *move* some
+elements, *maintain relative order* of the rest. Two pointers walking the **same
+direction**: `read` is the clock — it visits every slot in lockstep with the loop
+— and `write` is the next slot a keeper belongs in, advancing only when one is
+placed. `read - write` is the count of discards so far and never shrinks; the two
+start together, separate at the first discard, and never rejoin. Both swap
+targets are `<= read`, so **the swap only reaches backward** — the unread tail is
+pristine and mutating while iterating is safe. Picture it as three regions:
+`[ settled | discarded | unread ]`. The trap: swapping each discard toward the
+*far end* places the discards correctly and emits the keepers **reversed**. And
+the follow-up "minimize operations" is asking you to notice that before the first
+discard `read == write` and every swap is a no-op. Worked example:
+[283. Move Zeroes](problems/0283-move-zeroes/README.md); 26 and 27 use the
+identical skeleton.
 
 **Check the middle of a constraint range, not just its ends.** Brute force on 643
 costs `(n - k + 1) × k`, which is `O(n)` at both `k = 1` *and* `k = n` — at `k = n`
