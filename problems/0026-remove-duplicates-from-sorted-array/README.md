@@ -54,11 +54,78 @@ Constraints:
 
 ## Approach
 
-_TBD — worked under Coach Mode._
+**Two-pointer (read/write) compaction — identical skeleton to
+[283. Move Zeroes](../0283-move-zeroes/README.md), `O(n)` time, `O(1)` space.**
+
+### Two things this problem is easy to get backwards on
+
+- **Order.** The array is sorted **non-decreasing** (ties allowed, not
+  strictly ascending), and survivors keep their original relative order —
+  which, since the input already never drops, means the output stays
+  non-decreasing too.
+- **The return value.** `k` is the count of **unique elements**, not the
+  count of duplicates removed. Trace `[1,1,2]`: exactly one duplicate gets
+  removed, but the correct answer is `k = 2` — the count of survivors, not
+  discards.
+
+### The loop
+
+```swift
+var write = 1 // index 0 is always kept
+
+for read in 1..<nums.count {
+    if nums[read] != nums[write - 1] { // differs from the last kept value
+        nums[write] = nums[read]
+        write += 1
+    }
+}
+return write
+```
+
+Same shape as 283: `read` is the clock, visiting every index once; `write` is
+the next slot a *unique* value belongs in, advancing only when one is kept.
+Because the input is sorted, "differs from the last **kept** value" is
+equivalent to "differs from every value kept so far" — no need to look back
+further than one slot.
+
+### Constraint: hint or promise?
+
+`1 <= nums.length` is a **promise**, not a hint — it guarantees index `0`
+exists, so `write` can start at `1` unconditionally. An early draft carried a
+defensive `guard !nums.isEmpty else { return 0 }`; that branch is dead code,
+since the constraint makes it unreachable. Same lesson as
+[283](../0283-move-zeroes/README.md) and
+[724](../0724-find-pivot-index/README.md).
+
+### Complexity
+
+- **Time:** `O(n)` — one pass.
+- **Space:** `O(1)` — two `Int` indices.
+
+Verified: 12/12 local tests, and accepted on LeetCode (362/362 judge cases,
+0ms runtime, beats 100%).
 
 ## Reflection
 
-_TBD._
+Solved across two short, time-boxed sessions. The GOAL step surfaced two real
+misconceptions, not one: "non-decreasing" was first read as "descending" (a
+vocabulary gap, resolved by definition + example trace), and the return value
+was first modeled as "count of duplicates removed" rather than "count of
+uniques kept" — caught only by tracing the concrete example against the
+README's own stated answer (`k = 2` for `[1,1,2]`), not by inspection alone.
+
+**Transfer from 283 was real.** Once the read/write skeleton was named,
+writing the loop took minutes — B (identify) was the expensive step, C
+(write) was fast. Matches 283's own note that 26 and 27 reuse its skeleton
+unchanged, just with a different keep-condition.
+
+**Environment note, unrelated to the algorithm:** the first `swift test` run
+failed for reasons that had nothing to do with this code — `xcode-select`
+was pointed at an installed Xcode 27 beta whose SDK doesn't compile under
+plain SwiftPM. Fixed per-invocation with
+`DEVELOPER_DIR=/Applications/Xcode-26.6.0.app/Contents/Developer` rather than
+changing the global toolchain. Worth remembering for every other leaf in this
+repo until that beta issue resolves.
 
 ## Solutions
 

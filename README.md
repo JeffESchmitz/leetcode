@@ -43,6 +43,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 13 | [Roman to Integer](problems/0013-roman-to-integer/README.md) | swift |
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
 | 21 | [Merge Two Sorted Lists](problems/0021-merge-two-sorted-lists/README.md) | swift |
+| 26 | [Remove Duplicates from Sorted Array](problems/0026-remove-duplicates-from-sorted-array/README.md) | swift |
 | 70 | [Climbing Stairs](problems/0070-climbing-stairs/README.md) | swift |
 | 100 | [Same Tree](problems/0100-same-tree/README.md) | swift |
 | 104 | [Maximum Depth of Binary Tree](problems/0104-maximum-depth-of-binary-tree/README.md) | swift |
@@ -63,6 +64,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
 | 724 | [Find Pivot Index](problems/0724-find-pivot-index/README.md) | swift |
 | 771 | [Jewels and Stones](problems/0771-jewels-and-stones/README.md) | go, swift 🔴 |
+| 1046 | [Last Stone Weight](problems/1046-last-stone-weight/README.md) | swift |
 | 1979 | [Find Greatest Common Divisor of Array](problems/1979-find-greatest-common-divisor-of-array/README.md) | swift |
 
 ## Lessons that keep recurring
