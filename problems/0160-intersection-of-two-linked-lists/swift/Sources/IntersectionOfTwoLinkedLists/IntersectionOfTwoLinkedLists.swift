@@ -11,7 +11,7 @@ public class ListNode {
 /// https://leetcode.com/problems/intersection-of-two-linked-lists/
 public struct Solution {
     public init() {}
-
+    
     /// Returns the first node both lists share (same object, not equal value),
     /// or `nil` if they never meet.
     ///
@@ -22,41 +22,33 @@ public struct Solution {
     public func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
         let lengthA = length(headA)
         let lengthB = length(headB)
-
-        var cursorA = headA
-        var cursorB = headB
-
-        // Give the longer list a head start equal to the length difference.
-        if lengthA > lengthB {
-            cursorA = advance(cursorA, by: lengthA - lengthB)
-        } else {
-            cursorB = advance(cursorB, by: lengthB - lengthA)
-        }
-
+        
+        // Each cursor skips its own surplus; the shorter list's surplus is 0.
+        var cursorA = advance(headA, by: max(0, lengthA - lengthB))
+        var cursorB = advance(headB, by: max(0, lengthB - lengthA))
+        
         // Aligned: step together. If the lists never meet, both hit nil together.
-        while cursorA != nil && cursorB != nil {
+        while let a = cursorA, let b = cursorB {
             // Identity, not equality.
-            if cursorA === cursorB {
-                return cursorA
+            if a === b {
+                return a
             }
-            cursorA = cursorA?.next
-            cursorB = cursorB?.next
+            cursorA = a.next
+            cursorB = b.next
         }
-
+        
         return nil
     }
-
+    
     /// Counts the nodes reachable from `head`.
     private func length(_ head: ListNode?) -> Int {
-        var count = 0
-        var current = head
-        while current != nil {
-            count += 1
-            current = current?.next
+        guard let head else {
+            return 0
         }
-        return count
+        return sequence(first: head, next: \.next)
+            .reduce(0) { count, _ in count + 1 }
     }
-
+    
     /// Walks `steps` nodes forward without inspecting them.
     private func advance(_ node: ListNode?, by steps: Int) -> ListNode? {
         var current = node

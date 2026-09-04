@@ -180,3 +180,20 @@ Swift is the source of truth; the rest are translations.
 ## Idiom notes
 
 _What each language made me see when translating from Swift (fill in as you go):_
+
+### Swift (idiom pass after the first accepted version)
+
+- **`while let a = cursorA, let b = cursorB`** instead of `while cursorA != nil
+  && cursorB != nil` followed by `cursorA?.next`. Unwrap once at the top of the
+  loop and the body works with real nodes — no optional chaining, and the
+  identity check reads as `a === b`. The pattern name is *unwrap as you go*.
+- **`max(0, lengthA - lengthB)` on both cursors** instead of an `if`/`else`
+  picking which one to advance. Each cursor skips its own surplus; the shorter
+  list's surplus is just `0`, and `advance(by: 0)` is a no-op. Removing the
+  branch made the symmetry visible: the two lists are treated identically.
+- **`sequence(first:next:)`** is the standard library's way to walk any chain
+  of "here is a thing, here is how to get the next one." With a key path,
+  `sequence(first: head, next: \.next)` lazily yields every node, so `length`
+  became a one-line `reduce`. Worth knowing because it turns any linked
+  structure into a `Sequence` without writing an iterator — `contains`,
+  `first(where:)`, `map`, and `dropFirst` all become available for free.
