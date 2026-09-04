@@ -165,6 +165,33 @@ reachable only one way. Array problems never force that distinction. Also
 noted: terminology ("what is `pA`?", "why do we need this?") was part of the
 difficulty and worth slowing down for, not pedantry.
 
+**On the "Easy" rating, reflected afterward.** Verdict from the session: "this
+was really, really hard." The rating measures the size of the trick and the
+length of the code *for a reader who already has the node model loaded and
+automatic.* It measures the algorithm, not the substrate. When every `.next`
+is a conscious decode rather than a recognition, a six-idea solution reads as
+thirty ideas. The framing that landed: a fluent guitarist sees `Am7` as one
+thing; a beginner sees four finger positions, a fret, a muted string, and a
+rhythm, all at once. The chord did not get harder — the **chunking** has not
+happened yet. This code is five chords being read as twenty finger positions.
+
+Two consequences worth carrying forward:
+
+- Man-made structures (nodes, classes, references) add a layer of
+  representation between you and the actual problem. The actual problem
+  here — two records share an outro, sync them by the end — is not hard.
+  GOAL and SHAPE are the two framework steps that strip the representation
+  off and leave the geometry, which is why 80% of the session lived there
+  and the algorithm then took one step.
+- The only edit that made the code *easier* to read was the unwrap-first
+  loop, so the identity check named two real nodes (`a === b`). Everything
+  that helped removed optionals and added names; everything that hurt was
+  shorthand. That is a finding about how this brain reads node code, not a
+  style preference.
+
+The code does not get simpler. Reading it gets faster. That is reps — one
+problem a day — and there is no shortcut.
+
 Meta: this session also discovered that a mnemonic for the 8-step framework
 had been invented in an earlier session and never written down. Candidates
 now live in the root README so it stops evaporating.
