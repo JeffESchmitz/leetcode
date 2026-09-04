@@ -29,6 +29,27 @@ pretty `1. Two Sum` title lives in the problem README.
 4. Re-express the example + edge-case tests in that language's native test style.
 5. Capture what surprised you in the problem README's idiom notes.
 
+## The 8-step framework — mnemonic candidates
+
+The eight "Understand" steps in `COACH.md` run in order: **G**oal, **S**hape,
+**C**onstraints, **S**ignature, **E**xample trace, **P**attern → algorithm,
+**E**dge cases, **D**ata structures. That is `G S C S E P E D`.
+
+Three candidate mnemonics, none adopted yet — pick one, or let them provoke a
+better one:
+
+1. **"Good Swift Coders Study Every Problem's Edge Details."**
+   On-brand and honest, but bland enough that it may not stick.
+2. **"Get Smart, Check Signature, Envision Path, Escape Doom."**
+   Reads as instructions rather than an arbitrary sentence, so the words carry
+   meaning instead of only initials.
+3. **"Grumpy Sloths Can't Stand Elevator Piano Except Drunk."**
+   Absurd, which is exactly what makes a mnemonic stick, but it encodes nothing
+   about the steps themselves.
+
+> An earlier mnemonic was invented in a coaching session and never written down.
+> It is gone. That is why this section exists.
+
 ## Problems
 
 Catalog of scaffolded problems (folder has a `README.md`). Link goes to the problem
@@ -52,6 +73,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 125 | [Valid Palindrome](problems/0125-valid-palindrome/README.md) | swift |
 | 136 | [Single Number](problems/0136-single-number/README.md) | swift |
 | 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
+| 160 | [Intersection of Two Linked Lists](problems/0160-intersection-of-two-linked-lists/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
 | 206 | [Reverse Linked List](problems/0206-reverse-linked-list/README.md) | swift |
