@@ -86,6 +86,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 704 | [Binary Search](problems/0704-binary-search/README.md) | swift |
 | 724 | [Find Pivot Index](problems/0724-find-pivot-index/README.md) | swift |
 | 771 | [Jewels and Stones](problems/0771-jewels-and-stones/README.md) | go, swift 🔴 |
+| 876 | [Middle of the Linked List](problems/0876-middle-of-the-linked-list/README.md) | swift |
 | 1046 | [Last Stone Weight](problems/1046-last-stone-weight/README.md) | swift |
 | 1979 | [Find Greatest Common Divisor of Array](problems/1979-find-greatest-common-divisor-of-array/README.md) | swift |
 
