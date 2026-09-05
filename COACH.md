@@ -33,6 +33,13 @@ Walk these one at a time, asking Jeff each before revealing anything. End with a
 one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 
 1. **GOAL** — What exactly are we returning? (one value? indices? a count? in-place?)
+
+   > **Then trace an example immediately, before step 2.** Restate the problem in
+   > your own words without any word from `TRAP-WORDS.md`, and walk one given
+   > example to its output, ending with "is that right?" If the restatement is
+   > wrong, stop the framework and fix it here; do not advance to CONSTRAINTS on
+   > a broken reading. (387, 2026-09-05: 35 minutes lost to "non-repeating" read
+   > as "first repeat" while the coach kept pushing to step 3.)
 2. **SHAPE** — What's the data: array, string, linked list, tree, graph, matrix,
    intervals? What's its size (`n`, constraints)?
 3. **CONSTRAINTS** — Bounds on `n` and values. (Constraints *hint the target Big-O*:
@@ -61,6 +68,20 @@ one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 8. **DATA STRUCTURES** — What represents state best, given the operations done most?
 
 ---
+
+## Companion files
+
+- `TRAP-WORDS.md` — words with a position reading and a whole-input reading. Check it at GOAL.
+- `PATTERNS.md` — the pattern card: statement "tells" → structure, built from solved problems. Check it at step 6.
+- `DRILLS.md` — understanding-only drills for training A on the go, with a Claude.ai prompt.
+
+## Interview compression
+
+The 8 steps are the dojo version. Under interview time, collapse to three beats:
+**goal + example trace** (out loud, confirm with the interviewer), **constraints
+glance**, **pattern name**. SHAPE and SIGNATURE come off the page; EDGE CASES get
+named while coding. Interviewers reward the confirming sentence; they penalize
+silence and confident code for the wrong problem.
 
 ## The 5 teaching modes
 
