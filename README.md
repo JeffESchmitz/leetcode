@@ -284,6 +284,15 @@ problem rather than after.
   by the size of that box, not by the magnitude of the original integer. Do not
   confuse the input’s bit-width with the size of the state space you walk.
   ([202](problems/0202-happy-number/README.md))
+- **A 2:1 speed differential finds the midpoint on an open track and collisions on a closed one.**
+  Singly linked lists forbid backward walks and random indexing, so finding the middle without
+  counting first requires two forward-moving pointers: `slow` takes 1 step while `fast` takes 2.
+  On an open track, when `fast` exhausts the list (`fast == nil || fast.next == nil`), `slow`
+  lands on the exact middle (or second middle for even lengths) in a single pass. It is the
+  exact same engine as Floyd's cycle detection:
+  [876. Middle of the Linked List](problems/0876-middle-of-the-linked-list/README.md) measures
+  the halfway point, while [141. Linked List Cycle](problems/0141-linked-list-cycle/README.md)
+  detects a loop when the runners collide.
 
 ## Running a leaf
 

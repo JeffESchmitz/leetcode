@@ -13,6 +13,14 @@ public struct Solution {
     public init() {}
 
     public func middleNode(_ head: ListNode?) -> ListNode? {
-        fatalError("middleNode is not yet implemented")
+        var slow = head
+        var fast = head
+
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+
+        return slow
     }
 }
