@@ -16,9 +16,11 @@ public struct Solution {
         var slow = head
         var fast = head
 
-        while fast != nil && fast?.next != nil {
+        // Unwrap first so the body only touches real nodes: `current` is where
+        // `fast` stands, `ahead` is the node after it. Both must exist to double-step.
+        while let current = fast, let ahead = current.next {
             slow = slow?.next
-            fast = fast?.next?.next
+            fast = ahead.next
         }
 
         return slow

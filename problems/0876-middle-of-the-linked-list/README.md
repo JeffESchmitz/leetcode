@@ -91,11 +91,11 @@ Step 3:
 
 ### The stopping condition
 
-To advance `fast` by two steps, both `fast` and `fast.next` must be non-nil. Therefore, the loop continues while:
+To advance `fast` by two steps, both `fast` and `fast.next` must be non-nil. `while let` unwraps them first and gives them names, so the body only ever touches real nodes:
 ```swift
-while fast != nil && fast?.next != nil {
+while let current = fast, let ahead = current.next {
     slow = slow?.next
-    fast = fast?.next?.next
+    fast = ahead.next
 }
 ```
 - In odd lists, `fast` lands on the last node (`fast.next == nil`), stopping with `slow` on the unique midpoint.
@@ -119,3 +119,5 @@ Swift is the source of truth; the rest are translations.
 ## Idiom notes
 
 _What each language made me see when translating from Swift (fill in as you go):_
+
+- **Swift:** the first cut was `while fast != nil && fast?.next != nil { fast = fast?.next?.next }`, correct but every step reaches through optionals. Unwrapping in the condition, `while let current = fast, let ahead = current.next`, names the two nodes the double step depends on and drops the `?` from the body. Same edit that made 160 readable. The unwrapped node needs its own name: `while let fast` alone would shadow the `var` and the body could no longer advance it.
