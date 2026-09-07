@@ -31,6 +31,7 @@ Rules for this file:
 | Linked list: reverse / merge | **Pointer rewiring with prev/current** | draw the memory first, then move one link | O(n) | 206, 21 |
 | Two lists that share a tail | **Length alignment / pointer swap** | walk both, swap heads at the end | O(n+m) | 160 |
 | "Ways to reach step n" | **Bottom-up DP (Fibonacci shape)** | each answer built from the previous two | O(n) | 70 |
+| Grid: "fill" / "connected" / "adjacent" / "island" | **Grid DFS (flood fill)** | nested recursive helper: off-board? wrong color? paint, recurse 4 ways | O(m·n) | 733 |
 | Tree: depth / equality / mirror | **Post-order DFS recursion** | solve children, combine at the node | O(n), O(h) | 100, 104, 111, 226 |
 | Repeatedly take the two largest | **Max-heap** | pop, pop, push the difference | O(n log n) | 1046 |
 | Digit loop that may cycle | **Cycle detection via seen set** | remember states, stop on repeat | — | 202 |

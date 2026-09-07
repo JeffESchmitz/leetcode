@@ -35,7 +35,7 @@ Paste this to start a session:
 >
 > Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 100, 104, 111, 121,
 > 125, 136, 141, 160, 169, 202, 206, 217, 226, 242, 283, 387, 496, 643, 704,
-> 724, 771, 876, 1046, 1979.
+> 724, 733, 771, 876, 1046, 1979.
 
 ## Log
 
@@ -44,3 +44,4 @@ Keep a running tally here. One line per session.
 | Date | Problems | Wrong on first restate | Trap word |
 |---|---|---|---|
 | 2026-09-05 | 387 (live, coached by Grok) | 1 of 1 | non-repeating |
+| 2026-09-07 | 733 (live, coached by Claude) | 1 of 1 | `sr`/`sc` read as a filter over all cells, not one start cell; ~20 min to understanding |
