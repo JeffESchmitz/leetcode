@@ -57,16 +57,37 @@ Constraints:
 
 ## Approach
 
-_To be written after solving under Coach Mode._
+**Depth-first search (recursion) from the clicked cell.** Remember the
+starting pixel's original color. If it already equals the new color, return the
+image untouched (otherwise the fill never terminates: painting changes nothing,
+so every cell looks unvisited forever). Otherwise, a nested `fill(row, column)`
+helper does four things: bail if off the board, bail if this cell isn't the
+original color, paint it, then recurse up/down/left/right. Painting the cell
+*is* the visited marker; the color check on re-entry is what stops the recursion.
+
+The paint moves like a rook: one square at a time, horizontally or vertically,
+never diagonal, and it cannot pass through a different color.
+
+- Time O(m·n), every cell painted at most once.
+- Space O(m·n) worst case for the call stack (a winding single-color path).
+
+Solved 2026-09-07, about an hour. Twenty minutes of that was understanding: the
+`sr`/`sc` names, four inputs, and a grid return type were all firsts.
 
 ## Solutions
 
 | Language | Harness | Run from the leaf | Status |
 |----------|---------|-------------------|--------|
-| Swift | SwiftPM + Swift Testing | `swift test` | 🔴 stub |
+| Swift | SwiftPM + Swift Testing | `swift test` | ✅ 8 tests |
 
 ## Idiom notes
 
 _What each language made me see:_
 
-- **Swift** — _tbd_
+- **Swift** — A nested `func` inside the solution method captures the mutable
+  copy of the grid, the original color, and the new color, so the recursive
+  step only needs `(row, column)`. Nesting is not a smell here: the helper is
+  meaningless without that captured state, and the alternative is threading
+  three extra parameters through every call. Swift also allows calling a
+  nested function before its declaration as long as everything it captures is
+  already declared above the call site.

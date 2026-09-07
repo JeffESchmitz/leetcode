@@ -18,6 +18,9 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **in-place** | — | mutate the input; return value may be a length, not the array | 26, 283 | |
 | **return the index vs the value** | — | read the signature; example output tells you which | 387, 1 | |
 | **first / leftmost** | "first event while walking" | "leftmost among things that qualify over the whole input" | 387 | 2026-09-05 |
+| **coordinates / `sr`, `sc` / `image[i][j]`** | "(x, y): horizontal first" | "(row, col): outer array is rows, so first index is vertical" | 733 | 2026-09-07 |
+| **compressed parameter names** (`sr`, `sc`, `k`, `m`, `n`) | "noise, guess what they mean" | "find the sentence that uses the name in context; `m`/`n` in constraints are sizes, not inputs" | 733 | 2026-09-07 |
+| **adjacent / connected** | "touching, including diagonals" | "shares a side: up/down/left/right only, moves like a rook" | 733 | 2026-09-07 |
 
 Add a row the moment a word costs you time. Include the problem number and the
 date so the list doubles as a record of what has actually bitten you, not what
