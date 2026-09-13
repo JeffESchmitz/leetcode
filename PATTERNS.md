@@ -32,6 +32,7 @@ Rules for this file:
 | Two lists that share a tail | **Length alignment / pointer swap** | walk both, swap heads at the end | O(n+m) | 160 |
 | "Ways to reach step n" | **Bottom-up DP (Fibonacci shape)** | each answer built from the previous two | O(n) | 70 |
 | Grid: "fill" / "connected" / "adjacent" / "island" | **Grid DFS (flood fill)** | nested recursive helper: off-board? wrong color? paint, recurse 4 ways | O(m·n) | 733 |
+| Grid: "perimeter" / count edges between land and water | **Per-cell neighbor count** | scan every cell, check 4 neighbors, off-board counts as water; no traversal needed | O(m·n), O(1) | 463 |
 | Tree: depth / equality / mirror | **Post-order DFS recursion** | solve children, combine at the node | O(n), O(h) | 100, 104, 111, 226 |
 | Repeatedly take the two largest | **Max-heap** | pop, pop, push the difference | O(n log n) | 1046 |
 | Digit loop that may cycle | **Cycle detection via seen set** | remember states, stop on repeat | — | 202 |
