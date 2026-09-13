@@ -30,10 +30,11 @@ Constraints:
 
 ## Approach
 
-> **Spoiler — collapsed on purpose.** This problem is already solved in `go/`.
-> The Swift leaf is a deliberate **memory test**: attempt it from scratch
-> first, then open this to compare. Retrieving an answer from memory is what
-> consolidates it; re-reading one feels productive and consolidates far less.
+**771 is a membership-lookup problem solved with a Set in `O(j + s)`.**
+
+> The Swift leaf was a deliberate **memory test**, attempted from scratch
+> without the Go source (passed 2026-09-13). The full write-up stays collapsed
+> for the next retrieval attempt.
 
 <details>
 <summary>Show the approach</summary>
@@ -90,6 +91,29 @@ tallying multiplicities, but a set makes it irrelevant. Noticing that a
 promise is unused is a signal you picked a structure that sidesteps a whole
 class of bug.
 
+### Where the promise *is* load-bearing: loop order
+
+The brute force *does* lean on it, depending on which loop is outside. A nested
+loop walks a grid of every (jewel, stone) pair, and `count += 1` on each match
+counts **checkmarks**. The problem counts **columns** — stones with at least
+one checkmark:
+
+```
+jewels = "aa"   stones = "aba"
+
+              stone a   stone b   stone a
+jewel a          ✓                   ✓
+jewel a          ✓                   ✓
+
+checkmarks → 4        columns → 2 (correct)
+```
+
+With unique jewels each column holds at most one ✓, so the two counts agree and
+jewels-outside happens to work. Put **stones outside and stop at the first
+match**, and each column contributes at most 1 no matter what `jewels` holds.
+That inner "stop at first match" is just *"does any jewel equal this stone?"* —
+the membership question, which the set answers in `O(1)`.
+
 ### Complexity
 
 - **Time:** `O(j + s)` — one pass to build the set, one pass to check. Sequential
@@ -115,7 +139,7 @@ restructure and was solved before Swift became the default first language.
 | Language | Harness | Run from the leaf | Status |
 |----------|---------|-------------------|--------|
 | Go | `go test` | `go test ./...` | ✅ solved |
-| Swift | SwiftPM + Swift Testing | `swift test` | 🔴 stub — memory test, unsolved on purpose |
+| Swift | SwiftPM + Swift Testing | `swift test` | ✅ 9 tests — solved from memory |
 
 ## Idiom notes
 
@@ -132,3 +156,11 @@ _What each language made me see:_
   keyed by `rune`. Indexing with `s[i]` instead would yield a `byte` and break
   on any multi-byte character — safe here given the English-letters
   constraint, but the wrong habit to build.
+- **Swift** — A `String` is already a `Collection` of `Character`, so
+  `Set(jewels)` builds a `Set<Character>` directly, with no array conversion,
+  and the elements from `stones` already match its type. The count is
+  `stones.count(where:)` (Swift 6.0+), which says "count" outright; the older
+  `.filter { … }.count` builds a throwaway String just to measure it. Watch the
+  trailing-closure form: `stones.count { … }` drops the `where:` label and
+  reads almost like the `count` *property* (the length), so the explicit label
+  is clearer.
