@@ -52,7 +52,7 @@ _To be written after solving under Coach Mode._
 
 | Language | Harness | Run from the leaf | Status |
 |----------|---------|-------------------|--------|
-| Swift | SwiftPM + Swift Testing | `swift test` | 🔴 stub |
+| Swift | SwiftPM + Swift Testing | `swift test` | ✅ 8 tests |
 
 ## Idiom notes
 
