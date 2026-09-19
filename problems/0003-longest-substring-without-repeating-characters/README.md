@@ -130,7 +130,7 @@ restructure and was solved before Swift became the default first language.
 | Language | Harness | Run from the leaf | Status |
 |----------|---------|-------------------|--------|
 | Go | `go test` | `go test ./...` | ✅ solved |
-| Swift | SwiftPM + Swift Testing | `swift test` | 🔴 stub — memory test, unsolved on purpose |
+| Swift | SwiftPM + Swift Testing | `swift test` | ✅ solved |
 
 ## Idiom notes
 
@@ -142,4 +142,8 @@ _What each language made me see when translating:_
   same byte-vs-rune distinction that
   [771](../0771-jewels-and-stones/README.md) resolves the other way by ranging
   over runes.
-- **Swift** — _fill in after solving._
+- **Swift** — `for (right, char) in s.enumerated()` yields `(Int, Character)`
+  forward in a single pass without needing `Array(s)` conversion or $O(k)$
+  `String.Index` operations. Using `[Character: Int]` maps each extended grapheme
+  cluster to its index, and guarding with `lastIndex >= left` (or `max(left, lastIndex + 1)`)
+  acts as a ratchet so stale indices never drag the window backward.

@@ -59,7 +59,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | # | Problem | Leaves |
 |---|---------|--------|
 | 1 | [Two Sum](problems/0001-two-sum/README.md) | go, java, kotlin, python, rust, swift |
-| 3 | [Longest Substring Without Repeating Characters](problems/0003-longest-substring-without-repeating-characters/README.md) | go, swift 🔴 |
+| 3 | [Longest Substring Without Repeating Characters](problems/0003-longest-substring-without-repeating-characters/README.md) | go, swift |
 | 9 | [Palindrome Number](problems/0009-palindrome-number/README.md) | swift |
 | 13 | [Roman to Integer](problems/0013-roman-to-integer/README.md) | swift |
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
