@@ -18,7 +18,8 @@ Rules for this file:
 | "Find two things that add to target" | **Complement lookup** | hash map of seen values, ask for `target - x` | O(n) | 1 |
 | Sorted input, find a value | **Binary search** | halve the range each step | O(log n) | 704 |
 | In-place remove / compact / move-to-end | **Read/write two pointers** | write index trails read index | O(n) | 26, 283 |
-| Compare from both ends / palindrome | **Converging two pointers** | left and right walk toward each other | O(n) | 125, 9 |
+| Compare from both ends / string palindrome | **Converging two pointers** | normalize if needed, then left and right walk toward each other | O(n) | 125 |
+| Digits read the same forward and backward | **Reverse-and-compare digits** | guard sign/trailing zero, extract with `% 10`, build the reverse with `/ 10`, compare | O(log n), O(1) | 9 |
 | "Longest substring/subarray with property" | **Variable sliding window** | grow right, shrink left when property breaks | O(n) | 3 |
 | "Max/avg of every window of size k" | **Fixed sliding window** | running sum, add one, drop one | O(n) | 643 |
 | "Sum to the left equals sum to the right" | **Prefix sum** | total once, running left sum | O(n) | 724 |
@@ -31,9 +32,10 @@ Rules for this file:
 | Linked list: reverse / merge | **Pointer rewiring with prev/current** | draw the memory first, then move one link | O(n) | 206, 21 |
 | Two lists that share a tail | **Length alignment / pointer swap** | walk both, swap heads at the end | O(n+m) | 160 |
 | "Ways to reach step n" | **Bottom-up DP (Fibonacci shape)** | each answer built from the previous two | O(n) | 70 |
-| Grid: "fill" / "connected" / "adjacent" / "island" | **Grid DFS (flood fill)** | nested recursive helper: off-board? wrong color? paint, recurse 4 ways | O(m·n) | 733 |
+| Grid: "fill" / recolor a connected region | **Grid DFS (flood fill)** | nested recursive helper: off-board? wrong color? paint, recurse 4 ways | O(m·n) | 733 |
 | Grid: "perimeter" / count edges between land and water | **Per-cell neighbor count** | scan every cell, check 4 neighbors, off-board counts as water; no traversal needed | O(m·n), O(1) | 463 |
-| Tree: depth / equality / mirror | **Post-order DFS recursion** | solve children, combine at the node | O(n), O(h) | 100, 104, 111, 226 |
+| Tree: compare / depth / mirror | **Binary-tree DFS recursion** | nil is the base case; recurse into children, then compare, combine, or mutate | O(n), O(h) | 100, 104, 226 |
+| "Minimum / shortest / nearest depth" / first leaf | **BFS level-order early exit** | queue nodes by level; the first qualifying leaf is optimal | O(n), O(w) | 111 |
 | Repeatedly take the two largest | **Max-heap** | pop, pop, push the difference | O(n log n) | 1046 |
 | Digit loop that may cycle | **Cycle detection via seen set** | remember states, stop on repeat | — | 202 |
 | Reduce a list with a known math subroutine | **Reduce to known algorithm** | Euclid's GCD | — | 1979 |
