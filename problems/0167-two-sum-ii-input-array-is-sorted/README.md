@@ -46,9 +46,33 @@ Constraints:
 
 ## Approach
 
-_(filled in during the Reflect step)_
+**This is a converging two-pointer problem solved in $O(n)$ time and $O(1)$ extra space.**
+
+### Contrast with Problem 1 (Unsorted Two Sum)
+
+In [1. Two Sum](../0001-two-sum/README.md), the input is unsorted. Finding complements requires either:
+- $O(n^2)$ exhaustive comparison, or
+- $O(n)$ time via a hash map of complements (`target - x`), spending $O(n)$ extra space.
+
+Here, the constraint **"must use only constant extra space"** explicitly rules out the hash map. But the problem gives us a load-bearing promise in exchange: `numbers` is already sorted in non-decreasing order.
+
+### The Elimination Argument
+
+Sortedness provides monotonicity: for any range `[left, right]`, `numbers[left]` is the minimum and `numbers[right]` is the maximum.
+
+When we inspect `sum = numbers[left] + numbers[right]`:
+- **If `sum == target`**: We have found the unique answer pair.
+- **If `sum < target`**: The sum is too small. Because `numbers[right]` is already the largest element remaining in play, `numbers[left]` cannot reach `target` when paired with *any* element `<= numbers[right]`. Therefore, `numbers[left]` can never participate in the solution. We safely eliminate it: `left += 1`.
+- **If `sum > target`**: The sum is too large. Because `numbers[left]` is already the smallest element remaining in play, `numbers[right]` cannot reach `target` when paired with *any* element `>= numbers[left]`. Therefore, `numbers[right]` can never participate in the solution. We safely eliminate it: `right -= 1`.
+
+Each step eliminates one candidate element and narrows the search space by one. With $n$ elements, the pointers converge in at most $n - 1$ steps ($O(n)$ time), using only two integer variables ($O(1)$ extra space).
+
+### Coordinate Boundaries
+
+The problem specifies **1-indexed** output ("added by one"). The clean boundary rule: keep the search loop in native 0-based indices (`0 ..< numbers.count`), and convert to 1-based indexing exclusively at the return site (`[left + 1, right + 1]`).
 
 ## Idiom notes
 
 ### Swift
-_(filled in after the Swift leaf is green)_
+- **0-based search, 1-based boundary**: Array subscripting in Swift is 0-indexed. Converting indices to 1-based inside the loop creates off-by-one opportunities; converting only on the `return` statement (`[left + 1, right + 1]`) isolates the problem's idiosyncrasy to the exit boundary.
+- **Exhaustive control flow**: The problem guarantees that exactly one valid solution exists, so the `while left < right` loop will always find the pair and return. Swift's compiler requires every execution path to return `[Int]`. Using `fatalError("...")` past the loop asserts this problem invariant and avoids returning dummy data.

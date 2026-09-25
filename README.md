@@ -74,6 +74,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 136 | [Single Number](problems/0136-single-number/README.md) | swift |
 | 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
 | 160 | [Intersection of Two Linked Lists](problems/0160-intersection-of-two-linked-lists/README.md) | swift |
+| 167 | [Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
 | 206 | [Reverse Linked List](problems/0206-reverse-linked-list/README.md) | swift |
@@ -294,6 +295,21 @@ problem rather than after.
   [876. Middle of the Linked List](problems/0876-middle-of-the-linked-list/README.md) measures
   the halfway point, while [141. Linked List Cycle](problems/0141-linked-list-cycle/README.md)
   detects a loop when the runners collide.
+- **Keep coordinate space native until the boundary.** When a problem demands 1-based
+  indexing ("added by one"), do not drag `+ 1` or `- 1` offsets through pointer
+  movements, loop guards, or array subscripts. Let the algorithm run entirely in
+  the language's native 0-based coordinate space and perform the translation
+  exclusively at the return site (`[left + 1, right + 1]`). Sighted in
+  [167. Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md).
+- **Monotonicity turns search into elimination.** Unsorted pair search requires
+  O(n) space (hash map) or O(n²) time. In a sorted array, comparing the two
+  extreme values (`numbers[left] + numbers[right]`) tests an entire row or column
+  of candidates at once: if the sum is too small, `left` cannot reach the target
+  even with the largest available partner (`right`), so `left` is eliminated
+  forever; if too large, `right` cannot reach the target even with the smallest
+  partner (`left`), so `right` is eliminated forever. Each comparison discards an
+  entire candidate, yielding O(n) time and O(1) space. Sighted in
+  [167. Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md).
 
 ## Running a leaf
 

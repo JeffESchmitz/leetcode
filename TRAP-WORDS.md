@@ -23,6 +23,7 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **adjacent / connected** | "touching, including diagonals" | "shares a side: up/down/left/right only, moves like a rook" | 733 | 2026-09-07 |
 | **1-indexed / "added by one"** | "the index I'd type in the brackets" | "position counted from 1; add 1 to every Swift index on the way out" | 167 | 2026-09-21 |
 | **"must use only constant extra space"** | "boilerplate, skim it" | "a promise the algorithm must keep: no hash map, no second array" | 167 | 2026-09-21 |
+| **non-decreasing order** | "strictly increasing (every element strictly bigger)" | "sorted with duplicates allowed (`<=`); equal adjacent elements can form the target pair" | 167 | 2026-09-25 |
 
 Add a row the moment a word costs you time. Include the problem number and the
 date so the list doubles as a record of what has actually bitten you, not what

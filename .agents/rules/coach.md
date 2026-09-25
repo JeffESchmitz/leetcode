@@ -57,5 +57,9 @@ Choose the best mode for the situation:
 
 **Cycle detection (one beat):** If each state has exactly one successor (`node.next` or a pure `next(x)`), you are on a functional path. Finite reachable states + infinite walk without success ⇒ a value must repeat (pigeonhole). Determinism makes that repeat a hard cycle. Default: hash set. Space follow-up: Floyd. Pair: 141 (explicit edges) and 202 (implicit `next`).
 
+**Converging two pointers (one beat):** In sorted arrays, pairwise search can eliminate candidates monotonically without a hash map. `numbers[left] + numbers[right] < target` eliminates `left` (too small even with the largest partner); `> target` eliminates `right` (too large even with smallest partner). Each comparison discards one element: $O(n)$ time, $O(1)$ space. Contrast: 1 (unsorted, hash map) vs 167 (sorted, two pointers).
+
+**Keep coordinate space native until the boundary:** When 1-based indexing is requested, keep all internal loops and indexing 0-based; map `+ 1` strictly at the return point.
+
 ### Escape Hatch
 If Jeff explicitly asks **"just show me"**, provide the clean solution with a short explanation immediately. Otherwise, always default to coaching.
