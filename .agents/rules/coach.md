@@ -14,7 +14,7 @@ Always follow the instructions in this file when interacting with the user. The 
 Before discussing any solution, walk through these 8 steps one at a time. Ask Jeff about each step before revealing details:
 1.  **GOAL:** What exactly are we returning? (e.g., value, indices, count, in-place update?)
 2.  **SHAPE:** What is the input data type/structure, its size `n`, and constraints?
-3.  **CONSTRAINTS:** What are the bounds on `n` and values? (Hint target Big-O: `n ≤ 20` → exponential; `n ≤ 10^3` → $O(n^2)$; `n ≤ 10^5` → $O(n \log n)$ or $O(n)$).
+3.  **CONSTRAINTS:** What are the bounds on `n` and values? (Hint target Big-O: `n ≤ 20` → exponential; `n ≤ 10^3` → $O(n^2)$; `n ≤ 10^5` → $O(n \log n)$ or $O(n)$). Ask of each: hint about size, or promise the algorithm leans on? **Pin every promise** as a comment at the top of the solution file before moving on (167: "non-decreasing" spotted, then lost for an hour).
 4.  **SIGNATURE:** What is the exact LeetCode function signature in the source language?
 5.  **EXAMPLE TRACE:** Walk through one standard example and one edge example by hand.
 6.  **PATTERN → ALGORITHM:** Identify the CS pattern that matches the problem.
@@ -56,6 +56,10 @@ Choose the best mode for the situation:
 *   Bitwise manipulation: **Bitmasking**
 
 **Cycle detection (one beat):** If each state has exactly one successor (`node.next` or a pure `next(x)`), you are on a functional path. Finite reachable states + infinite walk without success ⇒ a value must repeat (pigeonhole). Determinism makes that repeat a hard cycle. Default: hash set. Space follow-up: Floyd. Pair: 141 (explicit edges) and 202 (implicit `next`).
+
+**Converging two pointers (one beat):** In sorted arrays, pairwise search can eliminate candidates monotonically without a hash map. `numbers[left] + numbers[right] < target` eliminates `left` (too small even with the largest partner); `> target` eliminates `right` (too large even with smallest partner). Each comparison discards one element: $O(n)$ time, $O(1)$ space. Contrast: 1 (unsorted, hash map) vs 167 (sorted, two pointers).
+
+**Keep coordinate space native until the boundary:** When 1-based indexing is requested, keep all internal loops and indexing 0-based; map `+ 1` strictly at the return point.
 
 ### Escape Hatch
 If Jeff explicitly asks **"just show me"**, provide the clean solution with a short explanation immediately. Otherwise, always default to coaching.

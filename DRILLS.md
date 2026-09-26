@@ -34,8 +34,8 @@ Paste this to start a session:
 > restatements were wrong on the first try and what word tripped me.
 >
 > Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 100, 104, 111, 121,
-> 125, 136, 141, 160, 169, 202, 206, 217, 226, 242, 283, 387, 496, 643, 704,
-> 724, 733, 771, 876, 1046, 1979.
+> 125, 136, 141, 160, 167, 169, 202, 206, 217, 226, 242, 283, 387, 463, 496,
+> 643, 704, 724, 733, 771, 876, 1046, 1979.
 
 ## Log
 
@@ -45,3 +45,4 @@ Keep a running tally here. One line per session.
 |---|---|---|---|
 | 2026-09-05 | 387 (live, coached by Grok) | 1 of 1 | non-repeating |
 | 2026-09-07 | 733 (live, coached by Claude) | 1 of 1 | `sr`/`sc` read as a filter over all cells, not one start cell; ~20 min to understanding |
+| 2026-09-21, 09-25 | 167 (live, coached by Claude) | 0 of 1 | none bit A; "non-decreasing" was spotted, then dropped, and cost ~1 hr of B |

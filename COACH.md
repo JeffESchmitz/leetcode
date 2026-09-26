@@ -59,6 +59,12 @@ one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
    often costs more than the algorithm they enable. See
    [704. Binary Search](problems/0704-binary-search/README.md) for a worked example
    (value bounds = hint; "sorted ascending" = promise).
+
+   **Pin every promise.** When a constraint reads as a promise, write it as a
+   comment at the top of the solution file *before* moving on. A promise noticed
+   and not written down gets lost: on 167, "non-decreasing" was spotted in two
+   minutes, said out loud, then forgotten for an hour, and it was the tell for
+   the whole algorithm.
 4. **SIGNATURE** — The exact function signature in the source language: param types
    and return type, matching the LeetCode signature so it pastes back into the judge.
 5. **EXAMPLE TRACE** — Walk one example by hand. Then a tricky/edge one.
@@ -188,6 +194,30 @@ the follow-up "minimize operations" is asking you to notice that before the firs
 discard `read == write` and every swap is a no-op. Worked example:
 [283. Move Zeroes](problems/0283-move-zeroes/README.md); 26 and 27 use the
 identical skeleton.
+
+**Converging two pointers, one beat.** Trigger: *sorted array*, find a pair
+summing to target, or find an answer with *constant extra space*. In unsorted data,
+finding a pair demands a hash map of complements (`O(n)` space) or pairwise
+testing (`O(n²)` time). But sortedness is a load-bearing promise that gives
+**monotonicity**: `numbers[left]` is the minimum of the remaining search space,
+and `numbers[right]` is the maximum. If `numbers[left] + numbers[right] < target`,
+the sum is too small — and because `numbers[right]` is already the largest
+available partner, `numbers[left]` cannot reach `target` with *any* candidate in
+play; eliminate `left` by advancing inward (`left += 1`). Symmetrically, if the
+sum is too large, eliminate `right` (`right -= 1`). Each check discards an entire
+row or column of candidate pairs, collapsing an `O(n²)` grid search to an `O(n)`
+diagonal walk in `O(1)` memory. Sibling contrast:
+[1. Two Sum](problems/0001-two-sum/README.md) (unsorted, spend space for map lookup)
+vs [167. Two Sum II](problems/0167-two-sum-ii-input-array-is-sorted/README.md)
+(sorted, spend order for constant space).
+
+**Keep the coordinate space native until the boundary.** When the statement asks
+for 1-based indices ("added by one"), do not drag `+ 1` or `- 1` offsets through
+pointer updates, loop termination guards, or array subscripts. Run the entire
+algorithm in the language's native 0-based coordinate space, and translate
+exclusively on the way out at the return statement (`[left + 1, right + 1]`).
+Translating inside the loop is where off-by-one bugs hide. Sighted in
+[167. Two Sum II](problems/0167-two-sum-ii-input-array-is-sorted/README.md).
 
 **Check the middle of a constraint range, not just its ends.** Brute force on 643
 costs `(n - k + 1) × k`, which is `O(n)` at both `k = 1` *and* `k = n` — at `k = n`
