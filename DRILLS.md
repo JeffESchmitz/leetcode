@@ -45,3 +45,4 @@ Keep a running tally here. One line per session.
 |---|---|---|---|
 | 2026-09-05 | 387 (live, coached by Grok) | 1 of 1 | non-repeating |
 | 2026-09-07 | 733 (live, coached by Claude) | 1 of 1 | `sr`/`sc` read as a filter over all cells, not one start cell; ~20 min to understanding |
+| 2026-09-21, 09-25 | 167 (live, coached by Claude) | 0 of 1 | none bit A; "non-decreasing" was spotted, then dropped, and cost ~1 hr of B |

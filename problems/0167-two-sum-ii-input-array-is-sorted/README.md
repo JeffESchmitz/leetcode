@@ -71,6 +71,44 @@ Each step eliminates one candidate element and narrows the search space by one. 
 
 The problem specifies **1-indexed** output ("added by one"). The clean boundary rule: keep the search loop in native 0-based indices (`0 ..< numbers.count`), and convert to 1-based indexing exclusively at the return site (`[left + 1, right + 1]`).
 
+## Reflection
+
+**Where the time went.** Two sittings: about an hour on 2026-09-21 that ran out
+of time without a solution, then 20 to 30 minutes on 2026-09-25 to finish.
+**A (understanding) was mostly fine:** "return the indices" was read correctly
+on the first pass. **B (identifying) ate the session.** C (writing) took five
+minutes or less once the comparisons were named, with one stumble on the
+`else if` branch.
+
+**The clue was seen, then dropped.** "Sorted in non-decreasing order" was
+spotted within the first two minutes and even said out loud, and then it was
+forgotten for the rest of the hour. This was not a failure to understand. It
+was a failure to **keep hold of a clue already found**. Sorted is a promise,
+and a promise is the tell for left and right pointers. The fix is mechanical:
+when a constraint reads as a promise, write it down where it stays visible (a
+comment at the top of the file) so it is still on the page at minute 40.
+
+**Two pointers, but which kind?** Day 2 opened with two pointers remembered
+right away, but the first proposal was fast/slow. The unlock was one question
+from the coach: **"What are we comparing?"** The answer, *values at both ends*,
+brought back left-and-right walking inward from 125.
+
+**The `if / else if / else` was invisible until the end.** It was the easiest
+part of the problem and the last thing to appear. The branches only show up
+once you know what the comparison is between. Ask "what are we comparing?"
+first, and the three branches (equal, too small, too big) follow from it.
+
+**Still fuzzy: why both ends and not fast/slow.** It could not be explained
+unaided at reflection time. The distinction: fast/slow pointers start together
+and move the same way at different speeds, measuring *position* (876, 141, on
+linked lists with no back end). Converging pointers start at opposite ends and
+compare *values*, which only helps because sorting makes `left` the smallest
+value in play and `right` the largest. The test of whether this stuck is 11,
+worked cold.
+
+**Honest note on C:** the Swift was written with some Copilot help, though
+knowing what to write. This was not a fully cold re-solve.
+
 ## Idiom notes
 
 ### Swift
