@@ -35,7 +35,39 @@ Constraints:
 
 ## Approach
 
-_To be written after solving._
+**This is a converging two-pointer problem solved by always moving the shorter wall
+inward, in $O(n)$ time and $O(1)$ extra space.**
+
+**The water in one bucket** is `min(height[left], height[right]) × (right - left)`.
+Height comes from the **values**; width comes from the **indices**. Width counts
+the *gaps* between walls, not the walls: nut to 8th fret is 8 fret spaces.
+
+**Brute force** tries every pair: about `n²/2` buckets, roughly 5 billion at
+`n = 10^5`. Too slow.
+
+**The elimination argument.** Start at the widest bucket (`left = 0`,
+`right = n - 1`). After measuring it, the **shorter** wall is finished. Every
+future partner is closer (smaller width), and the water is still capped by
+this wall's height, so no bucket using it can beat the one just measured. Drop
+it and move it inward. On a tie, both walls are finished, so moving either one
+is safe.
+
+Sibling of [167](../0167-two-sum-ii-input-array-is-sorted/README.md), with the
+same skeleton and a different drop rule. 167 compares a **sum** against a
+target and leans on sorting. 11 compares the **two heights** and needs no
+sorting, because the width shrinking on every step does that work.
+
+### Pseudocode
+
+```
+left = 0, right = n - 1, maxWater = 0
+while left < right:
+    water = min(height[left], height[right]) * (right - left)
+    maxWater = max(maxWater, water)
+    if height[left] < height[right]: move left in
+    else: move right in          # tie lands here, safe
+return maxWater
+```
 
 ## Idiom notes
 
