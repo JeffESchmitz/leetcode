@@ -16,7 +16,7 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **distinct** | — | "count of different values, not count of elements" | — | |
 | **subarray vs subsequence** | — | subarray is contiguous; subsequence keeps order but skips | 3, 643 | |
 | **in-place** | — | mutate the input; return value may be a length, not the array | 26, 283 | |
-| **return the index vs the value** | — | read the signature; example output tells you which | 387, 1 | |
+| **return the index vs the value** | — | read the signature; example output tells you which | 387, 1, 11 | |
 | **first / leftmost** | "first event while walking" | "leftmost among things that qualify over the whole input" | 387 | 2026-09-05 |
 | **coordinates / `sr`, `sc` / `image[i][j]`** | "(x, y): horizontal first" | "(row, col): outer array is rows, so first index is vertical" | 733 | 2026-09-07 |
 | **compressed parameter names** (`sr`, `sc`, `k`, `m`, `n`) | "noise, guess what they mean" | "find the sentence that uses the name in context; `m`/`n` in constraints are sizes, not inputs" | 733 | 2026-09-07 |
@@ -24,6 +24,7 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **1-indexed / "added by one"** | "the index I'd type in the brackets" | "position counted from 1; add 1 to every Swift index on the way out" | 167 | 2026-09-21 |
 | **"must use only constant extra space"** | "boilerplate, skim it" | "a promise the algorithm must keep: no hash map, no second array" | 167 | 2026-09-21 |
 | **non-decreasing order** | "strictly increasing (every element strictly bigger)" | "sorted with duplicates allowed (`<=`); equal adjacent elements can form the target pair" | 167 | 2026-09-25 |
+| **width / distance between** (lines, indices) | "count the lines, or drop the two walls and subtract 2" | "count the gaps: `right - left`; nut to 8th fret is 8 fret spaces" | 11 | 2026-09-26 |
 
 Add a row the moment a word costs you time. Include the problem number and the
 date so the list doubles as a record of what has actually bitten you, not what
