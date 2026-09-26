@@ -108,3 +108,9 @@ Each language re-expresses the example + edge-case tests in its own native test 
   Antigravity (Xcode must be running for the bridge to respond).
 - `.agents/rules/` holds Antigravity rule files mirroring `COACH.md` and
   `CLAUDE.md` — if you change the originals, update the mirrors.
+
+## Daily: review DRILLS.md
+
+At the start of every session, read `DRILLS.md` and offer the day's **Read One**
+(the next unlogged problem in the queue for the current pattern) alongside the
+day's problem. Keep the queue ahead of the current Top 150 section.
