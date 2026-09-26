@@ -69,6 +69,27 @@ while left < right:
 return maxWater
 ```
 
+## Reflection
+
+**Not solved cold.** The solution was first seen at the end of the session, and
+Claude wrote the Swift while Jeff was driving. Schedule a cold re-solve.
+
+**A (understanding) ate the session; B was quick once A landed.** This is the
+reverse of 167, where A was fine and B cost an hour.
+
+- **Read the water as a sum** of heights at GOAL. That's the 167 shape carrying
+  over (the recency trap). Fixed by tracing one bucket: `min(8, 7) × 7 = 49`.
+- **Index/value slip on width:** `8 × 8`, then `width = right - left` computed
+  on the heights.
+- **Fenceposts:** counting walls instead of gaps, or subtracting 2 for the
+  walls. The unlock was the guitar neck: nut to 8th fret is 8 fret spaces.
+- **Took the taller wall** once (`3 × 7 = 21`).
+
+**B was derived unaided** once the picture was right: "the left wall is 1, so
+nothing will ever be greater moving the right wall in," which generalizes to
+**move the shorter wall**. The tie case needed a worked example: on a tie both
+walls are finished, so the `else` is safe.
+
 ## Idiom notes
 
 ### Swift
