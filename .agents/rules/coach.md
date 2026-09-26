@@ -59,6 +59,10 @@ Choose the best mode for the situation:
 
 **Converging two pointers (one beat):** In sorted arrays, pairwise search can eliminate candidates monotonically without a hash map. `numbers[left] + numbers[right] < target` eliminates `left` (too small even with the largest partner); `> target` eliminates `right` (too large even with smallest partner). Each comparison discards one element: $O(n)$ time, $O(1)$ space. Contrast: 1 (unsorted, hash map) vs 167 (sorted, two pointers).
 
+**Converging without sorting (11):** drop the *shorter* wall, since its water is capped and every future width is smaller. General question: "after measuring this pair, which end can never do better?"
+
+**Count the gaps, not the posts:** distance `j - i`, element count `j - i + 1`. Nut to 8th fret = 8 fret spaces. Draw a ruler when a width feels off by one (11).
+
 **Keep coordinate space native until the boundary:** When 1-based indexing is requested, keep all internal loops and indexing 0-based; map `+ 1` strictly at the return point.
 
 ### Escape Hatch

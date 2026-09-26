@@ -311,6 +311,18 @@ problem rather than after.
   partner (`left`), so `right` is eliminated forever. Each comparison discards an
   entire candidate, yielding O(n) time and O(1) space. Sighted in
   [167. Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md).
+- **Converging pointers don't need sorting, just an end that can't win.** In 167
+  sorting tells you which end to drop. In 11 the shrinking width does: the
+  shorter wall has already been paired with the farthest partner it will ever
+  get, and its height caps the water, so it is finished. Sighted in
+  [11. Container With Most Water](problems/0011-container-with-most-water/README.md).
+- **Count the gaps, not the posts.** Width between two indices is `j - i`; the
+  number of elements from one through the other is `j - i + 1`. Nut to 8th fret
+  is 8 fret spaces. Sighted in
+  [11. Container With Most Water](problems/0011-container-with-most-water/README.md).
+- **A wrong reading at GOAL costs more than a slow algorithm.** On 11 the water
+  was read as a sum (167's shape carried over), and understanding took most of
+  the session. Tracing one bucket by hand fixed it.
 
 ## Running a leaf
 

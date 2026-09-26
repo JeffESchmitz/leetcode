@@ -210,6 +210,11 @@ diagonal walk in `O(1)` memory. Sibling contrast:
 [1. Two Sum](problems/0001-two-sum/README.md) (unsorted, spend space for map lookup)
 vs [167. Two Sum II](problems/0167-two-sum-ii-input-array-is-sorted/README.md)
 (sorted, spend order for constant space).
+[11. Container With Most Water](problems/0011-container-with-most-water/README.md)
+uses the same skeleton **without sorting**: compare the two heights and drop the
+**shorter** wall. It is finished, because every future partner is closer and the
+water is still capped by its height. The general question for any converging
+problem: **"after measuring this pair, which end can never do better?"**
 
 **Keep the coordinate space native until the boundary.** When the statement asks
 for 1-based indices ("added by one"), do not drag `+ 1` or `- 1` offsets through
@@ -218,6 +223,13 @@ algorithm in the language's native 0-based coordinate space, and translate
 exclusively on the way out at the return statement (`[left + 1, right + 1]`).
 Translating inside the loop is where off-by-one bugs hide. Sighted in
 [167. Two Sum II](problems/0167-two-sum-ii-input-array-is-sorted/README.md).
+
+**Count the gaps, not the posts.** Distance between index `i` and index `j` is
+`j - i` (the gaps); the number of elements from `i` through `j` is `j - i + 1`
+(the posts). Nut to 8th fret is 8 fret spaces, even though you pass 9 lines.
+When a width feels off by one, draw it as a ruler with ticks and gaps. Sighted in
+[11. Container With Most Water](problems/0011-container-with-most-water/README.md);
+the `+ 1` form is every sliding-window length (3, 643).
 
 **Check the middle of a constraint range, not just its ends.** Brute force on 643
 costs `(n - k + 1) × k`, which is `O(n)` at both `k = 1` *and* `k = n` — at `k = n`
