@@ -59,6 +59,12 @@ one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
    often costs more than the algorithm they enable. See
    [704. Binary Search](problems/0704-binary-search/README.md) for a worked example
    (value bounds = hint; "sorted ascending" = promise).
+
+   **Pin every promise.** When a constraint reads as a promise, write it as a
+   comment at the top of the solution file *before* moving on. A promise noticed
+   and not written down gets lost: on 167, "non-decreasing" was spotted in two
+   minutes, said out loud, then forgotten for an hour, and it was the tell for
+   the whole algorithm.
 4. **SIGNATURE** — The exact function signature in the source language: param types
    and return type, matching the LeetCode signature so it pastes back into the judge.
 5. **EXAMPLE TRACE** — Walk one example by hand. Then a tricky/edge one.

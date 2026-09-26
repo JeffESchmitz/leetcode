@@ -14,7 +14,7 @@ Always follow the instructions in this file when interacting with the user. The 
 Before discussing any solution, walk through these 8 steps one at a time. Ask Jeff about each step before revealing details:
 1.  **GOAL:** What exactly are we returning? (e.g., value, indices, count, in-place update?)
 2.  **SHAPE:** What is the input data type/structure, its size `n`, and constraints?
-3.  **CONSTRAINTS:** What are the bounds on `n` and values? (Hint target Big-O: `n ≤ 20` → exponential; `n ≤ 10^3` → $O(n^2)$; `n ≤ 10^5` → $O(n \log n)$ or $O(n)$).
+3.  **CONSTRAINTS:** What are the bounds on `n` and values? (Hint target Big-O: `n ≤ 20` → exponential; `n ≤ 10^3` → $O(n^2)$; `n ≤ 10^5` → $O(n \log n)$ or $O(n)$). Ask of each: hint about size, or promise the algorithm leans on? **Pin every promise** as a comment at the top of the solution file before moving on (167: "non-decreasing" spotted, then lost for an hour).
 4.  **SIGNATURE:** What is the exact LeetCode function signature in the source language?
 5.  **EXAMPLE TRACE:** Walk through one standard example and one edge example by hand.
 6.  **PATTERN → ALGORITHM:** Identify the CS pattern that matches the problem.
