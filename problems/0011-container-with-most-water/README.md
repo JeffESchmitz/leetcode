@@ -90,6 +90,28 @@ nothing will ever be greater moving the right wall in," which generalizes to
 **move the shorter wall**. The tie case needed a worked example: on a tie both
 walls are finished, so the `else` is safe.
 
+**Cold re-run, 2026-09-27 (understanding only, no code; about 20 minutes).**
+Same example, walls at index 1 (height 8) and index 8 (height 7).
+
+- **Height was right** on the first try: the shorter wall, 7. Yesterday's
+  "sum of heights" misreading did not come back.
+- **Width slipped again: 6 instead of 7.** The root cause surfaced this time:
+  the walls were pictured as **blocks that take up space** ("the wall number is
+  out of use"), so both were dropped. In 11 the walls are zero-thickness
+  **lines**, like fret wires, and water runs line to line. In 42 (Trapping Rain
+  Water) they really are width-1 blocks. Test: thin lines, subtract indices
+  (`right - left`); blocks, count cells.
+- **Right wall, wrong reason.** B was picked because "8 is the peak." The real
+  reason never looks at the tallest wall: B is the **shorter** of the two walls
+  in hand. The rule was filled in, then proven by pairing B with every wall
+  left of it (36, 10, 20, 12, 14, 3: all below 49; a taller partner at index 6
+  still only holds 7 because B is the lid).
+- **Trade-off made visible:** keeping A and moving B to index 6 gives
+  `8 x 5 = 40`. Height gained 1, width lost 2. Every step in costs width for
+  sure; a taller wall may or may not pay it back, so every pair is measured.
+
+Still owed: a code-only cold run (target: 5 minutes).
+
 ## Idiom notes
 
 ### Swift

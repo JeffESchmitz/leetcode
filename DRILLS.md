@@ -47,6 +47,7 @@ Keep a running tally here. One line per session.
 | 2026-09-07 | 733 (live, coached by Claude) | 1 of 1 | `sr`/`sc` read as a filter over all cells, not one start cell; ~20 min to understanding |
 | 2026-09-21, 09-25 | 167 (live, coached by Claude) | 0 of 1 | none bit A; "non-decreasing" was spotted, then dropped, and cost ~1 hr of B |
 | 2026-09-26 | 11 (live, coached by Claude) | 1 of 1 | water read as a **sum** of heights, not shorter height × width; then index/value and fencepost slips on width |
+| 2026-09-27 | 11 cold re-run, understanding only (coached by Claude) | 0 of 1 on the reading; width still 6 not 7 | walls pictured as **blocks**, not lines; "peak" used as the reason to move instead of "shorter" |
 
 ## Read One: the daily surface-area drill
 
