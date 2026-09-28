@@ -215,6 +215,12 @@ uses the same skeleton **without sorting**: compare the two heights and drop the
 **shorter** wall. It is finished, because every future partner is closer and the
 water is still capped by its height. The general question for any converging
 problem: **"after measuring this pair, which end can never do better?"**
+[15. 3Sum](problems/0015-3sum/README.md) wraps 167 in a loop: **anchor one
+number** (clamp it like a capo), then run 167 on everything to its right. The
+input isn't sorted, so sort it first. That's safe because the answer is values,
+not positions, and `n log n` is dwarfed by the `n²` of the anchored loop.
+Sorting also makes duplicates neighbors: skip an anchor equal to the previous
+one, and after a match move each pointer past every copy of the value it used.
 
 **Keep the coordinate space native until the boundary.** When the statement asks
 for 1-based indices ("added by one"), do not drag `+ 1` or `- 1` offsets through

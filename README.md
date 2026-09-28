@@ -63,6 +63,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 9 | [Palindrome Number](problems/0009-palindrome-number/README.md) | swift |
 | 11 | [Container With Most Water](problems/0011-container-with-most-water/README.md) | swift |
 | 13 | [Roman to Integer](problems/0013-roman-to-integer/README.md) | swift |
+| 15 | [3Sum](problems/0015-3sum/README.md) | swift |
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
 | 21 | [Merge Two Sorted Lists](problems/0021-merge-two-sorted-lists/README.md) | swift |
 | 26 | [Remove Duplicates from Sorted Array](problems/0026-remove-duplicates-from-sorted-array/README.md) | swift |
@@ -323,6 +324,15 @@ problem rather than after.
 - **A wrong reading at GOAL costs more than a slow algorithm.** On 11 the water
   was read as a sum (167's shape carried over), and understanding took most of
   the session. Tracing one bucket by hand fixed it.
+- **A pinned promise needs its line of code, not just its comment.** On 15 the
+  comment said "sort it first" and the code never sorted: 167's spot-then-lose
+  pattern, one level down. Write the keeping line right under the comment.
+- **Two lenses in one statement.** 15's `i != j` is about positions; "no
+  duplicate triplets" is about values. Ask of each rule: slots or contents?
+  Sighted in [15. 3Sum](problems/0015-3sum/README.md).
+- **When to pay for `.sort()`:** not if the answer needs original positions
+  (1, 11) or order carries meaning (3, 643); yes if the rest is already
+  `O(n log n)` or slower (15). Sorting also makes duplicates neighbors.
 
 ## Running a leaf
 

@@ -24,6 +24,9 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **1-indexed / "added by one"** | "the index I'd type in the brackets" | "position counted from 1; add 1 to every Swift index on the way out" | 167 | 2026-09-21 |
 | **"must use only constant extra space"** | "boilerplate, skim it" | "a promise the algorithm must keep: no hash map, no second array" | 167 | 2026-09-21 |
 | **non-decreasing order** | "strictly increasing (every element strictly bigger)" | "sorted with duplicates allowed (`<=`); equal adjacent elements can form the target pair. Short form: never goes down" | 167, 977 | 2026-09-25, 09-28 |
+| **`i != j != k`** (index inequality) | "the values must be different" | "the **slots** must be different; equal values from different positions are fine (`[-1,-1,2]`)" | 15 | 2026-09-28 |
+| **no duplicate triplets** | "same indexes count once" | "same **values**, in any order, count once; positions don't matter here" | 15 | 2026-09-28 |
+| **fix / anchor** (coach jargon) | "repair" | "hold one number still (a capo) while the others search" | 15 | 2026-09-28 |
 | **width / distance between** (lines, indices) | "count the lines, or drop the two walls and subtract 2" | "count the gaps: `right - left`; nut to 8th fret is 8 fret spaces. Walls are thin **lines**, not blocks (blocks are 42)" | 11 | 2026-09-26, 09-27 |
 
 Add a row the moment a word costs you time. Include the problem number and the

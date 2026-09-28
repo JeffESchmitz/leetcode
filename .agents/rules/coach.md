@@ -61,6 +61,8 @@ Choose the best mode for the situation:
 
 **Converging without sorting (11):** drop the *shorter* wall, since its water is capped and every future width is smaller. General question: "after measuring this pair, which end can never do better?"
 
+**Anchor + 167 (15):** sort (answer is values, so positions can go), anchor one number, run 167 on the rest; duplicates are neighbors after sorting, so skip by comparing to the previous value. Test when to sort: positions needed or order meaningful → no; rest already ≥ n log n → yes. A pinned promise needs its line of code written right under the comment.
+
 **Count the gaps, not the posts:** distance `j - i`, element count `j - i + 1`. Nut to 8th fret = 8 fret spaces. Draw a ruler when a width feels off by one (11).
 
 **Keep coordinate space native until the boundary:** When 1-based indexing is requested, keep all internal loops and indexing 0-based; map `+ 1` strictly at the return point.
