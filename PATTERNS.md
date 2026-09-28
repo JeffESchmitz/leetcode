@@ -19,6 +19,7 @@ Rules for this file:
 | Sorted input, find a value | **Binary search** | halve the range each step | O(log n) | 704 |
 | In-place remove / compact / move-to-end | **Read/write two pointers** | write index trails read index | O(n) | 26, 283 |
 | Compare from both ends / sorted array, pair sum to target / palindrome | **Converging two pointers** | left and right walk toward each other; eliminate one end based on match or sum (11: drop the shorter wall) | O(n), O(1) | 125, 167, 11 |
+| "All triplets that sum to X" / k-sum, no duplicate answers | **Sort + anchor + converging pointers** | sort (answer is values), anchor `i`, run 167 on `i+1...end`; skip equal neighbors for duplicates | O(n²), O(1) | 15 |
 | Digits read the same forward and backward | **Reverse-and-compare digits** | guard sign/trailing zero, extract with `% 10`, build the reverse with `/ 10`, compare | O(log n), O(1) | 9 |
 | "Longest substring/subarray with property" | **Variable sliding window** | grow right, shrink left when property breaks | O(n) | 3 |
 | "Max/avg of every window of size k" | **Fixed sliding window** | running sum, add one, drop one | O(n) | 643 |
