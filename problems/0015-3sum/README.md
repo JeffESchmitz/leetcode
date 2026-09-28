@@ -95,6 +95,11 @@ A `Set` of sorted triplets would also remove duplicates correctly. Neighbor
 comparison does it with no hashing and no extra storage, and it is what
 interviewers usually expect.
 
+**Early stop.** Sorted, so once the anchor is above 0, every number after it
+is too: three positives can never sum to 0. `break` out of the anchor loop.
+It doesn't change the Big-O, but it skips the whole positive half of the
+input, and sorting is what makes the shortcut safe (a third payoff).
+
 **Cost:** `n` anchors × about `n` pointer steps each = `O(n²)`, about 9 million
 steps at `n = 3000`. That is about 500 times fewer than brute force.
 
@@ -104,6 +109,7 @@ steps at `n = 3000`. That is about 500 times fewer than brute force.
 sort nums
 
 for each anchor i:
+    stop if nums[i] > 0                              // all positive from here
     skip if i > 0 and nums[i] == nums[i - 1]        // anchor dupes
 
     left = i + 1                                     // never reuse the anchor's slot
