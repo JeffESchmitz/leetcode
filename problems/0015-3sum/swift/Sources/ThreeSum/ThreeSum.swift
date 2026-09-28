@@ -14,8 +14,9 @@ public struct Solution {
         var result: [[Int]] = []
 
         // Anchor one number (clamp it like a capo), then run 167's two
-        // pointers on everything to its right.
-        for i in 0..<nums.count {
+        // pointers on everything to its right. The last two slots can't be
+        // anchors: they need two partners after them.
+        for i in nums.indices.dropLast(2) {
             // Same anchor value as last time gives the same triplets. Sorting
             // put equal values side by side, so the previous slot is enough.
             if i > 0 && nums[i] == nums[i - 1] {
@@ -29,7 +30,16 @@ public struct Solution {
             while left < right {
                 let sum = nums[i] + nums[left] + nums[right]
 
-                if sum == 0 {
+                switch sum {
+                case ..<0:
+                    // Too small. Sorted, so moving left rightward gives a
+                    // larger or equal number; right is already the largest.
+                    left += 1
+                case 1...:
+                    // Too big. Sorted, so moving right leftward gives a
+                    // smaller or equal number; left is already the smallest.
+                    right -= 1
+                default:
                     result.append([nums[i], nums[left], nums[right]])
 
                     // Both values are used. Move each pointer past every copy
@@ -42,14 +52,6 @@ public struct Solution {
                     repeat {
                         right -= 1
                     } while left < right && nums[right] == nums[right + 1]
-                } else if sum < 0 {
-                    // Too small. Sorted, so moving left rightward gives a
-                    // larger or equal number; right is already the largest.
-                    left += 1
-                } else {
-                    // Too big. Sorted, so moving right leftward gives a
-                    // smaller or equal number; left is already the smallest.
-                    right -= 1
                 }
             }
         }
