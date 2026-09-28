@@ -84,3 +84,34 @@ About 10 minutes, once a day, alongside the day's problem:
 
 | Date | Problem | Guess right? | The tell |
 |---|---|---|---|
+| 2026-09-28 | 977 Squares of a Sorted Array (read, **not solved**) | half: "never the middle" by instinct, but guessed "left" with no reason; answer was given | squares make a **V** (high at both ends), so the biggest is always at an end; fill the output from the back |
+
+### Read One notes
+
+**977 Squares of a Sorted Array (2026-09-28).** Read, not solved. Snagged on
+"non-decreasing" again (see `TRAP-WORDS.md`): it means *never goes down*,
+repeats allowed.
+
+- **Squaring measures distance from zero**, not sign. `-4` and `4` both square
+  to 16, so there is no negative check and no `x -1`. Negatives are why the
+  squares stop being sorted.
+- **Why the biggest square is always at an end:** in a sorted array the values
+  farthest from 0 sit at the two ends (most negative on the left, most positive
+  on the right); the middle is closest to 0. Plotted, the squares make a **V**.
+  Compare the two ends each step; it may be either side.
+- **Fill from the back.** The answer runs smallest to biggest, but the pointers
+  find the biggest first. Make a result of the same length, start `write` at
+  the last slot, place the bigger end's square there, move `write` left.
+  Because the pointers close in on the value nearest zero, the last square
+  placed is the smallest and lands in slot 0: fill from the back, **end up with
+  the smallest at the front**.
+- **`left <= right`, not `<`.** 11 needs two walls; here every element,
+  including the last one where the pointers meet, must land in the output.
+- **No running best.** Contrast with 11's `maxWater`. The tell: *returns one
+  best thing* means keep a running best; *returns a whole collection* means
+  place each item where it belongs, and the slot (`write`) does the
+  remembering.
+- Brute force is square then sort, `O(n log n)`; the follow-up asks for `O(n)`.
+
+Still owed: read the top solutions (do they compare `abs()` or the squares?)
+and say "why the biggest is always at an end" in one sentence, unaided.
