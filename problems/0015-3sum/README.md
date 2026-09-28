@@ -223,5 +223,15 @@ re-solve in a few days.
   condition, so it runs at least once. It fits "move once, then keep moving
   past duplicates" exactly. The two-step form (`left += 1` then a `while`) is
   equivalent and gives the first move its own breakpoint.
+- **`switch` on the sum with range patterns** (`case ..<0`, `case 1...`,
+  `default` for the match) names the three branches of 167 as three cases of
+  one value, instead of an `if / else if / else` chain. The compiler checks
+  that every `Int` is covered.
+- **`for i in nums.indices.dropLast(2)`** says the anchor bound in words: the
+  last two slots can't anchor, because they need two partners after them.
+  `indices` also avoids hand-writing `0..<nums.count`.
+- **Kept on purpose:** `if ... { continue }` rather than
+  `guard i == 0 || nums[i] != nums[i - 1] else { continue }`. The guard needs a
+  negated condition, which is harder to read than "skip if same as before."
 - **`[[Int]]` output with the triplet built from values**,
   `[nums[i], nums[left], nums[right]]`, never from indices.
