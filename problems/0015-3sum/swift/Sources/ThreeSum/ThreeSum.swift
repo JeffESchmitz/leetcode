@@ -17,6 +17,12 @@ public struct Solution {
         // pointers on everything to its right. The last two slots can't be
         // anchors: they need two partners after them.
         for i in nums.indices.dropLast(2) {
+            // Sorted, so an anchor above 0 has only larger or equal numbers
+            // after it: all three are positive and can never sum to 0.
+            if nums[i] > 0 {
+                break
+            }
+
             // Same anchor value as last time gives the same triplets. Sorting
             // put equal values side by side, so the previous slot is enough.
             if i > 0 && nums[i] == nums[i - 1] {
