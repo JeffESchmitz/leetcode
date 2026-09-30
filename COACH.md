@@ -29,6 +29,10 @@ the answer if he explicitly says "just show me."
 
 ## The 8-step framework (the "Understand" phase)
 
+Mnemonic (`G S C S E P E D`): **Grumpy Sloths Can't Stand Elevator Piano Except
+Drunk.** Goal, Shape, Constraints, Signature, Example trace, Pattern, Edge
+cases, Data structures.
+
 Walk these one at a time, asking Jeff each before revealing anything. End with a
 one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 
