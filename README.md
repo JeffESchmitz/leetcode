@@ -23,29 +23,36 @@ pretty `1. Two Sum` title lives in the problem README.
 ## Workflow
 
 1. Scaffold Swift leaf: `public struct Solution` + `@Suite` test struct, stubbing functions with `fatalError("... is not yet implemented")`.
-2. Solve in Swift first — full 8-step process (see `COACH.md`).
+2. Solve in Swift first — full 8-step process (see `COACH.md`; mnemonic below).
 3. Translate into each target language in its native IDE, leaning on the editor's
    inspections to learn the idiom.
 4. Re-express the example + edge-case tests in that language's native test style.
 5. Capture what surprised you in the problem README's idiom notes.
 
-## The 8-step framework — mnemonic candidates
+## The 8-step framework — mnemonic
 
 The eight "Understand" steps in `COACH.md` run in order: **G**oal, **S**hape,
 **C**onstraints, **S**ignature, **E**xample trace, **P**attern → algorithm,
 **E**dge cases, **D**ata structures. That is `G S C S E P E D`.
 
-Three candidate mnemonics, none adopted yet — pick one, or let them provoke a
-better one:
+The mnemonic (adopted 2026-09-30):
 
-1. **"Good Swift Coders Study Every Problem's Edge Details."**
-   On-brand and honest, but bland enough that it may not stick.
-2. **"Get Smart, Check Signature, Envision Path, Escape Doom."**
-   Reads as instructions rather than an arbitrary sentence, so the words carry
-   meaning instead of only initials.
-3. **"Grumpy Sloths Can't Stand Elevator Piano Except Drunk."**
-   Absurd, which is exactly what makes a mnemonic stick, but it encodes nothing
-   about the steps themselves.
+> **Grumpy Sloths Can't Stand Elevator Piano Except Drunk.**
+
+| Word | Step |
+|---|---|
+| **G**rumpy | **G**oal |
+| **S**loths | **S**hape |
+| **C**an't | **C**onstraints |
+| **S**tand | **S**ignature |
+| **E**levator | **E**xample trace |
+| **P**iano | **P**attern → algorithm |
+| **E**xcept | **E**dge cases |
+| **D**runk | **D**ata structures |
+
+Absurd on purpose: an arbitrary sentence sticks better than a sensible one.
+It won over "Good Swift Coders Study Every Problem's Edge Details" and "Get
+Smart, Check Signature, Envision Path, Escape Doom."
 
 > An earlier mnemonic was invented in a coaching session and never written down.
 > It is gone. That is why this section exists.
@@ -67,6 +74,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
 | 21 | [Merge Two Sorted Lists](problems/0021-merge-two-sorted-lists/README.md) | swift |
 | 26 | [Remove Duplicates from Sorted Array](problems/0026-remove-duplicates-from-sorted-array/README.md) | swift |
+| 42 | [Trapping Rain Water](problems/0042-trapping-rain-water/README.md) | swift |
 | 70 | [Climbing Stairs](problems/0070-climbing-stairs/README.md) | swift |
 | 100 | [Same Tree](problems/0100-same-tree/README.md) | swift |
 | 104 | [Maximum Depth of Binary Tree](problems/0104-maximum-depth-of-binary-tree/README.md) | swift |

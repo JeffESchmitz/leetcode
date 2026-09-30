@@ -50,6 +50,21 @@ Keep a running tally here. One line per session.
 | 2026-09-27 | 11 cold re-run, understanding only (coached by Claude) | 0 of 1 on the reading; width still 6 not 7 | walls pictured as **blocks**, not lines; "peak" used as the reason to move instead of "shorter" |
 | 2026-09-28 | 15 (live, coached by Claude) | 1 of 1 | the two lenses swapped: "same **indexes** count once" instead of same **values**; `i != j` briefly read as values |
 
+## Re-solve queue
+
+Cold re-solves, spaced out until the solution comes from memory. A re-solve
+counts only if it's cold: no hints, no Copilot, no peeking.
+
+| Problem | Why | Dates |
+|---|---|---|
+| 42 Trapping Rain Water | first Hard; 2h45 coached, code handed over | 10-01, 10-03, 10-07, 10-14, 10-28 |
+| 15 3Sum | not cold on 09-28 | owed |
+| 977 Squares of a Sorted Array | read, not solved | owed |
+
+**The one piece of 42 to own:** walk 1's answers are gone by the time walk 2
+needs them, so write them down in a strip (an array the same length as
+`height`). Everything else in 42 was solved on 2026-09-30.
+
 ## Read One: the daily surface-area drill
 
 **Goal: see more patterns, faster.** Each pattern has a small set of standard
