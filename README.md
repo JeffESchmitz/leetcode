@@ -74,6 +74,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 20 | [Valid Parentheses](problems/0020-valid-parentheses/README.md) | swift |
 | 21 | [Merge Two Sorted Lists](problems/0021-merge-two-sorted-lists/README.md) | swift |
 | 26 | [Remove Duplicates from Sorted Array](problems/0026-remove-duplicates-from-sorted-array/README.md) | swift |
+| 42 | [Trapping Rain Water](problems/0042-trapping-rain-water/README.md) | swift |
 | 70 | [Climbing Stairs](problems/0070-climbing-stairs/README.md) | swift |
 | 100 | [Same Tree](problems/0100-same-tree/README.md) | swift |
 | 104 | [Maximum Depth of Binary Tree](problems/0104-maximum-depth-of-binary-tree/README.md) | swift |
