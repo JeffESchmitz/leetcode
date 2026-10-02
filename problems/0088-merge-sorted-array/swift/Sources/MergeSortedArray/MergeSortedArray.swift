@@ -17,6 +17,34 @@ public struct Solution {
     // - Done in place: no return value. Follow-up target is O(m + n) time.
 
     public func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
-        fatalError("merge is not yet implemented")
+        // 1. Three pointers, one per job (not one per array).
+        // read1: the biggest unplaced value in nums1 (its last REAL value, not a placeholder).
+        var read1 = m - 1
+        // read2: the biggest unplaced value in nums2.
+        var read2 = n - 1
+        // write: the back of the bus, the seat the next winner goes into.
+        var write = m + n - 1
+
+        // 2. Loop while nums2 still has values to place.
+        //    nums2 running out is the only stop: leftover nums1 values are already seated.
+        while read2 >= 0 {
+            // a. nums1 wins only if it still has values AND its value is bigger.
+            //    Check read1 >= 0 first so nums1[-1] is never read.
+            if read1 >= 0 && nums1[read1] > nums2[read2] {
+                nums1[write] = nums1[read1]
+                read1 -= 1
+            } else {
+                // b. nums2 wins: nums1 ran out, or nums2's value is bigger or equal.
+                //    On a tie either side works; equal values are interchangeable.
+                nums1[write] = nums2[read2]
+                read2 -= 1
+            }
+            // c. The back of the bus moves one seat left after every placement.
+            //    write never passes read1, so it only lands on values already copied.
+            write -= 1
+        }
+
+        // 3. Done. When read2 hits -1, write == read1, so any nums1 values left
+        //    already sit in their final seats, in sorted order (GIVEN #1).
     }
 }
