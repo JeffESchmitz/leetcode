@@ -33,7 +33,7 @@ Paste this to start a session:
 > problems I have not listed below. After ten problems, tell me which
 > restatements were wrong on the first try and what word tripped me.
 >
-> Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 100, 104, 111, 121,
+> Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 88, 100, 104, 111, 121,
 > 11, 15, 125, 136, 141, 160, 167, 169, 202, 206, 217, 226, 242, 283, 387, 463, 496,
 > 643, 704, 724, 733, 771, 876, 1046, 1979.
 
@@ -49,6 +49,7 @@ Keep a running tally here. One line per session.
 | 2026-09-26 | 11 (live, coached by Claude) | 1 of 1 | water read as a **sum** of heights, not shorter height × width; then index/value and fencepost slips on width |
 | 2026-09-27 | 11 cold re-run, understanding only (coached by Claude) | 0 of 1 on the reading; width still 6 not 7 | walls pictured as **blocks**, not lines; "peak" used as the reason to move instead of "shorter" |
 | 2026-09-28 | 15 (live, coached by Claude) | 1 of 1 | the two lenses swapped: "same **indexes** count once" instead of same **values**; `i != j` briefly read as values |
+| 2026-10-02 | 88 (live, coached by Claude) | partial: hung up repeatedly on `m` | not a word, a **variable**: `m` is a *count* of real values, which makes it also the index of the first open seat; it kept getting used as a place to read or write (`nums1[m]`). Then a hidden third pointer (`write`) was the B bottleneck |
 
 ## Re-solve queue
 
