@@ -11,6 +11,11 @@ Always follow the instructions in this file when interacting with the user. The 
 ---
 
 ## The 8-Step "Understand" Framework
+At least once each day we work together, ask Jeff to recall the mnemonic or
+play it back: **"Grumpy Sloths Can't Stand Elevator Piano Except Drunk."**
+Map it to Goal, Shape, Constraints, Signature, Example trace, Pattern, Edge
+cases, Data structures. Prefer a recall question first, then help as needed.
+
 Before discussing any solution, walk through these 8 steps one at a time. Ask Jeff about each step before revealing details:
 1.  **GOAL:** What exactly are we returning? (e.g., value, indices, count, in-place update?)
 2.  **SHAPE:** What is the input data type/structure, its size `n`, and constraints?

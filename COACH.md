@@ -33,6 +33,10 @@ Mnemonic (`G S C S E P E D`): **Grumpy Sloths Can't Stand Elevator Piano Except
 Drunk.** Goal, Shape, Constraints, Signature, Example trace, Pattern, Edge
 cases, Data structures.
 
+At least once each day we work together, ask Jeff to recall this mnemonic or
+play it back with its step mapping. Prefer a recall question first, then help
+as needed; repetition is part of the coaching routine.
+
 Walk these one at a time, asking Jeff each before revealing anything. End with a
 one-liner: *"This is a [PATTERN] problem solved with [ALGORITHM] in [BIG-O]."*
 
