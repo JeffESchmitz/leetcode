@@ -110,6 +110,13 @@ Cross-problem habits earned the hard way. Each links to the problem README where
 first showed up — the point of writing them here is to spot them *before* the next
 problem rather than after.
 
+- **Ask the keep rule about the kept portion.** In compaction, skipped candidates
+  still occupy input positions, so `read` cannot tell you what has been kept.
+  In 80, compare against `write - 2`, the second-to-last keeper. Keep when
+  `write < 2` **or** that keeper differs from the candidate: either condition
+  proves that adding it cannot create a third copy. Put the first condition
+  first so short-circuiting protects the subscript. See
+  [80. Remove Duplicates from Sorted Array II](problems/0080-remove-duplicates-from-sorted-array-ii/README.md).
 - **Pick an iteration shape where the edge case cannot be expressed.** The best
   guard is the one you never write because the loop can't reach the bad state.
   `for num in nums` never enters on empty; `while low <= high` starts already

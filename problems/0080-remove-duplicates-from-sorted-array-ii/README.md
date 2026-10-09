@@ -42,9 +42,10 @@ The conditions use **OR**, because either is sufficient. Compare against
 `write - 2`, not `read - 2`: skipped candidates are not part of the kept prefix.
 When keeping, copy into `nums[write]` and increment `write`. Return `write`.
 
-Jeff's implementation keeps the first element up front, initializes `write = 1`,
-and scans from index 1. The empty-input guard is retained from his submitted code,
-although the judge's lower bound makes it unnecessary.
+The implementation uses `nums.indices.reduce(into: 0)`. Its accumulator, `write`,
+starts at zero, and each index becomes `read`. The same keep rule handles the
+first two elements. The reduction returns the final keeper count. Empty input
+returns the initial zero, so no separate empty-input guard is needed.
 
 ## Solutions and tests
 
@@ -55,7 +56,12 @@ although the judge's lower bound makes it unnecessary.
 Tests check `k`, the kept prefix, and unchanged array length. They ignore the
 tail. Fixtures cover both examples, singles, pairs, third copies, long runs,
 new groups after discards, negative values, value bounds, and 30,000 elements.
-An empty-input fixture covers Jeff's extra guard outside the judge's domain.
+An empty-input fixture checks that the reduction returns zero outside the judge's domain.
+
+**Validation:** all 12 local Swift tests passed. Jeff's screenshot of the
+`reduce(into:)` submission shows LeetCode accepted all 170 cases, with 31 ms
+runtime and 19.48 MB memory. One submission does not establish a performance
+difference from the original loop.
 
 ## Reflection — 2026-10-08
 
@@ -70,11 +76,19 @@ An empty-input fixture covers Jeff's extra guard outside the judge's domain.
   that it passed on the first attempt, without AI completion or IDE assistance.
 - **Credit:** Jeff wrote the implementation. The coach guided the condition,
   supplied pseudocode at Jeff's request, and reviewed the submitted code.
+  Afterward, at Jeff's request, the coach changed the initialization and loop
+  range to handle every candidate uniformly and remove the empty guard, then
+  rewrote that pass using `reduce(into:)` at Jeff's request.
 
 ## Idiom notes
 
 - **Swift:** `inout [Int]` modifies the caller's array. `||` short-circuits,
   protecting `write - 2` when fewer than two keepers exist. Assignment copies
   one value; a swap is unnecessary because the discarded tail is ignored.
+- **`reduce(into:)`:** supplies a mutable integer accumulator without allocating
+  a second keeper array. Reducing the indices lets the closure modify `nums`.
+  The function consists of one expression, so `return` can be omitted. The
+  original `for` loop remains an equally idiomatic way to express this mutation;
+  Jeff chose the reduction version for practice.
 - **Connection to 26 and 283:** the same read/write skeleton, with a different
   keep predicate. In 26 compare the last keeper; here compare two keepers back.
