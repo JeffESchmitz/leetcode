@@ -17,7 +17,7 @@ Rules for this file:
 | "Is X in the set?" / "contains duplicate" / "jewels" | **Membership lookup** | hash set, precompute once then ask | O(n) | 217, 771 |
 | "Find two things that add to target" | **Complement lookup** | hash map of seen values, ask for `target - x` | O(n) | 1 |
 | Sorted input, find a value | **Binary search** | halve the range each step | O(log n) | 704 |
-| In-place remove / compact / move-to-end | **Read/write two pointers** | write index trails read index | O(n) | 26, 283 |
+| In-place remove / compact / move-to-end | **Read/write two pointers** | write index trails read index; 80 allows two copies: keep if `write < 2` or candidate differs from the second-to-last keeper | O(n), O(1) | 26, 80, 283 |
 | Two sorted arrays, merge in place into the one with spare room at the end | **Back-fill merge** | one pointer per job: `read1`, `read2`, `write` all start at the back; biggest wins the back seat; loop while the second array has values | O(m+n), O(1) | 88 |
 | Compare from both ends / sorted array, pair sum to target / palindrome | **Converging two pointers** | left and right walk toward each other; eliminate one end based on match or sum (11: drop the shorter wall) | O(n), O(1) | 125, 167, 11 |
 | "All triplets that sum to X" / k-sum, no duplicate answers | **Sort + anchor + converging pointers** | sort (answer is values), anchor `i`, run 167 on `i+1...end`; skip equal neighbors for duplicates | O(n²), O(1) | 15 |

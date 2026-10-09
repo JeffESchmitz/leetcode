@@ -92,3 +92,8 @@ Each language re-expresses the example + edge-case tests in its own native test 
 At the start of every session, read `DRILLS.md` and offer the day's **Read One**
 (the next unlogged problem in the queue for the current pattern) alongside the
 day's problem. Keep the queue ahead of the current Top 150 section.
+
+At least once each day we work together, ask Jeff to recall the 8-step mnemonic
+or play it back: **"Grumpy Sloths Can't Stand Elevator Piano Except Drunk."**
+Map it to Goal, Shape, Constraints, Signature, Example trace, Pattern, Edge
+cases, Data structures. Prefer a recall question first, then help as needed.

@@ -28,6 +28,8 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **no duplicate triplets** | "same indexes count once" | "same **values**, in any order, count once; positions don't matter here" | 15 | 2026-09-28 |
 | **fix / anchor** (coach jargon) | "repair" | "hold one number still (a capo) while the others search" | 15 | 2026-09-28 |
 | **width / distance between** (lines, indices) | "count the lines, or drop the two walls and subtract 2" | "count the gaps: `right - left`; nut to 8th fret is 8 fret spaces. Walls are thin **lines**, not blocks (blocks are 42)" | 11 | 2026-09-26, 09-27 |
+| **underscores in example output** (`_`) | "fill the remaining array slots with underscores" | "ignored slots: leave any values there; the array keeps its original length" | 80 | 2026-10-08 |
+| **`k` / returned length / at most twice** | "count pairs, or treat the count as a 1-based index" | "count individual kept elements, including singletons; valid output occupies indices `0..<k`, and index `k` is already outside it" | 80 | 2026-10-08 |
 
 Add a row the moment a word costs you time. Include the problem number and the
 date so the list doubles as a record of what has actually bitten you, not what
