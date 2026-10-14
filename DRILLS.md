@@ -34,7 +34,7 @@ Paste this to start a session:
 > restatements were wrong on the first try and what word tripped me.
 >
 > Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 80, 88, 100, 104, 111, 121,
-> 11, 15, 125, 136, 141, 160, 167, 169, 189, 202, 206, 217, 226, 242, 283, 387, 463, 496,
+> 11, 15, 125, 136, 141, 151, 160, 167, 169, 189, 202, 206, 217, 226, 242, 283, 387, 463, 496,
 > 643, 704, 724, 733, 771, 876, 1046, 1979.
 
 ## Log
@@ -52,6 +52,7 @@ Keep a running tally here. One line per session.
 | 2026-10-02 | 88 (live, coached by Claude) | partial: hung up repeatedly on `m` | not a word, a **variable**: `m` is a *count* of real values, which makes it also the index of the first open seat; it kept getting used as a place to read or write (`nums1[m]`). Then a hidden third pointer (`write`) was the B bottleneck |
 | 2026-10-08 | 80 (live, coached by Codex) | corrected at Goal | underscores read as required tail values, then `k` as a count of pairs; main B difficulty: `write - 2`, `write < 2`, and joining them with OR |
 | 2026-10-09 | 189 (live, coached by Codex; final fix requested at time limit) | 0 of 1 on the goal trace | B: visualize two groups and three states of the same array; C: `reversed()` returns a view, leaving `nums` unchanged; helper and group bounds were correct |
+| 2026-10-14 | 151 (live, coached by Codex; Swift written by Jeff) | corrected at Goal | spacing initially preserved; A: absorbing the statement was hardest; C: Swift syntax recall added friction; split → reverse words → join |
 
 ## Re-solve queue
 
@@ -64,6 +65,7 @@ counts only if it's cold: no hints, no Copilot, no peeking.
 | 15 3Sum | not cold on 09-28 | owed |
 | 977 Squares of a Sorted Array | read, not solved | owed |
 | 189 Rotate Array | coached strategy; whole-array reversal fixed by coach at time limit | owed |
+| 151 Reverse Words in a String | reinforce statement interpretation and recall split → reverse → join without hints | owed |
 
 **The one piece of 42 to own:** walk 1's answers are gone by the time walk 2
 needs them, so write them down in a strip (an array the same length as
