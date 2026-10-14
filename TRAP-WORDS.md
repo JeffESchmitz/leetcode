@@ -30,6 +30,8 @@ interviewer is a free oracle for this. Solo, the examples are.
 | **width / distance between** (lines, indices) | "count the lines, or drop the two walls and subtract 2" | "count the gaps: `right - left`; nut to 8th fret is 8 fret spaces. Walls are thin **lines**, not blocks (blocks are 42)" | 11 | 2026-09-26, 09-27 |
 | **underscores in example output** (`_`) | "fill the remaining array slots with underscores" | "ignored slots: leave any values there; the array keeps its original length" | 80 | 2026-10-08 |
 | **`k` / returned length / at most twice** | "count pairs, or treat the count as a 1-based index" | "count individual kept elements, including singletons; valid output occupies indices `0..<k`, and index `k` is already outside it" | 80 | 2026-10-08 |
+| **`reversed()` versus an in-place reversal** | "calling `reversed()` changes the source array" | "it returns a reversed view; the original array stays unchanged unless explicitly mutated" | 189 | 2026-10-09 |
+| **reverse words / spaces between words** | "preserve the original spacing while reversing word order" | "keep each word intact, reverse word order, and emit exactly one space between words with no end padding" | 151 | 2026-10-14 |
 
 Add a row the moment a word costs you time. Include the problem number and the
 date so the list doubles as a record of what has actually bitten you, not what

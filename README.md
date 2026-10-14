@@ -85,9 +85,11 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 125 | [Valid Palindrome](problems/0125-valid-palindrome/README.md) | swift |
 | 136 | [Single Number](problems/0136-single-number/README.md) | swift |
 | 141 | [Linked List Cycle](problems/0141-linked-list-cycle/README.md) | swift |
+| 151 | [Reverse Words in a String](problems/0151-reverse-words-in-a-string/README.md) | swift |
 | 160 | [Intersection of Two Linked Lists](problems/0160-intersection-of-two-linked-lists/README.md) | swift |
 | 167 | [Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
+| 189 | [Rotate Array](problems/0189-rotate-array/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
 | 206 | [Reverse Linked List](problems/0206-reverse-linked-list/README.md) | swift |
 | 217 | [Contains Duplicate](problems/0217-contains-duplicate/README.md) | swift |
@@ -110,6 +112,14 @@ Cross-problem habits earned the hard way. Each links to the problem README where
 first showed up — the point of writing them here is to spot them *before* the next
 problem rather than after.
 
+- **Choose the unit before reversing.** In
+  [151](problems/0151-reverse-words-in-a-string/README.md), the units are whole
+  words: split, reverse their order, then join with one space. Spelling stays
+  intact; input spacing does not. Swift's `split` already omits empty parts.
+- **Separate understanding from syntax recall.** On 151, absorbing the statement
+  was the main hurdle, with Swift syntax adding friction afterward. Restate and
+  trace first, then express the algorithm in plain English before typing the API
+  calls. A syntax stumble and an unclear goal need different practice.
 - **Ask the keep rule about the kept portion.** In compaction, skipped candidates
   still occupy input positions, so `read` cannot tell you what has been kept.
   In 80, compare against `write - 2`, the second-to-last keeper. Keep when

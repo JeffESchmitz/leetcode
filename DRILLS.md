@@ -34,7 +34,7 @@ Paste this to start a session:
 > restatements were wrong on the first try and what word tripped me.
 >
 > Already solved (skip these): 1, 3, 9, 13, 20, 21, 26, 70, 80, 88, 100, 104, 111, 121,
-> 11, 15, 125, 136, 141, 160, 167, 169, 202, 206, 217, 226, 242, 283, 387, 463, 496,
+> 11, 15, 125, 136, 141, 151, 160, 167, 169, 189, 202, 206, 217, 226, 242, 283, 387, 463, 496,
 > 643, 704, 724, 733, 771, 876, 1046, 1979.
 
 ## Log
@@ -51,6 +51,8 @@ Keep a running tally here. One line per session.
 | 2026-09-28 | 15 (live, coached by Claude) | 1 of 1 | the two lenses swapped: "same **indexes** count once" instead of same **values**; `i != j` briefly read as values |
 | 2026-10-02 | 88 (live, coached by Claude) | partial: hung up repeatedly on `m` | not a word, a **variable**: `m` is a *count* of real values, which makes it also the index of the first open seat; it kept getting used as a place to read or write (`nums1[m]`). Then a hidden third pointer (`write`) was the B bottleneck |
 | 2026-10-08 | 80 (live, coached by Codex) | corrected at Goal | underscores read as required tail values, then `k` as a count of pairs; main B difficulty: `write - 2`, `write < 2`, and joining them with OR |
+| 2026-10-09 | 189 (live, coached by Codex; final fix requested at time limit) | 0 of 1 on the goal trace | B: visualize two groups and three states of the same array; C: `reversed()` returns a view, leaving `nums` unchanged; helper and group bounds were correct |
+| 2026-10-14 | 151 (live, coached by Codex; Swift written by Jeff) | corrected at Goal | spacing initially preserved; A: absorbing the statement was hardest; C: Swift syntax recall added friction; split → reverse words → join |
 
 ## Re-solve queue
 
@@ -62,6 +64,8 @@ counts only if it's cold: no hints, no Copilot, no peeking.
 | 42 Trapping Rain Water | first Hard; 2h45 coached, code handed over | 10-01, 10-03, 10-07, 10-14, 10-28 |
 | 15 3Sum | not cold on 09-28 | owed |
 | 977 Squares of a Sorted Array | read, not solved | owed |
+| 189 Rotate Array | coached strategy; whole-array reversal fixed by coach at time limit | owed |
+| 151 Reverse Words in a String | reinforce statement interpretation and recall split → reverse → join without hints | owed |
 
 **The one piece of 42 to own:** walk 1's answers are gone by the time walk 2
 needs them, so write them down in a strip (an array the same length as
@@ -103,8 +107,16 @@ About 10 minutes, once a day, alongside the day's problem:
 | Date | Problem | Guess right? | The tell |
 |---|---|---|---|
 | 2026-09-28 | 977 Squares of a Sorted Array (read, **not solved**) | half: "never the middle" by instinct, but guessed "left" with no reason; answer was given | squares make a **V** (high at both ends), so the biggest is always at an end; fill the output from the back |
+| 2026-10-09 | 344 Reverse String (coached discussion, not coded) | first/last idea correct; converging two pointers name supplied by coach | copying back-to-front overwrites characters still needed; swapping preserves both, then the pointers move inward; four-minute discussion |
 
 ### Read One notes
+
+**344 Reverse String (2026-10-09).** Jeff correctly restated the in-place goal,
+traced the first example, and proposed left/right indices. The coach supplied
+the pattern name and swap approach. A trace of `[a,b,c,d]` showed that copying
+`d` onto `a`, then `c` onto `b`, loses the original `b`. Swapping preserves both
+characters and finishes the two end positions. No implementation or independent
+comparison of published solutions was completed; this was a coached discussion.
 
 **977 Squares of a Sorted Array (2026-09-28).** Read, not solved. Snagged on
 "non-decreasing" again (see `TRAP-WORDS.md`): it means *never goes down*,
