@@ -88,6 +88,7 @@ README — approach, edge notes, and per-language idioms live there. Legacy
 | 160 | [Intersection of Two Linked Lists](problems/0160-intersection-of-two-linked-lists/README.md) | swift |
 | 167 | [Two Sum II - Input Array Is Sorted](problems/0167-two-sum-ii-input-array-is-sorted/README.md) | swift |
 | 169 | [Majority Element](problems/0169-majority-element/README.md) | swift |
+| 189 | [Rotate Array](problems/0189-rotate-array/README.md) | swift |
 | 202 | [Happy Number](problems/0202-happy-number/README.md) | swift |
 | 206 | [Reverse Linked List](problems/0206-reverse-linked-list/README.md) | swift |
 | 217 | [Contains Duplicate](problems/0217-contains-duplicate/README.md) | swift |
